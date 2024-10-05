@@ -30,7 +30,7 @@ class CenterOfMassCrossover(Crossover):
         :param population_parent: The population to perform the crossover operation on.
         :returns: The offspring population (always 2 children).
         """
-        
+
         individual_index1 = np.random.randint(population_parent.population_size)
         individual_index2 = np.random.randint(population_parent.population_size)
 
@@ -42,11 +42,23 @@ class CenterOfMassCrossover(Crossover):
             return (g1 + g2) / 2.0
 
         # Lambda to return an iterator for gene pairs from two selected individuals
-        tmp_zip = lambda: zip(population_parent.population[individual_index1].chromosome,
-                              population_parent.population[individual_index2].chromosome)
+        tmp_zip = lambda: zip(
+            population_parent.population[individual_index1].chromosome,
+            population_parent.population[individual_index2].chromosome,
+        )
 
         # Create two offspring by averaging the genes from two parents
-        child1 = Individual(chromosome=np.array([center_of_mass(g1, g2) for g1, g2 in tmp_zip()], dtype=float), value=0)
-        child2 = Individual(chromosome=np.array([center_of_mass(g1, g2) for g1, g2 in tmp_zip()], dtype=float), value=0)
+        child1 = Individual(
+            chromosome=np.array(
+                [center_of_mass(g1, g2) for g1, g2 in tmp_zip()], dtype=float
+            ),
+            value=0,
+        )
+        child2 = Individual(
+            chromosome=np.array(
+                [center_of_mass(g1, g2) for g1, g2 in tmp_zip()], dtype=float
+            ),
+            value=0,
+        )
 
         return Population(population=[child1, child2])

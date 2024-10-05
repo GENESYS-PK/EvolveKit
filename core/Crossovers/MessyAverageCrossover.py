@@ -21,23 +21,26 @@ class MessyAverageCrossover(Crossover):
         :returns: The offspring population.
         :raises ValueError: If the population size is less than 2.
         """
-        if population_parent.population_size < 2:
-            raise ValueError("The population size must be at least 2 "
-                             "to perform the OnePointAverageCrossover operation.")
-
         offspring_population = Population()
 
         # Randomly select two parents from the parent population
-        parent_indices = np.random.choice(population_parent.population_size, 2, replace=False)
+        parent_indices = np.random.choice(
+            population_parent.population_size, 2, replace=False
+        )
         parent_x = population_parent.population[parent_indices[0]].chromosome
         parent_y = population_parent.population[parent_indices[1]].chromosome
 
         # Crossover points - select two points for crossover
-        shortest_parent_size = min(len(parent_x), len(parent_y))
-        crossover_points_indices = np.sort(np.random.choice(shortest_parent_size, 2, replace=False))
+        shortest_parent_size = min(parent_x.size, parent_y.size)
+        crossover_points_indices = np.sort(
+            np.random.choice(shortest_parent_size, 2, replace=False)
+        )
 
         # Averaging at the crossover points
-        new_gene = (parent_x[crossover_points_indices[0]] + parent_y[crossover_points_indices[1]]) / 2
+        new_gene = (
+            parent_x[crossover_points_indices[0]]
+            + parent_y[crossover_points_indices[1]]
+        ) / 2
         parent_x[crossover_points_indices[0]] = new_gene
         parent_y[crossover_points_indices[1]] = new_gene
 

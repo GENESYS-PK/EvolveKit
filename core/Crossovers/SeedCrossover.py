@@ -23,7 +23,9 @@ class SeedCrossover(Crossover):
 
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, how_many_individuals: int, probability: float = 0, seed_ratio: float = 0.7):
+    def __init__(
+        self, how_many_individuals: int, probability: float = 0, seed_ratio: float = 0.7
+    ):
         super().__init__(how_many_individuals, probability)
         if not (0 <= seed_ratio <= 1):
             raise ValueError("The seed_ratio parameter must be between 0 and 1.")
@@ -51,11 +53,23 @@ class SeedCrossover(Crossover):
             return self.seed_ratio * g1 + (1 - self.seed_ratio) * g2
 
         # Lambda to return an iterator for gene pairs from two selected individuals
-        tmp_zip = lambda: zip(population_parent.population[individual_index1].chromosome,
-                              population_parent.population[individual_index2].chromosome)
+        tmp_zip = lambda: zip(
+            population_parent.population[individual_index1].chromosome,
+            population_parent.population[individual_index2].chromosome,
+        )
 
         # Create two offspring, with parent 1 acting as the "seed" parent
-        child1 = Individual(chromosome=np.array([seed_crossover(g1, g2) for g1, g2 in tmp_zip()], dtype=float), value=0)
-        child2 = Individual(chromosome=np.array([seed_crossover(g2, g1) for g1, g2 in tmp_zip()], dtype=float), value=0)
+        child1 = Individual(
+            chromosome=np.array(
+                [seed_crossover(g1, g2) for g1, g2 in tmp_zip()], dtype=float
+            ),
+            value=0,
+        )
+        child2 = Individual(
+            chromosome=np.array(
+                [seed_crossover(g2, g1) for g1, g2 in tmp_zip()], dtype=float
+            ),
+            value=0,
+        )
 
         return Population(population=[child1, child2])

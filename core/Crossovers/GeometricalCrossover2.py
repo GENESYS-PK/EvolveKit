@@ -27,7 +27,6 @@ class GeometricalCrossover2(Crossover):
     def _cross(self, population_parent: Population) -> Population:
         """
         :param population_parent: The population to perform the crossover operation on.
-        :param alfa: Random real number <0,1> used for blending two genes
         :returns: The offspring population (always 1 child).
         """
 
@@ -42,12 +41,17 @@ class GeometricalCrossover2(Crossover):
         if self.probability < chance_crossover <= 1:
             return Population()
 
-        chromosome_size = len(population_parent.population[individual_index1].chromosome)
+        chromosome_size = len(
+            population_parent.population[individual_index1].chromosome
+        )
         child_chromosome = np.zeros(chromosome_size)
         alfa = np.random.uniform(0, 1)
         for i in range(chromosome_size):
-            child_chromosome[i] = (math.pow(population_parent.population[individual_index1].chromosome[i], alfa) *
-                                   math.pow(population_parent.population[individual_index2].chromosome[i], 1 - alfa))
+            child_chromosome[i] = math.pow(
+                population_parent.population[individual_index1].chromosome[i], alfa
+            ) * math.pow(
+                population_parent.population[individual_index2].chromosome[i], 1 - alfa
+            )
 
         child = Individual(chromosome=child_chromosome, value=0)
 

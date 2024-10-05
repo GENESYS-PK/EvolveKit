@@ -5,6 +5,7 @@ from core.Population import Population
 from core.Representation import Representation
 from core import Crossover
 
+
 class SetOrientedCrossover(Crossover):
     """
     Implements set-oriented crossover method where genes of offspring are determined by parent gene equality
@@ -46,7 +47,16 @@ class SetOrientedCrossover(Crossover):
                 child2_chromosome.append(p1_chromosome[i])
             else:
                 lower_bound, upper_bound = self.ranges[i]
-                child1_chromosome.append(round(np.random.uniform(lower_bound, upper_bound), 2))
-                child2_chromosome.append(round(np.random.uniform(lower_bound, upper_bound), 2))
+                child1_chromosome.append(
+                    round(np.random.uniform(lower_bound, upper_bound), 2)
+                )
+                child2_chromosome.append(
+                    round(np.random.uniform(lower_bound, upper_bound), 2)
+                )
 
-        return Population(population=[Individual(chromosome=child1_chromosome, value=0), Individual(chromosome=child2_chromosome, value=0)])
+        return Population(
+            population=[
+                Individual(chromosome=child1_chromosome, value=0),
+                Individual(chromosome=child2_chromosome, value=0),
+            ]
+        )

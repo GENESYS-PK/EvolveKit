@@ -29,17 +29,19 @@ class GeometricalCrossover3(Crossover):
     def _cross(self, population_parent: Population) -> Population:
         """
         :param population_parent: The population to perform the crossover operation on.
-        :param alfa: List of k random real numbers where each element belongs to <0,1> and all elements sum up to 1 used
-        for blending two genes
         :returns: The offspring population (always 1 child).
         """
 
         if self.k < 2 or self.k > population_parent.population_size:
-            raise ValueError("The k parameter must be more than 2 and less than population_size")
+            raise ValueError(
+                "The k parameter must be more than 2 and less than population_size"
+            )
 
         # drafting k individuals
-        individuals_indices = [i for i in range(population_parent.population_size)]
-        drafted_individuals = random.sample(individuals_indices, self.k)
+        individuals_indices = np.array(
+            [i for i in range(population_parent.population_size)]
+        )
+        drafted_individuals = np.random.choice(individuals_indices, self.k)
 
         # not sure if this approach is right
         chance_crossover = np.round(np.random.uniform(0, 1), 2)
@@ -47,17 +49,22 @@ class GeometricalCrossover3(Crossover):
             return Population()
 
         # creating alfa array
-        floats = [random.random() for _ in range(len(drafted_individuals))]
-        sum_floats = sum(floats)
-        alfa = [x / sum_floats for x in floats]
+        floats = np.array([random.random() for _ in range(len(drafted_individuals))])
+        sum_floats = np.sum(floats)
+        alfa = np.array([x / sum_floats for x in floats])
 
-        chromosome_size = len(population_parent.population[drafted_individuals[0]].chromosome)
+        chromosome_size = population_parent.population[
+            drafted_individuals[0]
+        ].chromosome.size
         child_chromosome = np.zeros(chromosome_size)
 
         for i in range(chromosome_size):
             new_ind_val = 1
-            for k in range(len(drafted_individuals)):
-                new_ind_val *= math.pow(population_parent.population[drafted_individuals[k]].chromosome[i], alfa[k])
+            for k in range(drafted_individuals.size):
+                new_ind_val *= math.pow(
+                    population_parent.population[drafted_individuals[k]].chromosome[i],
+                    alfa[k],
+                )
             child_chromosome[i] = new_ind_val
 
         child = Individual(chromosome=child_chromosome, value=0)

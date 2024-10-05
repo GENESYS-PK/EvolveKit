@@ -4,8 +4,13 @@ from core.Population import Population
 
 
 class GenePoolingCrossover4(Crossover):
-    def __init__(self, how_many_individuals: int, allow_gene_duplicates: bool = True, minimize: bool = True,
-                 probability: float = 0):
+    def __init__(
+        self,
+        how_many_individuals: int,
+        allow_gene_duplicates: bool = True,
+        minimize: bool = True,
+        probability: float = 0,
+    ):
         """
         Constructor for the GenePoolingCrossover4 (GPX-4) class.
 
@@ -29,14 +34,12 @@ class GenePoolingCrossover4(Crossover):
         :raises ValueError: If the population size is less than 2.
         :raises Exception: If we didn't allow to generate an offspring with gene duplicates.
         """
-        if population_parent.population_size < 2:
-            raise ValueError("The population size must be at least 2 "
-                             "to perform the OnePointAverageCrossover operation.")
-
         offspring_population = Population()
 
         # Randomly select two parents from the parent population
-        parent_indices = np.random.choice(population_parent.population_size, 2, replace=False)
+        parent_indices = np.random.choice(
+            population_parent.population_size, 2, replace=False
+        )
         parent_x = population_parent.population[parent_indices[0]].chromosome
         parent_y = population_parent.population[parent_indices[1]].chromosome
 
@@ -47,7 +50,9 @@ class GenePoolingCrossover4(Crossover):
             S = np.flip(np.union1d(parent_x, parent_y))
 
         # Finding the size of the new individual
-        offspring_individual_size = np.random.randint(2, (len(parent_x) + len(parent_y)) + 1)
+        offspring_individual_size = np.random.randint(
+            2, (len(parent_x) + len(parent_y)) + 1
+        )
 
         # We can either throw an exception
         if not self.allow_gene_duplicates and len(S) < offspring_individual_size:

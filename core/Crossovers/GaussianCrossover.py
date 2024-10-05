@@ -1,5 +1,4 @@
 import numpy as np
-import random
 import math
 from core import Crossover, Individual, Population, Representation
 
@@ -17,8 +16,14 @@ class GaussCrossover(Crossover):
 
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, how_many_individuals: int, fitness_function: callable, xp: float, xk: float,
-                 probability: float = 0):
+    def __init__(
+        self,
+        how_many_individuals: int,
+        fitness_function: callable,
+        xp: float,
+        xk: float,
+        probability: float = 0,
+    ):
         super().__init__(how_many_individuals, probability)
         self.fitness_function = fitness_function
         self.xp = xp
@@ -32,28 +37,33 @@ class GaussCrossover(Crossover):
         :returns: The offspring population.
         """
 
-        parent_1, parent_2 = np.random.sample(population_parent.population, 2)
+        parent_1, parent_2 = np.random.choice(population_parent.population, 2)
 
         size = min(len(parent_1), len(parent_2))
         offspring1, offspring2 = [], []
 
         for i in range(size):
             distance = math.fabs(parent_1[i] - parent_2[i])
-            alpha = random.rand()
+            alpha = np.random.rand()
 
-        if random.uniform(0, 1) <= 0.5:
-            new_val1 = parent_1[i] + alpha * (distance / 3)
-            new_val2 = parent_2[i] + alpha * (distance / 3)
-        else:
-            new_val1 = parent_2[i] + alpha * (distance / 3)
-            new_val2 = parent_1[i] + alpha * (distance / 3)
+            if np.random.uniform(0, 1) <= 0.5:
+                new_val1 = parent_1[i] + alpha * (distance / 3)
+                new_val2 = parent_2[i] + alpha * (distance / 3)
+            else:
+                new_val1 = parent_2[i] + alpha * (distance / 3)
+                new_val2 = parent_1[i] + alpha * (distance / 3)
 
-        if new_val1 < self.xp or new_val1 > self.xk:
-            new_val1 = parent_1[i]
-        if new_val2 < self.xp or new_val2 > self.xk:
-            new_val2 = parent_2[i]
+            if new_val1 < self.xp or new_val1 > self.xk:
+                new_val1 = parent_1[i]
+            if new_val2 < self.xp or new_val2 > self.xk:
+                new_val2 = parent_2[i]
 
         offspring1.append(new_val1)
         offspring2.append(new_val2)
 
-        return Population(population=[Individual(chromosome=offspring1, value=0),Individual(chromosome=offspring2, value=0)])
+        return Population(
+            population=[
+                Individual(chromosome=offspring1, value=0),
+                Individual(chromosome=offspring2, value=0),
+            ]
+        )

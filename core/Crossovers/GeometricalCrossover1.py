@@ -41,11 +41,15 @@ class GeometricalCrossover1(Crossover):
         if self.probability < chance_crossover <= 1:
             return Population()
 
-        chromosome_size = len(population_parent.population[individual_index1].chromosome)
+        chromosome_size = len(
+            population_parent.population[individual_index1].chromosome
+        )
         child_chromosome = np.zeros(chromosome_size)
         for i in range(chromosome_size):
-            child_chromosome[i] = math.sqrt(population_parent.population[individual_index1].chromosome[i] *
-                                            population_parent.population[individual_index2].chromosome[i])
+            child_chromosome[i] = math.sqrt(
+                population_parent.population[individual_index1].chromosome[i]
+                * population_parent.population[individual_index2].chromosome[i]
+            )
 
         child = Individual(chromosome=child_chromosome, value=0)
 

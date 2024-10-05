@@ -19,10 +19,11 @@ class ContinuousAdaptiveCultureModelCrossover(Crossover):
 
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, how_many_individuals: int, scaling_constant: float, probability: float = 0):
+    def __init__(
+        self, how_many_individuals: int, scaling_constant: float, probability: float = 0
+    ):
         super().__init__(how_many_individuals, probability)
         self.scaling_constant = scaling_constant
-
 
     def _cross(self, population_parent: Population) -> Population:
         """
@@ -30,7 +31,7 @@ class ContinuousAdaptiveCultureModelCrossover(Crossover):
         :returns: The offspring.
         """
 
-        parent_1, parent_2 = np.random.sample(population_parent.population, 2)
+        parent_1, parent_2 = np.random.choice(population_parent.population, 2)
 
         probability_of_parent_selection = np.random.uniform(0, 1)
         offspring = np.array()

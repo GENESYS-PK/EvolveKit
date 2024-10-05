@@ -20,8 +20,9 @@ class BlendCrossoverAlfa(Crossover):
 
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, how_many_individuals: int, probability: float = 0,
-                 alfa: float = 0.1):
+    def __init__(
+        self, how_many_individuals: int, probability: float = 0, alfa: float = 0.1
+    ):
         super().__init__(how_many_individuals, probability)
         if float(alfa) <= 0:
             raise ValueError("The alfa parameter must be positive")
@@ -32,9 +33,6 @@ class BlendCrossoverAlfa(Crossover):
         :param population_parent: The population to perform the crossover operation on.
         :returns: The offspring population (always 2 children).
         """
-        if population_parent.population_size < 2:
-            raise ValueError("The population size must be at least 2 to perform the BlendCrossoverAlfa operation.")
-
         individual_index1 = np.random.randint(population_parent.population_size)
         individual_index2 = np.random.randint(population_parent.population_size)
 
@@ -47,10 +45,22 @@ class BlendCrossoverAlfa(Crossover):
             return np.random.uniform(min(g1, g2) - alfa_delta, max(g1, g2) + alfa_delta)
 
         # lambda, because iterators can be used only once, so it will be used to return a new iterator each time
-        tmp_zip = lambda: zip(population_parent.population[individual_index1].chromosome,
-                              population_parent.population[individual_index2].chromosome)
+        tmp_zip = lambda: zip(
+            population_parent.population[individual_index1].chromosome,
+            population_parent.population[individual_index2].chromosome,
+        )
 
-        child1 = Individual(chromosome=np.array([blend_one_pair_of_genes(g1, g2) for g1, g2 in tmp_zip()], dtype=float), value=0)
-        child2 = Individual(chromosome=np.array([blend_one_pair_of_genes(g1, g2) for g1, g2 in tmp_zip()], dtype=float), value=0)
+        child1 = Individual(
+            chromosome=np.array(
+                [blend_one_pair_of_genes(g1, g2) for g1, g2 in tmp_zip()], dtype=float
+            ),
+            value=0,
+        )
+        child2 = Individual(
+            chromosome=np.array(
+                [blend_one_pair_of_genes(g1, g2) for g1, g2 in tmp_zip()], dtype=float
+            ),
+            value=0,
+        )
 
         return Population(population=[child1, child2])

@@ -37,18 +37,29 @@ class SingleGenCrossover(Crossover):
             new_chromosome = []
             for i in range(1, chromosome_size + 1):
                 if i != lambda_index:
-                    new_chromosome.append(population_parent.population[j].chromosome[i - 1])
+                    new_chromosome.append(
+                        population_parent.population[j].chromosome[i - 1]
+                    )
                 else:
                     if j + 1 <= population_size / 2:
                         alpha = np.random.random()
                         l = j + int(population_size / 2)
-                        new_chromosome.append((1 - alpha) * population_parent.population[j].chromosome[i - 1] + alpha * population_parent.population[l].chromosome[i - 1])
+                        new_chromosome.append(
+                            (1 - alpha)
+                            * population_parent.population[j].chromosome[i - 1]
+                            + alpha * population_parent.population[l].chromosome[i - 1]
+                        )
                     else:
                         alpha = np.random.random()
                         l = j - int(population_size / 2)
-                        new_chromosome.append((1 - alpha) * population_parent.population[j].chromosome[i - 1] + alpha * population_parent.population[l].chromosome[i - 1])
+                        new_chromosome.append(
+                            (1 - alpha)
+                            * population_parent.population[j].chromosome[i - 1]
+                            + alpha * population_parent.population[l].chromosome[i - 1]
+                        )
 
-            offsprings.append(Individual(chromosome = new_chromosome, value = 0)) # nie wiem dałam tu 0 bo było u kogoś innego tez tak, jeżeli tu powinno iść wywołanie fittness function proszę o info
-
+            offsprings.append(
+                Individual(chromosome=new_chromosome, value=0)
+            )  # nie wiem dałam tu 0 bo było u kogoś innego tez tak, jeżeli tu powinno iść wywołanie fittness function proszę o info
 
         return Population(population=offsprings)

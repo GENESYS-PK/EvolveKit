@@ -18,7 +18,12 @@ class FitnessBasedParabolicCrossover(Crossover):
 
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, how_many_individuals: int, fittness_function: FitnessFunction, probability: float = 0):
+    def __init__(
+        self,
+        how_many_individuals: int,
+        fittness_function: FitnessFunction,
+        probability: float = 0,
+    ):
         super().__init__(how_many_individuals, probability)
         self.fittness_function = fittness_function
 
@@ -31,12 +36,25 @@ class FitnessBasedParabolicCrossover(Crossover):
 
         while True:
             alfa = np.random.uniform(0, 1)
-            temporary_vector = alfa * parent_1.chromosome + (1 - alfa) * parent_2.chromosome
-            if self.fittness_function(*temporary_vector) < alfa * (parent_2.value - parent_1.value) + parent_1.value:
+            temporary_vector = (
+                alfa * parent_1.chromosome + (1 - alfa) * parent_2.chromosome
+            )
+            if (
+                self.fittness_function(*temporary_vector)
+                < alfa * (parent_2.value - parent_1.value) + parent_1.value
+            ):
                 break
 
-        a = ((1 - alfa) * parent_1.value+ alfa * parent_2.value- self.fittness_function(*temporary_vector)) / (alfa * (1 - alfa))
-        b = (self.fittness_function(*temporary_vector) - parent_1.value + pow(alfa,2) * (parent_1.value - parent_2.value)) / (alfa * (1 - alfa))
+        a = (
+            (1 - alfa) * parent_1.value
+            + alfa * parent_2.value
+            - self.fittness_function(*temporary_vector)
+        ) / (alfa * (1 - alfa))
+        b = (
+            self.fittness_function(*temporary_vector)
+            - parent_1.value
+            + pow(alfa, 2) * (parent_1.value - parent_2.value)
+        ) / (alfa * (1 - alfa))
         beta = -b / (2 * a)
         offspring = beta * parent_1.chromosome + (1 - beta) * parent_2.chromosome
 

@@ -22,21 +22,36 @@ class MultipleCrossoverPerCouple(Crossover):
 
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, how_many_individuals: int, probability: float = 0,
-                 max_number_of_crossovers: int = 2, crossover_function: Crossover = None):
+    def __init__(
+        self,
+        how_many_individuals: int,
+        probability: float = 0,
+        max_number_of_crossovers: int = 2,
+        crossover_function: Crossover = None,
+    ):
         super().__init__(how_many_individuals, probability)
         if int(max_number_of_crossovers) <= 0:
-            raise ValueError("The max_number_of_crossovers parameter must be greater than 0.")
+            raise ValueError(
+                "The max_number_of_crossovers parameter must be greater than 0."
+            )
         if crossover_function is None:
             raise ValueError("The crossover_function parameter must be passed.")
         elif not issubclass(type(crossover_function), Crossover):
-            raise ValueError("The crossover_function parameter must be of Crossover type.")
+            raise ValueError(
+                "The crossover_function parameter must be of Crossover type."
+            )
         elif isinstance(crossover_function, MultipleCrossoverPerCouple):
-            raise ValueError("The crossover_function parameter must not be a MultipleCrossoverPerCouple.")
+            raise ValueError(
+                "The crossover_function parameter must not be a MultipleCrossoverPerCouple."
+            )
         elif Representation.REAL not in crossover_function.allowed_representation:
-            raise ValueError("The crossover_function parameter must support Representation.REAL.")
+            raise ValueError(
+                "The crossover_function parameter must support Representation.REAL."
+            )
         elif crossover_function.how_many_individuals != 1:
-            raise ValueError("The crossover_function parameter must return Population of 1 Individual.")
+            raise ValueError(
+                "The crossover_function parameter must return Population of 1 Individual."
+            )
 
         self.max_number_of_crossovers = max_number_of_crossovers
         self.crossover_function = crossover_function
@@ -52,9 +67,6 @@ class MultipleCrossoverPerCouple(Crossover):
             we can't check it here, and we have to return all of them and rely on the public cross method to truncate them,
             which will have the same outcome.
         """
-        if population_parent.population_size < 2:
-            raise ValueError("The population size must be at least 2 to perform the MultipleCrossoverPerCouple operation.")
-
         individual_index1 = np.random.randint(population_parent.population_size)
         individual_index2 = np.random.randint(population_parent.population_size)
 
@@ -62,7 +74,12 @@ class MultipleCrossoverPerCouple(Crossover):
             individual_index2 = np.random.randint(population_parent.population_size)
 
         # the crossover function should work on Population of 2 Individuals, and hopefully not edit the parent population at all
-        tmp_population = Population(population=[population_parent.population[individual_index1], population_parent.population[individual_index2]])
+        tmp_population = Population(
+            population=[
+                population_parent.population[individual_index1],
+                population_parent.population[individual_index2],
+            ]
+        )
 
         children = Population(population=[])
         for j in range(self.max_number_of_crossovers):
