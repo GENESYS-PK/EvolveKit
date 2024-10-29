@@ -10,24 +10,24 @@ from EvolutionState import EvolutionState
 from EventListenerType import EventListenerType
 from OperatorsPreset import OperatorsPreset
 
-# TODO: Replace List with list or abc.collections.Sequence and Tuple with tuple
+
 from typing import List, Tuple, Callable, Self
 
 
 class Evolution:
     def __init__(
         self,
-        mutation: Mutation,
-        selection: Selection,
-        crossover: Crossover,
-        elitism: Elitism,
-        fitness_function: FitnessFunction,
-        job_queue: List[Job],
-        init_population: Population,
-        population_size: int,
-        terminator: Expression,
-        maximize: bool,
-        events: Tuple[List[Callable[[EvolutionState], None]], ...],
+        mutation: Mutation = None,
+        selection: Selection= None,
+        crossover: Crossover= None,
+        elitism: Elitism= None,
+        fitness_function: FitnessFunction= None,
+        job_queue: List[Job]= None,
+        init_population: Population= None,
+        population_size: int= None,
+        terminator: Expression= None,
+        maximize: bool= None,
+        events: Tuple[List[Callable[[EvolutionState], None]], ...]= None,
     ):
         self.mutation = mutation
         self.selection = selection
@@ -36,7 +36,7 @@ class Evolution:
         self.fitness_function = fitness_function
         self.job_queue = job_queue
         self.terminator = terminator
-        self.evolution_state = EvolutionState()
+        self.evolution_state = EvolutionState([], [], [], False, 0)
         self.terminate_loop: bool = False
         self.events = events
         self.representation = []
@@ -66,6 +66,7 @@ class Evolution:
         self.prepare_evolution_state()
         while not self.terminate_loop:
             self.loop()
+            print(f"Snapshot: Generation {self.evolution_state.generation}, Population: {self.evolution_state.current_population}")
             # terminator.evaluate(self)
     
     def loop(self) -> None:

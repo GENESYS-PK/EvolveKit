@@ -1,6 +1,6 @@
 import numpy as np
 from abc import ABC, abstractmethod
-from core.Population import Population
+from Population import Population
 
 
 class Crossover(ABC):

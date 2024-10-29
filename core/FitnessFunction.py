@@ -1,8 +1,9 @@
 import numpy as np
-from collections.abc import Callable, Sequence
+from collections.abc import Callable
 from ClampStrategy import ClampStrategy
 from Population import Population
 from Individual import Individual
+from typing import List, Tuple
 
 class FitnessFunction:
     """
@@ -20,9 +21,9 @@ class FitnessFunction:
     def __init__(
             self, 
             fitness_function: Callable[[np.ndarray[float]], float], 
-            variable_domains: Sequence[tuple[float, float]], 
+            variable_domains: List[Tuple[float, float]], 
             n_dim: int, 
-            clamp_strategy: ClampStrategy=Default):
+            clamp_strategy: ClampStrategy=0):
         self.fitness_function = fitness_function
         self.variable_domains = variable_domains
         self.n_dim = n_dim

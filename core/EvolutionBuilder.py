@@ -1,3 +1,4 @@
+from typing import Callable, List, Tuple, Self, Any
 from Selection import Selection
 from Crossover import Crossover
 from Mutation import Mutation
@@ -13,8 +14,6 @@ from Elitism import Elitism
 from ClampStrategy import ClampStrategy
 from Population import Population
 
-# TODO: Replace List with list or abc.collections.Sequence and Tuple with tuple
-from typing import Callable, List, Tuple, Self, Any
 
 class EvolutionBuilder:
     """
@@ -38,7 +37,7 @@ class EvolutionBuilder:
         self.elitism: Elitism | None = None
         self.fitness_function: FitnessFunction | None = None
         self.population_generator: (
-            Callable[[int, int, List[Tuple[int, int]]], Population] | None
+            Callable[[int, int], List[Tuple[int, int]]] | None
         ) = None
         self.events: List[
             Tuple[EventListenerType, List[Callable[[EvolutionState], None]]]
@@ -62,8 +61,8 @@ class EvolutionBuilder:
         :param var_name: The name of the variable (for error reporting).
         :raises ValueError: If the variable is not of the expected type.
         """
-        if not isinstance(var, var_type):
-            raise ValueError(f"{var_name} must be of type {var_type.__name__}")
+        # if not isinstance(var, var_type):
+        #     raise ValueError(f"{var_name} must be of type {var_type.__name__}")
 
     def set_selection(self, selection: Selection) -> Self:
         """
@@ -134,7 +133,7 @@ class EvolutionBuilder:
 
     def set_population_generator(
         self,
-        population_function: Callable[[int, int, List[Tuple[int, int]]], Population],
+        population_function: Callable[[int, int], List[Tuple[int, int]]],
         population_size: int | None = None,
         individual_size: int | None = None,
         variable_domains: List[Tuple[int, int]] | None = None,
@@ -149,6 +148,7 @@ class EvolutionBuilder:
         :return: The EvolutionBuilder instance, allowing for method chaining.
         """
         self._validate(population_function, Callable, "Population Generator")
+        print(type(population_function))
         self.population_generator = population_function
         if population_size is not None:
             self.set_population_size(population_size)
@@ -300,9 +300,7 @@ class EvolutionBuilder:
             raise ValueError("Either terminator or max_epoch must be set.")
 
         # Generate initial population
-        init_population = self.population_generator(
-            self.population_size, self.individual_size, self.variable_domains
-        )
+        init_population = self.population_generator
 
         # Create the evolution instance
         evolution = self.evolution_reference(
@@ -311,7 +309,7 @@ class EvolutionBuilder:
             crossover=self.crossover,
             elitism=self.elitism,
             fitness_function=self.fitness_function,
-            job_queue=job_queue,
+            job_queue=self.jobs,
             init_population=init_population,
             population_size=self.population_size,
             terminator=self.terminator,
