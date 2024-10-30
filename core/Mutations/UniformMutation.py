@@ -4,6 +4,7 @@ from core.Mutation import Mutation
 from core.Individual import Individual
 from core.Representation import Representation
 
+
 class UniformMutation(Mutation):
     """
     The class implements Uniform mutation, where a random gene in the chromosome is selected,
@@ -15,9 +16,10 @@ class UniformMutation(Mutation):
     :param domain: The domain of gene
     :param allowed_representation: A list of allowed representations for the mutation operation.
     """
+
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, domain:np.ndarray[float], probability: float = 0):
+    def __init__(self, domain: np.ndarray[float], probability: float = 0):
         super().__init__(probability)
         self.domain = domain
 

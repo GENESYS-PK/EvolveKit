@@ -4,6 +4,7 @@ from core.Individual import Individual
 from core.Representation import Representation
 import math
 
+
 class SphereMutation(Mutation):
     allowed_representation = [Representation.REAL]
 
@@ -35,7 +36,7 @@ class SphereMutation(Mutation):
 
             k, q = np.random.sample(range(len(chromosome)), 2)
             a = np.random.uniform(0, 1)
-            B = math.sqrt((chromosome[k] / chromosome[q]) ** 2 * (1 - a ** 2) + 1)
+            B = math.sqrt((chromosome[k] / chromosome[q]) ** 2 * (1 - a**2) + 1)
 
             chromosome[k] = a * chromosome[k]
             chromosome[q] = B * chromosome[q]

@@ -3,10 +3,13 @@ from core.Mutation import Mutation
 from core.Population import Population
 from core.Representation import Representation
 
+
 class DifferentialEvolutionMutation(Mutation):
     allowed_representation = [Representation.REAL]
 
-    def __init__(self, fitness_function: callable, minimize: bool = True, probability: float = 0):
+    def __init__(
+        self, fitness_function: callable, minimize: bool = True, probability: float = 0
+    ):
         """
         Constructor for the Differential Evolution Mutation (DEM) class.
 
@@ -30,12 +33,14 @@ class DifferentialEvolutionMutation(Mutation):
         fitness = []
 
         # Find the best individual based on minimization or maximization
-        best_fitness = float('inf') if self.minimize else -float('inf')
+        best_fitness = float("inf") if self.minimize else -float("inf")
         best_index = 0
         for i in range(population_size):
             ind_fitness = self.fitness_function(population.population[i].chromosome)
             fitness.append(ind_fitness)
-            if (self.minimize and ind_fitness < best_fitness) or (not self.minimize and ind_fitness > best_fitness):
+            if (self.minimize and ind_fitness < best_fitness) or (
+                not self.minimize and ind_fitness > best_fitness
+            ):
                 best_fitness = ind_fitness
                 best_index = i
 
@@ -51,7 +56,9 @@ class DifferentialEvolutionMutation(Mutation):
         alpha = np.random.uniform(0, 1.2)  # Scale factor
 
         # Create the perturbed best individual
-        best_perturbed_individual = population.population[best_index].chromosome + alpha * rz_vector
+        best_perturbed_individual = (
+            population.population[best_index].chromosome + alpha * rz_vector
+        )
 
         # Select one random individual Y from the population
         index_Y = np.random.randint(0, population_size)
@@ -70,5 +77,6 @@ class DifferentialEvolutionMutation(Mutation):
         # Replace the individual if the new one has better fitness
         new_fitness_Y = self.fitness_function(new_ind_Y)
         if (self.minimize and new_fitness_Y <= fitness[index_Y]) or (
-                not self.minimize and new_fitness_Y >= fitness[index_Y]):
+            not self.minimize and new_fitness_Y >= fitness[index_Y]
+        ):
             population.population[index_Y].chromosome = new_ind_Y

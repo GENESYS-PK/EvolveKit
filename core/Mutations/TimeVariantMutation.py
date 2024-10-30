@@ -43,7 +43,7 @@ class TimeVariantMutation(Mutation):
         for j in range(len(chromosome)):
             r = np.random.uniform(0, 1)
             sigma = 1 - (r ** (1 - self.t / self.M)) ** self.ypsilon
-            a = np.random.normal(0, sigma ** 2)
+            a = np.random.normal(0, sigma**2)
             chromosome[self.k] = chromosome[self.k] + a
 
         return None

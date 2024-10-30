@@ -4,6 +4,7 @@ from core.Individual import Individual
 from core.Population import Population
 from core.Representation import Representation
 
+
 class DebGoyalMutation(Mutation):
     allowed_representation = [Representation.REAL]
 
@@ -18,7 +19,9 @@ class DebGoyalMutation(Mutation):
         """
         super().__init__(probability)
         if int(n) < 1:
-            raise ValueError("The distribution index must be at least 1 to perform the DebGoyalMutation operation.")
+            raise ValueError(
+                "The distribution index must be at least 1 to perform the DebGoyalMutation operation."
+            )
         self.n = n
         self.delta_max = delta_max
 
