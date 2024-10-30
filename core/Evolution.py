@@ -67,12 +67,13 @@ class Evolution:
         while not self.terminate_loop:
             self.loop()
             print(f"Snapshot: Generation {self.evolution_state.current_epoch}, Population: {self.evolution_state.current_population}")
-            # terminator.evaluate(self)
-    
+            if self.terminator.evaluate(self.evolution_state.current_epoch):
+                break
     def loop(self) -> None:
         self.step_selection()
         self.step_crossover()
-        self.step_mutation()    
+        self.step_mutation()
+        self.evolution_state.update_evolution_state()
 
     def get_evolution_state(self) -> EvolutionState:
         return self.evolution_state

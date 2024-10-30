@@ -6,7 +6,6 @@ from Concatenator import Concatenator
 class Expression(Condition):
     """
     Represents a logical expression made up of conditions and concatenators.
-
     This class allows for the construction of complex logical expressions
     that can be evaluated as part of an evolution process.
     """
@@ -16,7 +15,7 @@ class Expression(Condition):
         Initialize the Expression class with an empty expression list.
         """
         super().__init__()
-        self.expression_list: List[Condition|Concatenator] = []
+        self.expression_list: List[Condition | Concatenator] = []
 
     def evaluate(self, evolution: Self) -> bool:
         """
@@ -34,6 +33,7 @@ class Expression(Condition):
         current_concatenator = None
 
         for element in self.expression_list:
+            print(element, isinstance(element, Condition))
             if isinstance(element, Condition):
                 condition_result = element.evaluate(evolution)
 
@@ -52,6 +52,10 @@ class Expression(Condition):
         # Append the final result after last condition
         if current_result is not None:
             and_results.append(current_result)
+
+        # If there is only one condition, return its result directly
+        if len(and_results) == 1:
+            return and_results[0]
 
         # Step 2: Evaluate the OR on the results of AND evaluations
         final_result = and_results[0]

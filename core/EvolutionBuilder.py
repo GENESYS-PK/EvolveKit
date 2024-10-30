@@ -5,14 +5,14 @@ from Mutation import Mutation
 from OperatorsPreset import OperatorsPreset
 from Representation import Representation
 from Evolution import Evolution
-from Expression import Expression
 from FitnessFunction import FitnessFunction
 from EventListenerType import EventListenerType
 from EvolutionState import EvolutionState
 from Job import Job
 from Elitism import Elitism
 from ClampStrategy import ClampStrategy
-from Population import Population
+from our_lib.core.EpochCondition import EpochCondition
+from our_lib.core.Expression import Expression
 
 
 class EvolutionBuilder:
@@ -224,7 +224,7 @@ class EvolutionBuilder:
         """
         self._validate(expression, Expression, "Terminator")
         self.terminator = expression
-        return self
+        return Expression().begin(EpochCondition(self.max_epoch))
 
     def set_max_epoch(self, max_epoch: int) -> Self:
         """
@@ -259,14 +259,16 @@ class EvolutionBuilder:
         self.representation = representation
         return self
 
-    def _create_epoch_terminator(self, max_epoch: int) -> Callable:
+    def _create_epoch_terminator(self, max_epoch: int) -> Expression:
         """
         Create a terminator based on the maximum number of epochs.
 
         :param max_epoch: The maximum number of epochs.
         :return: A lambda function that terminates the evolution process after the specified number of epochs.
         """
-        return lambda state: state.epoch >= max_epoch
+        epoch_condition = EpochCondition(max_epoch)
+        expression = Expression().begin(epoch_condition)
+        return expression
 
     def create_evolution(self) -> Evolution:
         """
@@ -295,6 +297,8 @@ class EvolutionBuilder:
         if not self.terminator and self.max_epoch is not None:
             self.terminator = self._create_epoch_terminator(self.max_epoch)
 
+        epoch_terminator = self._create_epoch_terminator(self.max_epoch)
+        self.terminator.and_(epoch_terminator)
         if not self.terminator:
             raise ValueError("Either terminator or max_epoch must be set.")
 

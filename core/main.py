@@ -47,9 +47,10 @@ def custom_population_generator(
 
 def main():
     evoBuilder = EvolutionBuilder(Evolution)
-    evoBuilder.set_population_size(1000).set_maximize(False)
-    evoBuilder.set_population_generator(custom_population_generator, evoBuilder.population_size, 15, [(-20, 20)])
+    evoBuilder.set_population_size(10).set_maximize(False)
+    evoBuilder.set_population_generator(custom_population_generator, evoBuilder.population_size, 2, [(-20, 20)])
     evoBuilder.set_mutation(SphereMutation(0.4)).set_crossover(OnePointAverageCrossover(2, 0.9)).set_selection(TournamentSelection(100, False))
+    evoBuilder.set_max_epoch(10)
     ff = FitnessFunction(sample_fitness_function, [(-10, 10)], 10, SimpleClampStrategy())
     evoBuilder.set_fitness_function(ff)
     evoBuilder.set_representation(Representation(2))

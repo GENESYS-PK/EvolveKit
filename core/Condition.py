@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Self
 
 
 class Condition(ABC):
@@ -16,7 +17,7 @@ class Condition(ABC):
         pass
 
     @abstractmethod
-    def evaluate(self, evolution) -> bool:
+    def evaluate(self, evolution: Self) -> bool:
         """
         Evaluate the condition based on the provided evolution instance.
 

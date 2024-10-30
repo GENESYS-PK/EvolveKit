@@ -1,8 +1,8 @@
 import numpy as np
 
-from core.Individual import Individual
-from core.Population import Population
-from core.Crossover import Crossover
+from our_lib.core.Individual import Individual
+from our_lib.core.Population import Population
+from our_lib.core.Crossover import Crossover
 
 
 class OnePointAverageCrossover(Crossover):
