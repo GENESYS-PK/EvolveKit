@@ -1,5 +1,7 @@
 import numpy as np
-from core import Mutation, Individual, Population
+from core.Mutation import Mutation
+from core.Individual import Individual
+from core.Population import Population
 
 
 class DebGoyalMutation(Mutation):
