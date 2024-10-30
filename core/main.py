@@ -32,8 +32,9 @@ def custom_population_generator(
     for _ in range(population_size):
         # Create a random individual
         individual_genes = []
-        
+
         for domain in variable_domains:
+
             min_value, max_value = domain
             # Generate a random value within the specified domain
             gene_value = np.random.uniform(min_value, max_value)
@@ -42,14 +43,13 @@ def custom_population_generator(
         # Assuming the Individual class can be initialized with a list of genes
         individual = Individual(individual_genes, gene_value)
         individuals.append(individual)
-
     return Population(population=individuals)
 
 def main():
     evoBuilder = EvolutionBuilder(Evolution)
-    evoBuilder.set_population_size(100).set_maximize(False)
-    evoBuilder.set_population_generator(custom_population_generator(100, 10, [(1, 10)]), 100, 10, (1, 10))
-    evoBuilder.set_mutation(SphereMutation(0.1)).set_crossover(OnePointAverageCrossover(2, 0.9)).set_selection(TournamentSelection(100, False))
+    evoBuilder.set_population_size(1000).set_maximize(False)
+    evoBuilder.set_population_generator(custom_population_generator, evoBuilder.population_size, 15, [(-20, 20)])
+    evoBuilder.set_mutation(SphereMutation(0.4)).set_crossover(OnePointAverageCrossover(2, 0.9)).set_selection(TournamentSelection(100, False))
     ff = FitnessFunction(sample_fitness_function, [(-10, 10)], 10, SimpleClampStrategy())
     evoBuilder.set_fitness_function(ff)
     evoBuilder.set_representation(Representation(2))

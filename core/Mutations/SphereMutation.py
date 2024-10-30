@@ -32,12 +32,16 @@ class SphereMutation(Mutation):
     def sphere_mutation(self, chromosome):
         # Use the mutation probability from the Mutation superclass
         if np.random.rand() <= self.probability:
-
-            k, q = random.sample(range(len(chromosome)), 2)
-            a = np.random.uniform(0, 1)
-            B = math.sqrt((chromosome[k] / chromosome[q]) ** 2 * (1 - a ** 2) + 1)
-
-            chromosome[k] = a * chromosome[k]
-            chromosome[q] = B * chromosome[q]
+            if len(chromosome) >= 2:
+                k, q = random.sample(range(len(chromosome)), 2)
+                a = np.random.uniform(0, 1)
+                B = math.sqrt((chromosome[k] / chromosome[q]) ** 2 * (1 - a ** 2) + 1)
+                chromosome[k] = a * chromosome[k]
+                chromosome[q] = B * chromosome[q]
+            else:
+                # Skalowanie wszystkich genów w chromosomie
+                for i in range(len(chromosome)):
+                    scale_factor = np.random.uniform(0.5, 1.5)  # Przykładowy zakres skalowania
+                    chromosome[i] = scale_factor * chromosome[i]
 
         return None

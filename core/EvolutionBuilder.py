@@ -50,7 +50,7 @@ class EvolutionBuilder:
         self.max_epoch: int = 0
         self.maximize: bool = False
         self.representation: Representation | None = None
-        self.variable_domains = None
+        self.variable_domains: List[Tuple[int, int]] | None = None
 
     def _validate(self, var: Any, var_type: Any, var_name: Any):
         """
@@ -148,7 +148,6 @@ class EvolutionBuilder:
         :return: The EvolutionBuilder instance, allowing for method chaining.
         """
         self._validate(population_function, Callable, "Population Generator")
-        print(type(population_function))
         self.population_generator = population_function
         if population_size is not None:
             self.set_population_size(population_size)
@@ -300,7 +299,7 @@ class EvolutionBuilder:
             raise ValueError("Either terminator or max_epoch must be set.")
 
         # Generate initial population
-        init_population = self.population_generator
+        init_population = self.population_generator(self.population_size, self.individual_size, self.variable_domains)
 
         # Create the evolution instance
         evolution = self.evolution_reference(

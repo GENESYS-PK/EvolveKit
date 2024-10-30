@@ -1,6 +1,8 @@
 import numpy as np
-from Crossover import Crossover
-from Population import Population
+
+from our_lib.core.Individual import Individual
+from our_lib.core.Population import Population
+from our_lib.core.Crossover import Crossover
 
 
 class OnePointAverageCrossover(Crossover):
@@ -25,7 +27,7 @@ class OnePointAverageCrossover(Crossover):
             raise ValueError("The population size must be at least 2 "
                              "to perform the OnePointAverageCrossover operation.")
 
-        offspring_population = Population()
+        offspring_population = []
 
         # Randomly select two parents from the parent population
         parent_indices = np.random.choice(population_parent.population_size, 2, replace=False)
@@ -42,6 +44,5 @@ class OnePointAverageCrossover(Crossover):
         parent_y[crossover_point] = new_gene
 
         # Add new individuals to the offspring population
-        offspring_population.add_to_population(parent_x)
-        offspring_population.add_to_population(parent_y)
-        return offspring_population
+        offspring_population.append(Individual(parent_x, parent_y))
+        return Population(population=offspring_population)
