@@ -1,8 +1,8 @@
 import numpy as np
 from collections.abc import Callable
-from ClampStrategy import ClampStrategy
-from Population import Population
-from Individual import Individual
+from core.ClampStrategy import ClampStrategy
+from core.Population import Population
+from core.Individual import Individual
 from typing import List, Tuple
 
 class FitnessFunction:

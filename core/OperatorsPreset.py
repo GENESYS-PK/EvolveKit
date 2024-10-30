@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from Mutation import Mutation
-from Crossover import Crossover
-from Selection import Selection
+from core.Mutation import Mutation
+from core.Crossover import Crossover
+from core.Selection import Selection
 
 
 @dataclass

@@ -1,11 +1,10 @@
 import numpy as np
 import math
 
-from our_lib.core.Crossover import Crossover
-from our_lib.core.Population import Population
-from our_lib.core.Individual import Individual
-from our_lib.core.Population import Population
-from our_lib.core.Representation import Representation
+from core.Crossover import Crossover
+from core.Individual import Individual
+from core.Population import Population
+from core.Representation import Representation
 
 
 class GeometricalCrossover2(Crossover):

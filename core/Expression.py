@@ -1,6 +1,6 @@
 from typing import List, Self
-from Condition import Condition
-from Concatenator import Concatenator
+from core.Condition import Condition
+from core.Concatenator import Concatenator
 
 
 class Expression(Condition):

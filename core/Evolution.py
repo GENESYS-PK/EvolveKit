@@ -1,14 +1,14 @@
-from Mutation import Mutation
-from Selection import Selection
-from Crossover import Crossover
-from Elitism import Elitism
-from FitnessFunction import FitnessFunction
-from Job import Job
-from Population import Population
-from Expression import Expression
-from EvolutionState import EvolutionState
-from EventListenerType import EventListenerType
-from OperatorsPreset import OperatorsPreset
+from core.Mutation import Mutation
+from core.Selection import Selection
+from core.Crossover import Crossover
+from core.Elitism import Elitism
+from core.FitnessFunction import FitnessFunction
+from core.Job import Job
+from core.Population import Population
+from core.Expression import Expression
+from core.EvolutionState import EvolutionState
+from core.EventListenerType import EventListenerType
+from core.OperatorsPreset import OperatorsPreset
 
 
 from typing import List, Tuple, Callable, Self

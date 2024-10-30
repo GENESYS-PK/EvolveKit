@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from Population import Population
+from core.Population import Population
 
 
 class Selection(ABC):

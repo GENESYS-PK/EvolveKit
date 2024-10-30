@@ -1,8 +1,9 @@
 import numpy as np
 from abc import ABC, abstractmethod
-from Population import Population
-
 from typing import List, Tuple
+from core.Population import Population
+
+
 class ClampStrategy(ABC):
     """
     An abstract base class, serving as a blueprint for clamp startegy implementations

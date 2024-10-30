@@ -1,6 +1,6 @@
-from our_lib.core.ClampStrategy import ClampStrategy
+from core.ClampStrategy import ClampStrategy
 from typing import Sequence
-from our_lib.core.Population import Population
+from core.Population import Population
 import numpy as np
 
 

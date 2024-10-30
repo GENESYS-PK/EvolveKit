@@ -1,7 +1,7 @@
 import numpy as np
-from Population import Population
-from Mutation import Mutation
-from Individual import Individual
+from core.Population import Population
+from core.Mutation import Mutation
+from core.Individual import Individual
 import random
 import math
 

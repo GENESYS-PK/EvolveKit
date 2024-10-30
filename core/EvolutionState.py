@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from Population import Population
+from core.Population import Population
 
 
 @dataclass

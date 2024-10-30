@@ -1,4 +1,4 @@
-from Condition import Condition
+from core.Condition import Condition
 
 
 class EpochCondition(Condition):
