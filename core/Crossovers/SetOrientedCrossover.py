@@ -1,5 +1,4 @@
 import numpy as np
-import random
 from core.Individual import Individual
 from core.Population import Population
 from core.Representation import Representation
@@ -32,7 +31,7 @@ class SetOrientedCrossover(Crossover):
         :returns: The offspring population.
         """
         while True:
-            parent_1, parent_2 = random.sample(population_parent.population, 2)
+            parent_1, parent_2 = np.random.sample(population_parent.population, 2)
             if parent_1 != parent_2:
                 break
 

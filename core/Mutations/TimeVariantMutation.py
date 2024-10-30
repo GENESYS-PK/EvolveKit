@@ -2,11 +2,13 @@ import numpy as np
 from abc import ABC, abstractmethod
 from core import Population, Mutation
 from core.Individual import Individual
-import random
+from core.Representation import Representation
 import math
 
 
 class TimeVariantMutation(Mutation):
+    allowed_representation = [Representation.REAL]
+
     def __init__(self, probability: float, ypsilon: float, t: int, M: int, k: int):
         """
         Constructor for the Time Variant Mutation class.

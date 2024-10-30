@@ -1,11 +1,12 @@
 import numpy as np
 from core import Population, Mutation
 from core.Individual import Individual
-import random
+from core.Representation import Representation
 import math
 
-
 class SphereMutation(Mutation):
+    allowed_representation = [Representation.REAL]
+
     def __init__(self, probability: float):
         """
         Constructor for the Sphere Mutation class.
@@ -32,7 +33,7 @@ class SphereMutation(Mutation):
         # Use the mutation probability from the Mutation superclass
         if np.random.rand() <= self.probability:
 
-            k, q = random.sample(range(len(chromosome)), 2)
+            k, q = np.random.sample(range(len(chromosome)), 2)
             a = np.random.uniform(0, 1)
             B = math.sqrt((chromosome[k] / chromosome[q]) ** 2 * (1 - a ** 2) + 1)
 

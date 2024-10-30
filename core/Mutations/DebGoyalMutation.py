@@ -2,9 +2,11 @@ import numpy as np
 from core.Mutation import Mutation
 from core.Individual import Individual
 from core.Population import Population
-
+from core.Representation import Representation
 
 class DebGoyalMutation(Mutation):
+    allowed_representation = [Representation.REAL]
+
     def __init__(self, n: int, delta_max: float, probability: float = 0):
         """
         Constructor for the Deb & Goyal Mutation (DGM) class.
@@ -19,18 +21,6 @@ class DebGoyalMutation(Mutation):
             raise ValueError("The distribution index must be at least 1 to perform the DebGoyalMutation operation.")
         self.n = n
         self.delta_max = delta_max
-
-    def mutate(self, population_parent: Population) -> Population:
-        """
-        Perform the Deb & Goyal Mutation operations for the entire population.
-
-        :param population_parent: The population to perform the mutation operation on.
-        :returns: The mutated population.
-        """
-        for individual in population_parent.population:
-            self._mutate(individual, population_parent)
-
-        return population_parent
 
     def _mutate(self, individual: Individual, population: Population) -> None:
         """

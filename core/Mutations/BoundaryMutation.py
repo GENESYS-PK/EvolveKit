@@ -2,10 +2,12 @@ import numpy as np
 from abc import ABC, abstractmethod
 from core import Population, Mutation
 from core.Individual import Individual
-import random
+from core.Representation import Representation
 
 
 class BoundaryMutation(Mutation):
+    allowed_representation = [Representation.REAL]
+
     def __init__(self, probability: float, pbm: float, boundaries: list):
         """
         Constructor for the BoundaryMutation class.

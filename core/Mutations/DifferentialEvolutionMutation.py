@@ -1,9 +1,11 @@
 import numpy as np
 from core.Mutation import Mutation
 from core.Population import Population
-
+from core.Representation import Representation
 
 class DifferentialEvolutionMutation(Mutation):
+    allowed_representation = [Representation.REAL]
+
     def __init__(self, fitness_function: callable, minimize: bool = True, probability: float = 0):
         """
         Constructor for the Differential Evolution Mutation (DEM) class.
@@ -17,18 +19,7 @@ class DifferentialEvolutionMutation(Mutation):
         self.fitness_function = fitness_function
         self.minimize = minimize
 
-    def mutate(self, population_parent: Population) -> Population:
-        """
-        Perform the Differential Evolution Mutation operations for the entire population.
-
-        :param population_parent: The population to perform the mutation operation on.
-        :returns: The mutated population.
-        """
-        self._mutate(population_parent)
-
-        return population_parent
-
-    def _mutate(self, population: Population) -> None:
+    def _mutate(self, individual: Individual, population: Population) -> None:
         """
         Perform the Differential Evolution Mutation operations for the entire population.
 
