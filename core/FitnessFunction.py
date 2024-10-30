@@ -47,6 +47,7 @@ class FitnessFunction:
         :return: _**None**_, evaluations are stored in each individual, 
         in _value_ field.
         """
+
         for i in population.population:
             i.value = self.fitness_function(i.chromosome)
 

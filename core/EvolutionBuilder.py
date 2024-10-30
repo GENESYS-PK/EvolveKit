@@ -11,8 +11,8 @@ from EvolutionState import EvolutionState
 from Job import Job
 from Elitism import Elitism
 from ClampStrategy import ClampStrategy
-from our_lib.core.EpochCondition import EpochCondition
-from our_lib.core.Expression import Expression
+from EpochCondition import EpochCondition
+from Expression import Expression
 
 
 class EvolutionBuilder:

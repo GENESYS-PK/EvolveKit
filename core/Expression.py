@@ -33,7 +33,6 @@ class Expression(Condition):
         current_concatenator = None
 
         for element in self.expression_list:
-            print(element, isinstance(element, Condition))
             if isinstance(element, Condition):
                 condition_result = element.evaluate(evolution)
 

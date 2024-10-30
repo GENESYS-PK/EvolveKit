@@ -1,5 +1,4 @@
-from our_lib.core.Condition import Condition
-from our_lib.core.Expression import Expression
+from Condition import Condition
 
 
 class EpochCondition(Condition):

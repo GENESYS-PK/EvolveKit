@@ -1,5 +1,4 @@
 import numpy as np
-
 from our_lib.core.Individual import Individual
 from our_lib.core.Population import Population
 from our_lib.core.Crossover import Crossover

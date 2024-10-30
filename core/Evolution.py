@@ -70,9 +70,12 @@ class Evolution:
             if self.terminator.evaluate(self.evolution_state.current_epoch):
                 break
     def loop(self) -> None:
+        self.fitness_function.eval_population(self.evolution_state.current_population)
         self.step_selection()
         self.step_crossover()
+        self.fitness_function.eval_population(self.evolution_state.current_population)
         self.step_mutation()
+        self.fitness_function.eval_population(self.evolution_state.current_population)
         self.evolution_state.update_evolution_state()
 
     def get_evolution_state(self) -> EvolutionState:
