@@ -1,4 +1,4 @@
-from typing import Callable, List, Tuple, Self, Any
+from typing import Callable, List, Tuple, Self, Any, Type
 from Selection import Selection
 from Crossover import Crossover
 from Mutation import Mutation
@@ -24,13 +24,13 @@ class EvolutionBuilder:
     :param evolution_reference: A reference to the Evolution class, not an instance of the class.
     """
 
-    def __init__(self, evolution_reference: Evolution = Evolution):
+    def __init__(self, evolution_reference: Type[Evolution] = Evolution):
         """
         Initialize the EvolutionBuilder with a reference to the Evolution class.
 
         :param evolution_reference: A reference to the Evolution class (not an instance).
         """
-        self.evolution_reference: Evolution = evolution_reference
+        self.evolution_reference: Type[Evolution] = evolution_reference
         self.selection: Selection | None = None
         self.crossover: Crossover | None = None
         self.mutation: Mutation | None = None
