@@ -1,8 +1,10 @@
 import numpy as np
 from collections.abc import Callable
-from ClampStrategy import ClampStrategy
-from Population import Population
-from Individual import Individual
+from core.ClampStrategy import ClampStrategy
+from core.Population import Population
+from core.Individual import Individual
+from typing import List, Tuple
+
 
 class FitnessFunction:
     """
@@ -17,12 +19,13 @@ class FitnessFunction:
     :param clamp_strategy: An object responsible for enforcing domain 
     restrictions on a chromosome; inherits from ClampStrategy abstract class.
     """
+
     def __init__(
-            self, 
-            fitness_function: Callable[[np.ndarray[float]], float], 
-            variable_domains: List[Tuple[float, float]], 
-            n_dim: int, 
-            clamp_strategy: ClampStrategy=Default):
+            self,
+            fitness_function: Callable[[np.ndarray[float]], float],
+            variable_domains: List[Tuple[float, float]],
+            n_dim: int,
+            clamp_strategy: ClampStrategy = 0):
         self.fitness_function = fitness_function
         self.variable_domains = variable_domains
         self.n_dim = n_dim
@@ -46,6 +49,7 @@ class FitnessFunction:
         :return: _**None**_, evaluations are stored in each individual, 
         in _value_ field.
         """
+
         for i in population.population:
             i.value = self.fitness_function(i.chromosome)
 
@@ -62,7 +66,7 @@ class FitnessFunction:
         for i in enumerate(population.population):
             ret[i[0]] = self.fitness_function(i[1].chromosome)
         return ret
-    
+
     def clamp_population_to_domain(self, population: Population) -> None:
         """
         Force every individual in population into domain given by *variable_domains*.

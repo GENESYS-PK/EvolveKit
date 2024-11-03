@@ -1,13 +1,15 @@
 import numpy as np
 from abc import ABC, abstractmethod
-from Population import Population
+from typing import List, Tuple
+from core.Population import Population
+
 
 class ClampStrategy(ABC):
     """
     An abstract base class, serving as a blueprint for clamp startegy implementations
     """
     @abstractmethod
-    def clamp(variable_domains: List[Tuple[float, float]], population: Population) -> None:
+    def clamp(self, variable_domains: List[Tuple[float, float]], population: Population) -> None:
         """
         Force every individual in population into specified domain. 
         This method is performed in place.

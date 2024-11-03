@@ -1,6 +1,6 @@
 import numpy as np
 from abc import ABC, abstractmethod
-from population import Population
+from core.Population import Population
 from core.Individual import Individual
 
 class Mutation(ABC):
