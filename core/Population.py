@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Iterable, Self
 from core.Individual import Individual
-import singledispatch
+from functools import singledispatch, singledispatchmethod
 
 
 @dataclass
@@ -23,7 +23,7 @@ class Population:
         """
         return len(self.population)
 
-    @singledispatch
+    @singledispatchmethod
     def add_to_population(self, individual: Individual) -> None:
         """
         Add an individual to the population.
@@ -33,7 +33,7 @@ class Population:
         """
         self.population.append(individual)
 
-    @singledispatch
+    @singledispatchmethod
     def add_to_population(self, individual_list: Iterable[Individual]) -> None:
         """
         Add a list of individuals to the population.
@@ -43,7 +43,7 @@ class Population:
         """
         self.population.extend(individual_list)
 
-    @singledispatch
+    @singledispatchmethod
     def add_to_population(self, individual_list: Self) -> None:
         """
         Add members of another population to the current population.

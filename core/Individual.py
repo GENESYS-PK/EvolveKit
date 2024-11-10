@@ -12,4 +12,4 @@ class Individual:
     """
 
     chromosome: Any
-    value: float
+    value: float = 0
