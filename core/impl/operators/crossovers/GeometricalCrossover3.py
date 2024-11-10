@@ -54,9 +54,9 @@ class GeometricalCrossover3(Crossover):
         sum_floats = np.sum(floats)
         alfa = np.array([x / sum_floats for x in floats])
 
-        chromosome_size = population_parent.population[
+        chromosome_size = len(population_parent.population[
             drafted_individuals[0]
-        ].chromosome.size
+        ].chromosome)
         child_chromosome = np.zeros(chromosome_size)
 
         for i in range(chromosome_size):
