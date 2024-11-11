@@ -1,5 +1,5 @@
 import numpy as np
-from core import Population
+from core import Population, Individual
 from core.operators import Crossover
 from core.Population import Population
 from core.Representation import Representation
@@ -34,14 +34,16 @@ class ContinuousAdaptiveCultureModelCrossover(Crossover):
 
         parent_1, parent_2 = np.random.choice(population_parent.population, 2)
 
+        offspring_chromosome = []
+        offspring = Individual(offspring_chromosome)
+
         probability_of_parent_selection = np.random.uniform(0, 1)
-        offspring = np.array()
 
         if probability_of_parent_selection < 0.5:
-            alphas = np.random.uniform(-0.5, 0.5, size=parent_1.chromosome.shape)
-            np.append(offspring, parent_1.chromosome + self.scaling_constant * alphas)
+            alphas = np.random.uniform(-0.5, 0.5, size=len(parent_1.chromosome))
+            offspring.chromosome = parent_1.chromosome + self.scaling_constant * alphas
         else:
-            alphas = np.random.uniform(-0.5, 0.5, size=parent_2.chromosome.shape)
-            np.append(offspring, parent_2.chromosome + self.scaling_constant * alphas)
+            alphas = np.random.uniform(-0.5, 0.5, size=len(parent_2.chromosome))
+            offspring.chromosome = parent_2.chromosome + self.scaling_constant * alphas
 
         return Population(population=[offspring])

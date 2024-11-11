@@ -42,7 +42,7 @@ class ModifiedUniformMutation(Mutation):
         :param population: The population to which the individual belongs.
         :returns: None
         """
-        mutation_point = np.random.randint(0, len(individual.chromosome) - 1)
+        mutation_point = np.random.randint(0, len(individual.chromosome))
         alfa = np.random.randint(1, 10)
         delta = (self.domain[1] - self.domain[0]) / alfa
 

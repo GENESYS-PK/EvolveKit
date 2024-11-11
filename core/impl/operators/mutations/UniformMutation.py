@@ -29,6 +29,7 @@ class UniformMutation(Mutation):
         :param population: The population to which the individual belongs.
         :returns: None
         """
-        mutation_point = np.random.randint(0, len(individual.chromosome) - 1)
+
+        mutation_point = np.random.randint(0, len(individual.chromosome)) if len(individual.chromosome) > 1 else 0
         new_value_of_gene = np.random.uniform(self.domain[0], self.domain[1])
         individual.chromosome[mutation_point] = new_value_of_gene

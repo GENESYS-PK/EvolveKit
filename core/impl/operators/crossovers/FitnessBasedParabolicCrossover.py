@@ -1,5 +1,7 @@
 import numpy as np
-from core import Population
+from contourpy.types import offset_dtype
+
+from core import Population, Individual
 from core.operators import Crossover
 from core.Population import Population
 from core.fitness_function import FitnessFunction
@@ -33,30 +35,45 @@ class FitnessBasedParabolicCrossover(Crossover):
         :param population_parent: The population to perform the crossover operation on.
         :returns: The offspring.
         """
-        parent_1, parent_2 = np.random.sample(population_parent.population, 2)
+        parent_1, parent_2 = np.random.choice(population_parent.population, 2, replace = False)
 
-        while True:
-            alfa = np.random.uniform(0, 1)
-            temporary_vector = (
-                alfa * parent_1.chromosome + (1 - alfa) * parent_2.chromosome
-            )
-            if (
-                self.fittness_function(*temporary_vector)
-                < alfa * (parent_2.value - parent_1.value) + parent_1.value
-            ):
-                break
+        if not isinstance(parent_1.chromosome, np.ndarray) or not isinstance(parent_2.chromosome, np.ndarray):
 
-        a = (
-            (1 - alfa) * parent_1.value
-            + alfa * parent_2.value
-            - self.fittness_function(*temporary_vector)
-        ) / (alfa * (1 - alfa))
-        b = (
-            self.fittness_function(*temporary_vector)
-            - parent_1.value
-            + pow(alfa, 2) * (parent_1.value - parent_2.value)
-        ) / (alfa * (1 - alfa))
-        beta = -b / (2 * a)
-        offspring = beta * parent_1.chromosome + (1 - beta) * parent_2.chromosome
+            parent_1_chromosome = np.array(parent_1.chromosome)
+            parent_2_chromosome = np.array(parent_2.chromosome)
+        else:
+            parent_1_chromosome = parent_1.chromosome
+            parent_2_chromosome = parent_2.chromosome
 
-        return Population(population=[offspring])
+        if not np.allclose(parent_1_chromosome, parent_2_chromosome):
+
+            while True:
+                alfa = np.random.uniform(0, 1)
+                temporary_vector = (
+                    alfa * parent_1_chromosome + (1 - alfa) * parent_2_chromosome
+                )
+                if (
+                    self.fittness_function.fitness_function(temporary_vector)
+                    < alfa * (parent_2.value - parent_1.value) + parent_1.value
+                ):
+                    break
+
+            a = (
+                (1 - alfa) * parent_1.value
+                + alfa * parent_2.value
+                - self.fittness_function.fitness_function(temporary_vector)
+            ) / (alfa * (1 - alfa))
+            b = (
+                self.fittness_function.fitness_function(temporary_vector)
+                - parent_1.value
+                + pow(alfa, 2) * (parent_1.value - parent_2.value)
+            ) / (alfa * (1 - alfa))
+            beta = -b / (2 * a)
+            offspring_chromosome = beta * parent_1_chromosome + (1 - beta) * parent_2_chromosome
+            offspring = Individual(offspring_chromosome)
+
+            return Population(population=[offspring])
+
+        else:
+
+            return Population(population=[parent_1])

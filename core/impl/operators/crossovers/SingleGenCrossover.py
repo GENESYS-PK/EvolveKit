@@ -29,7 +29,7 @@ class SingleGenCrossover(Crossover):
 
         population_size = len(population_parent.population)
 
-        chromosome_size = population_parent.population[0].chromosome.size
+        chromosome_size = len(population_parent.population[0].chromosome)
         lambda_index = np.random.randint(1, chromosome_size)
 
         offsprings = []
