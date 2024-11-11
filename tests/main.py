@@ -32,15 +32,16 @@ def custom_population_generator(
         # Create a random individual
         individual_genes = []
 
-        for domain in variable_domains:
+        for i in range(individual_size):
+            domain = variable_domains[i % len(variable_domains)]  # Repeat the domains if needed
             min_value, max_value = domain
-            # Generate a random value within the specified domain
+
             gene_value = np.random.uniform(min_value, max_value)
             individual_genes.append(gene_value)
 
-        # Assuming the Individual class can be initialized with a list of genes
         individual = Individual(individual_genes, gene_value)
         individuals.append(individual)
+
     return Population(population=individuals)
 
 
@@ -48,7 +49,7 @@ def main():
     evoBuilder = EvolutionBuilder(Evolution)
     evoBuilder.set_population_size(10).set_maximize(False)
     evoBuilder.set_population_generator(
-        custom_population_generator, evoBuilder.population_size, 2, [(1, 20)]
+        custom_population_generator, evoBuilder.population_size, 3, [(1, 20)]
     )
     (
         evoBuilder.set_mutation(MUTATION)
