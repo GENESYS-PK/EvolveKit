@@ -25,15 +25,15 @@ class MultiParentFeatureWiseCrossover(Crossover):
 
     def __init__(
             self,
-            how_many_individuals: int,  # count of the created offspring and the number of parents to use in the crossover, cant be more than the population size
+            how_many_individuals: int,  # count of the created offspring and the number of parents to use in the crossover, can't be more than the population size
             probability: float = 0,
             alfa: float = 0.2  # parameter passed down internally to the BlendCrossoverAlfa, used by this crossover
     ):
         if how_many_individuals < 2:
-            raise ValueError("The how_many_individuals parameter must be greater than 2 or equal (and not larger than the population size passed to the corss method).")
+            raise ValueError("The how_many_individuals parameter must be greater than 2 or equal (and not larger than the population size passed to the cross method).")
 
         super().__init__(how_many_individuals, probability)
-        self.alfa = alfa
+        self.alfa: float = alfa
 
     def _cross(self, population_parent: Population) -> Population:
         """
