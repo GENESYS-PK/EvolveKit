@@ -7,7 +7,20 @@ from core.operators import Crossover
 
 
 class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
-    """ """
+    """
+    A class that implements Non-convex Linear Combination of Multiple Parents Crossover (Algorytmy genetyczne: kompendium. T. 1 p.243)
+
+    :param how_many_individuals: Number of offspring to generate.
+    :type how_many_individuals: int
+    :param probability: Probability of applying the crossover.
+    :type probability: float
+    :param q: Number of parents to combine in the crossover (default: 8).
+    :type q: int
+    :param l: Lower bound for randomly generated weights (default: -0.3).
+    :type l: float
+    :param r: Upper bound for randomly generated weights (default: 1.3).
+    :type r: float
+    """
 
     allowed_representation = [Representation.REAL]
 
@@ -26,14 +39,32 @@ class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
         self.r = r
 
     def _cross(self, population_parent: Population) -> Population:
-        """ """
+        """
+        Produces a single offspring using a non-convex linear combination
+        of `q` randomly selected parents.
 
-        chosen_parents = np.random.choice(population_parent, size=self.q, replace=False)
+        Steps:
+        1. Randomly selects `q` parents.
+        2. Generates `q` random weights in the range [l, r] and normalizes them.
+        3. Computes a weighted sum of the selected parents' chromosomes.
+
+        :param population_parent: Population of parents.
+        :type population_parent: Population
+        :return: A new individual created as a weighted combination of parents.
+        :rtype: Individual
+        """
+        if len(population_parent.population) < self.q:
+            raise ValueError("Population must have at least 'q' individuals.")
+        indices = np.random.choice(
+            len(population_parent.population), size=self.q, replace=False
+        )
+        chosen_parents = [population_parent.population[i] for i in indices]
         elements = np.random.uniform(self.l, self.r, self.q)
         sum_elements = np.sum(elements)
-        elements = elements / sum_elements
-        chromosome_size = len(chosen_parents[0].chromosome)
-        child_chromosome = np.zeros(chromosome_size)
-        for parent, beta in zip(chosen_parents, elements):
-            child_chromosome += parent.chromosome * beta
+        if sum_elements == 0:
+            raise ValueError("Sum of random weights is zero. Adjust l and r.")
+        elements /= np.sum(elements)
+        parent_chromosomes = np.array([parent.chromosome for parent in chosen_parents])
+        weighted_chromosomes = parent_chromosomes.T * elements
+        child_chromosome = np.sum(weighted_chromosomes, axis=1)
         return Individual(chromosome=child_chromosome)
