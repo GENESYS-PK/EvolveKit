@@ -32,6 +32,13 @@ class AdaptiveProbabilityOfGeneCrossover(Crossover):
 
     def _cross(self, population_parent: Population) -> Population:
         """
+        Steps:
+        1. Randomly select two parents from the population.
+        2. Calculate the fitness of both parents.
+        3. Compute the probability of selecting genes from the first parent based on fitness.
+        4. For each gene, randomly choose it from either parent based on the calculated probability.
+        5. Create the offspring with the selected genes.
+
         :param population_parent: The population to perform the crossover operation on.
         :returns: The offspring.
         """
