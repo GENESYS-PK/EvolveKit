@@ -1,6 +1,4 @@
 import numpy as np
-import math
-
 from core.operators import Crossover
 from core.Individual import Individual
 from core.Population import Population
