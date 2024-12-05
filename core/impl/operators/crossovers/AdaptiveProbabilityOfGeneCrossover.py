@@ -39,7 +39,9 @@ class AdaptiveProbabilityOfGeneCrossover(Crossover):
         """
         if len(population_parent) < 2:
             raise ValueError("Population must contain at least two parents")
-        x_parent, y_parent = np.random.choice(population_parent, size=2, replace=False)
+        x_parent, y_parent = np.random.choice(
+            population_parent.population, size=2, replace=False
+        )
         fitness_x = self.fitness_function.fitness_function(x_parent.chromosome)
         fitness_y = self.fitness_function.fitness_function(y_parent.chromosome)
         if fitness_x + fitness_y == 0:
