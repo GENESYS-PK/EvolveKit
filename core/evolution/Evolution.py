@@ -1,3 +1,4 @@
+from core.expression.JobManager import JobManager
 from core.operators.Mutation import Mutation
 from core.operators.Selection import Selection
 from core.operators.Crossover import Crossover
@@ -21,7 +22,7 @@ class Evolution:
         crossover: Crossover = None,
         elitism: Elitism = None,
         fitness_function: FitnessFunction = None,
-        job_queue: List[Job] = None,
+        job_queue: JobManager = None,
         init_population: Population = None,
         population_size: int = None,
         terminator: Expression = None,
@@ -33,7 +34,7 @@ class Evolution:
         self.crossover = crossover
         self.elitism = elitism
         self.fitness_function = fitness_function
-        self.job_queue = job_queue
+        self.job_queue = job_queue if job_queue is not None else JobManager()
         self.terminator = terminator
         self.evolution_state = EvolutionState([], [], [], False, 0)
         self.terminate_loop: bool = False
@@ -82,6 +83,7 @@ class Evolution:
         self.step_mutation()
         self.fitness_function.eval_population(self.evolution_state.current_population)
         self.evolution_state.update_evolution_state()
+        self.job_queue.evaluate_jobs(self)
 
     def get_evolution_state(self) -> EvolutionState:
         return self.evolution_state
