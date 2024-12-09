@@ -16,3 +16,5 @@ class JobManager:
         for job in self.jobs:
             if job.evaluate(evolution):
                 job.handle(evolution)
+                self.remove_job(job)
+                break
