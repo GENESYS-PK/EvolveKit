@@ -42,19 +42,18 @@ class AdaptiveProbabilityOfGeneCrossover(Crossover):
         :param population_parent: The population to perform the crossover operation on.
         :returns: The offspring.
         """
-        if len(population_parent) < 2:
-            raise ValueError("Population must contain at least two parents")
-        x_parent, y_parent = np.random.choice(
-            population_parent.population, size=2, replace=False
-        )
-        fitness_x = self.fitness_function.fitness_function(x_parent.chromosome)
-        fitness_y = self.fitness_function.fitness_function(y_parent.chromosome)
-        if fitness_x + fitness_y == 0:
-            raise ValueError("Sum of fitness values cannot be zero")
+        fitness_x, fitness_y = 0
+        while fitness_x + fitness_y == 0:
+            x_parent, y_parent = np.random.choice(
+                population_parent.population, size=2, replace=False
+            )
+            fitness_x = self.fitness_function.fitness_function(x_parent.chromosome)
+            fitness_y = self.fitness_function.fitness_function(y_parent.chromosome)
+
         probability_of_x = fitness_y / (fitness_x + fitness_y)
         random_values = np.random.rand(len(x_parent.chromosome))
         offspring_chromosome = np.where(
             random_values <= probability_of_x, x_parent.chromosome, y_parent.chromosome
         )
-
-        return Individual(chromosome=offspring_chromosome)
+        offspring = Individual(chromosome=offspring_chromosome)
+        return Population(population=[offspring])

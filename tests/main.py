@@ -33,7 +33,9 @@ def custom_population_generator(
         individual_genes = []
 
         for i in range(individual_size):
-            domain = variable_domains[i % len(variable_domains)]  # Repeat the domains if needed
+            domain = variable_domains[
+                i % len(variable_domains)
+            ]  # Repeat the domains if needed
             min_value, max_value = domain
 
             gene_value = np.random.uniform(min_value, max_value)
