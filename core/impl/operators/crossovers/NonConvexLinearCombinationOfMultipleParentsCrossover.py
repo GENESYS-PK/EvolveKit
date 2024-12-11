@@ -4,6 +4,7 @@ from core.Population import Population
 from core.Representation import Representation
 from core import Individual, Population
 from core.operators import Crossover
+from core.fitness_function import FitnessFunction
 
 
 class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
@@ -12,6 +13,8 @@ class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
 
     :param how_many_individuals: Number of offspring to generate.
     :type how_many_individuals: int
+    :param fitness_function: The fitness function used to evaluate individuals.
+    :type fitness_function: FitnessFunction
     :param probability: Probability of applying the crossover.
     :type probability: float
     :param q: Number of parents to combine in the crossover (default: 8).
@@ -27,6 +30,7 @@ class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
     def __init__(
         self,
         how_many_individuals: int,
+        fitness_function: FitnessFunction,
         probability: float = 0,
         q: int = 8,
         l: float = -0.3,
@@ -37,6 +41,7 @@ class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
         self.q = q
         self.l = l
         self.r = r
+        self.variable_domains = fitness_function.variable_domains
 
     def _cross(self, population_parent: Population) -> Population:
         """
@@ -53,18 +58,26 @@ class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
         :return: A new individual created as a weighted combination of parents.
         :rtype: Individual
         """
-        if len(population_parent.population) < self.q:
-            raise ValueError("Population must have at least 'q' individuals.")
-        indices = np.random.choice(
-            len(population_parent.population), size=self.q, replace=False
-        )
-        chosen_parents = [population_parent.population[i] for i in indices]
-        elements = np.random.uniform(self.l, self.r, self.q)
-        sum_elements = np.sum(elements)
-        if sum_elements == 0:
-            raise ValueError("Sum of random weights is zero. Adjust l and r.")
-        elements /= np.sum(elements)
-        parent_chromosomes = np.array([parent.chromosome for parent in chosen_parents])
-        weighted_chromosomes = parent_chromosomes.T * elements
-        child_chromosome = np.sum(weighted_chromosomes, axis=1)
-        return Individual(chromosome=child_chromosome)
+        [(low, high)] = self.variable_domains
+        while True:
+            # if len(population_parent.population) < self.q:
+            #    raise ValueError("Population must have at least 'q' individuals.")
+            indices = np.random.choice(
+                len(population_parent.population), size=self.q, replace=False
+            )
+            chosen_parents = [population_parent.population[i] for i in indices]
+
+            while True:
+                elements = np.random.uniform(self.l, self.r, self.q)
+                sum_elements = np.sum(elements)
+                if sum_elements != 0:
+                    break
+            elements /= sum_elements
+            parent_chromosomes = np.array(
+                [parent.chromosome for parent in chosen_parents]
+            )
+            weighted_chromosomes = parent_chromosomes.T * elements
+            child_chromosome = np.sum(weighted_chromosomes, axis=1)
+            if np.all((child_chromosome >= low) & (child_chromosome <= high)):
+                break
+        return Population(population=[Individual(chromosome=child_chromosome)])
