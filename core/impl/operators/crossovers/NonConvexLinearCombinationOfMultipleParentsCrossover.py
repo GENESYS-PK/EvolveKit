@@ -58,7 +58,6 @@ class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
         :return: A new individual created as a weighted combination of parents.
         :rtype: Individual
         """
-        [(low, high)] = self.variable_domains
         while True:
             # if len(population_parent.population) < self.q:
             #    raise ValueError("Population must have at least 'q' individuals.")
@@ -78,6 +77,10 @@ class NonConvexLinearCombinationOfMultipleParentsCrossover(Crossover):
             )
             weighted_chromosomes = parent_chromosomes.T * elements
             child_chromosome = np.sum(weighted_chromosomes, axis=1)
-            if np.all((child_chromosome >= low) & (child_chromosome <= high)):
+            low_bounds = np.array([low for low, _ in self.variable_domains])
+            high_bounds = np.array([high for _, high in self.variable_domains])
+            if np.all(
+                (child_chromosome >= low_bounds) & (child_chromosome <= high_bounds)
+            ):
                 break
         return Population(population=[Individual(chromosome=child_chromosome)])
