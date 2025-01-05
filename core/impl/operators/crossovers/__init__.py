@@ -14,10 +14,13 @@ from .GeometricalCrossover2 import GeometricalCrossover2
 from .GeometricalCrossover3 import GeometricalCrossover3
 from .MessyAverageCrossover import MessyAverageCrossover
 from .MultipleCrossoverPerCouple import MultipleCrossoverPerCouple
+from .LinearCrossover import LinearCrossover
+from .LinearBGACrossover import LinearBGACrossover
 from .OnePointAverageCrossover import OnePointAverageCrossover
 from .PositionCrossover import PositionCrossover
 from .SeedCrossover import SeedCrossover
 from .SetOrientedCrossover import SetOrientedCrossover
+from .SimulatedBinaryCrossover import SimulatedBinaryCrossover
 from .SingleGenCrossover import SingleGenCrossover
 
 __all__ = [
@@ -33,6 +36,8 @@ __all__ = [
     "GeometricalCrossover1",
     "GeometricalCrossover2",
     "GeometricalCrossover3",
+    "LinearCrossover",
+    "LinearBGACrossover",
     "MessyAverageCrossover",
     "MultipleCrossoverPerCouple",
     "OnePointAverageCrossover",
@@ -40,4 +45,5 @@ __all__ = [
     "SeedCrossover",
     "SetOrientedCrossover",
     "SingleGenCrossover",
+    "SimulatedBinaryCrossover"
 ]
