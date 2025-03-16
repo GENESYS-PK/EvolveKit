@@ -30,6 +30,10 @@ class Crossover(ABC):
         while offspring.population_size < population_parent.population_size:
             if np.random.rand() < self.probability:
                 offspring.add_to_population(self._cross(population_parent))
+            else:
+                random_parents = np.random.choice(population_parent.population_size, 2, replace=False)
+                offspring.add_to_population(Population(population=[population_parent.population[random_parents[0]],
+                                                                   population_parent.population[random_parents[1]]]))
 
         offspring.trim_children(self.how_many_individuals)
         return offspring
