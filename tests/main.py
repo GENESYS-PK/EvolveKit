@@ -1,6 +1,5 @@
 from core.evolution import EvolutionBuilder
 from core.evolution import Evolution
-from Options import MUTATION, CROSSOVER
 from core.impl.operators.selections import TournamentSelection
 from core.fitness_function import FitnessFunction
 from core.impl.clamps import SimpleClampStrategy
@@ -9,7 +8,15 @@ from core import Representation
 from core import Population
 from core import Individual
 from typing import List, Tuple
+from core.impl.operators.crossovers import (
+    BlendCrossoverAlfaBeta,
+    AdaptiveProbabilityOfGeneCrossover,
+)
+from core.impl.operators.mutations import ModifiedUniformMutation, DebGoyalMutation
+from core.fitness_function import FitnessFunction
 
+MUTATION = DebGoyalMutation(3, 0.6)
+CROSSOVER = BlendCrossoverAlfaBeta(10, 0.5)
 
 def sample_fitness_function(chromosome: np.ndarray) -> float:
     return np.sum(chromosome)

@@ -1,5 +1,4 @@
 import numpy as np
-from contourpy.types import offset_dtype
 
 from core import Population, Individual
 from core.operators import Crossover
