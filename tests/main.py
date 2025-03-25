@@ -63,7 +63,7 @@ def main():
     (
         evoBuilder.set_mutation(MUTATION)
         .set_crossover(CROSSOVER)
-        .set_selection(TournamentSelection(100, False))
+        .set_selection(TournamentSelection(100, False, 2))
     )
     evoBuilder.set_max_epoch(20)
     ff = FitnessFunction(

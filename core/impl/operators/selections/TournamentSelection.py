@@ -30,24 +30,26 @@ class TournamentSelection(Selection):
         :returns: Nowa populacja po selekcji.
         """
         selected_individuals = []
+        pop_size = population.population_size
 
         while len(selected_individuals) < self.target_population:
-            # Losowy wybór osobników do turnieju
-            pop_size = population.population_size
-            index_1 = np.random.randint(0, pop_size)
-            index_2 = np.random.randint(0, pop_size)
-            tournament = [
-                population.population[index_1],
-                population.population[index_2],
-            ]
+            bestValue = float('-inf') if self.maximize else float('inf')
+            bestIdx = 0
 
-            # Wyłonienie najlepszego osobnika w turnieju
-            if self.maximize:
-                best_individual = max(tournament, key=lambda ind: ind.value)
-            else:
-                best_individual = min(tournament, key=lambda ind: ind.value)
+            for _ in range(self.tournament_size):
+                idx = np.random.randint(0, pop_size)
+                value = population.population[idx].value
 
-            selected_individuals.append(best_individual)
+                if self.maximize:
+                    if value > bestValue:
+                        bestValue = value
+                        bestIdx = idx
+                else:
+                    if value < bestValue:
+                        bestValue = value
+                        bestIdx = idx
+
+            selected_individuals.append(population.population[bestIdx])
 
         # Utworzenie nowej populacji z wybranych osobników
         return Population(population=selected_individuals)
