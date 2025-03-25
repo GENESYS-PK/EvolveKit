@@ -27,7 +27,7 @@ class Crossover(ABC):
         """
         offspring = Population()
 
-        while offspring.population_size < population_parent.population_size:
+        while offspring.population_size < self.how_many_individuals:
             if np.random.rand() < self.probability:
                 offspring.add_to_population(self._cross(population_parent))
             else:
