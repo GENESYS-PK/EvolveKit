@@ -1,6 +1,6 @@
 from core.evolution import EvolutionBuilder
 from core.evolution import Evolution
-from core.impl.operators.selections import TournamentSelection
+from core.impl.operators.selections import StochasticAcceptanceRoulette
 from core.fitness_function import FitnessFunction
 from core.impl.clamps import SimpleClampStrategy
 import numpy as np
@@ -63,7 +63,7 @@ def main():
     (
         evoBuilder.set_mutation(MUTATION)
         .set_crossover(CROSSOVER)
-        .set_selection(TournamentSelection(100, False, 2))
+        .set_selection(StochasticAcceptanceRoulette(100, False))
     )
     evoBuilder.set_max_epoch(20)
     ff = FitnessFunction(
