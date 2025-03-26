@@ -4,7 +4,10 @@ from core.operators import Selection
 
 class TruncationSelection(Selection):
     """
-    Truncation Selection selects subset of best individuals.
+    Implements truncation selection.
+
+    :param target_population: The number of individuals to select.
+    :param maximize: Set "true" if higher scores from fitness function are better.
     """
 
     allowed_representation = [
