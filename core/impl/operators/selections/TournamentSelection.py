@@ -5,16 +5,17 @@ from core.operators import Selection
 
 class TournamentSelection(Selection):
     """
-    Selekcja turniejowa, która wybiera osobniki poprzez losowe grupowanie ich w turnieje i wybieranie najlepszego
-    osobnika w każdym turnieju.
+    Implements tournament selection.
 
-    :param tournament_size: Rozmiar turnieju (liczba osobników w jednym turnieju).
+    :param target_population: The number of individuals to select.
+    :param maximize: Set "true" if higher scores from fitness function are better.
+    :param tournament_size: The number of individuals that compete in each tournament.
     """
 
     allowed_representation = [
         "real",
         "binary",
-    ]  # Przykładowo może działać z różnymi reprezentacjami
+    ]
 
     def __init__(
         self, target_population: int, maximize: bool, tournament_size: int = 3
@@ -23,12 +24,6 @@ class TournamentSelection(Selection):
         self.tournament_size = tournament_size
 
     def _select(self, population: Population) -> Population:
-        """
-        Przeprowadza selekcję turniejową na populacji.
-
-        :param population: Populacja, na której wykonywana jest selekcja.
-        :returns: Nowa populacja po selekcji.
-        """
         selected_individuals = []
         pop_size = population.population_size
 
@@ -51,5 +46,4 @@ class TournamentSelection(Selection):
 
             selected_individuals.append(population.population[bestIdx])
 
-        # Utworzenie nowej populacji z wybranych osobników
         return Population(population=selected_individuals)

@@ -7,6 +7,10 @@ class StochasticAcceptanceRoulette(Selection):
     Stochastic acceptance roulette-wheel selection with windowing.
     For more details about stochastic acceptance roulette-wheel see: https://arxiv.org/abs/1109.3627
     For more details about windowing see: https://doc.lagout.org/science/0_Computer%20Science/2_Algorithms/Practical%20Handbook%20of%20GENETIC%20ALGORITHMS%2C%20Volume%20II/ganf3.pdf
+
+    :param target_population: The number of individuals to select.
+    :param maximize: Set "true" if higher scores from fitness function are better.
+    :param offset: Adds constant value to each individual's score. Higher offset means lower selection pressure. Offset should be non-negative.
     """
 
     allowed_representation = [
