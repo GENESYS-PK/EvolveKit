@@ -1,3 +1,4 @@
+from .AdaptiveProbabilityOfGeneCrossover import AdaptiveProbabilityOfGeneCrossover
 from .BestxBestCrossover import BestBestCrossover
 from .BlendCrossoverAlfa import BlendCrossoverAlfa
 from .BlendCrossoverAlfeBeta import BlendCrossoverAlfaBeta
@@ -24,6 +25,7 @@ from .SimulatedBinaryCrossover import SimulatedBinaryCrossover
 from .SingleGenCrossover import SingleGenCrossover
 
 __all__ = [
+    "AdaptiveProbabilityOfGeneCrossover",
     "BestBestCrossover",
     "BlendCrossoverAlfa",
     "BlendCrossoverAlfaBeta",

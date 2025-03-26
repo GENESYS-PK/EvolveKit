@@ -65,9 +65,12 @@ class Evolution:
         self.prepare_evolution_state()
         while not self.terminate_loop:
             self.loop()
-            print(
-                f"Snapshot: Generation {self.evolution_state.current_epoch}, Population: {self.evolution_state.current_population}"
-            )
+
+            print(f" --- Generation {self.evolution_state.current_epoch} ---")
+            for indiv in self.evolution_state.current_population.population:
+                print(f"{indiv.chromosome} -> {indiv.value}")
+            print()
+
             if self.terminator.evaluate(self.evolution_state.current_epoch):
                 break
 
