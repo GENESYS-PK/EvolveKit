@@ -3,7 +3,7 @@ from core import Individual, Population, Representation
 from core.operators import Crossover
 from core.fitness_function.FitnessFunction import FitnessFunction
 
-class FeuristicCrossover2(Crossover):
+class HeuristicCrossover2(Crossover):
     """
     Implements Heuristic Crossover 2 for minimization problems (Algorytmy genetyczne. Kompendium, t. 1, str. 194-195).
 
