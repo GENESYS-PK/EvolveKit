@@ -2,7 +2,7 @@ import numpy as np
 from core import Population
 from core.operators import Selection
 
-class StochasticAcceptanceRoulette(Selection):
+class SaRouletteWindow(Selection):
     """
     Stochastic acceptance roulette-wheel selection with windowing.
     For more details about stochastic acceptance roulette-wheel see: https://arxiv.org/abs/1109.3627
