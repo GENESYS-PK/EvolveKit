@@ -27,7 +27,7 @@ clamp_strategy = SimpleClampStrategy()
 ff = FitnessFunction(Rosenbrock, domain, len(domain), clamp_strategy)
 
 selection = TournamentSelection(select_size, maximize, 3)
-crossover = LinearCrossover(population_size, ff, 0.9, maximize)
+crossover = BlendCrossoverAlfa(population_size, 0.9, 0.3)
 mutation = UniformMutation(np.array([-5, 5]), 0.2) # TODO: pass "domain"
 # ------------------------------------------------------------
 
