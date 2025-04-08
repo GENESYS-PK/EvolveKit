@@ -18,7 +18,7 @@ def Rosenbrock(x: np.ndarray) -> float:
 # Minimum for Rosenbrock function is 0 at all arguments equal to 1
 
 population_size = 40
-select_size = 20
+select_size = population_size
 generations = 20
 domain = np.array([(-5, 5), (-5, 5), (-5, 5)])
 maximize = False
@@ -26,7 +26,7 @@ maximize = False
 clamp_strategy = SimpleClampStrategy()
 ff = FitnessFunction(Rosenbrock, domain, len(domain), clamp_strategy)
 
-selection = TournamentSelection(select_size, maximize, 3)
+selection = UnbiasedTournament(select_size, maximize)
 crossover = BlendCrossoverAlfa(population_size, 0.9, 0.3)
 mutation = UniformMutation(np.array([-5, 5]), 0.2) # TODO: pass "domain"
 # ------------------------------------------------------------
