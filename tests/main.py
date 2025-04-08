@@ -1,26 +1,35 @@
+import numpy as np
 from core.evolution import EvolutionBuilder
 from core.evolution import Evolution
-from core.impl.operators.selections import TruncationSelection
 from core.fitness_function import FitnessFunction
 from core.impl.clamps import SimpleClampStrategy
-import numpy as np
 from core import Representation
 from core import Population
 from core import Individual
 from typing import List, Tuple
-from core.impl.operators.crossovers import (
-    BlendCrossoverAlfaBeta,
-    AdaptiveProbabilityOfGeneCrossover,
-)
-from core.impl.operators.mutations import ModifiedUniformMutation, DebGoyalMutation
-from core.fitness_function import FitnessFunction
+from core.impl.operators.selections import *
+from core.impl.operators.crossovers import *
+from core.impl.operators.mutations import *
 
-MUTATION = DebGoyalMutation(3, 0.6)
-CROSSOVER = BlendCrossoverAlfaBeta(10, 0.5)
+# -------------------------- CONFIG --------------------------
+def Rosenbrock(x: np.ndarray) -> float:
+    return sum(100.0 * (x[i+1] - x[i]**2)**2 + (1 - x[i])**2 for i in range(len(x) - 1))
 
-def sample_fitness_function(chromosome: np.ndarray) -> float:
-    return np.sum(chromosome)
+# Minimum for Rosenbrock function is 0 at all arguments equal to 1
 
+population_size = 40
+select_size = population_size
+generations = 20
+domain = np.array([(-5, 5), (-5, 5), (-5, 5)])
+maximize = False
+
+clamp_strategy = SimpleClampStrategy()
+ff = FitnessFunction(Rosenbrock, domain, len(domain), clamp_strategy)
+
+selection = UnbiasedTournament(select_size, maximize)
+crossover = BlendCrossoverAlfa(population_size, 0.9, 0.3)
+mutation = UniformMutation(np.array([-5, 5]), 0.2) # TODO: pass "domain"
+# ------------------------------------------------------------
 
 def custom_population_generator(
     population_size: int, individual_size: int, variable_domains: List[Tuple[int, int]]
@@ -53,26 +62,18 @@ def custom_population_generator(
 
     return Population(population=individuals)
 
-
 def main():
     evoBuilder = EvolutionBuilder(Evolution)
-    evoBuilder.set_population_size(10).set_maximize(False)
-    evoBuilder.set_population_generator(
-        custom_population_generator, evoBuilder.population_size, 3, [(1, 20)]
-    )
-    (
-        evoBuilder.set_mutation(MUTATION)
-        .set_crossover(CROSSOVER)
-        .set_selection(TruncationSelection(6, False))
-    )
-    evoBuilder.set_max_epoch(20)
-    ff = FitnessFunction(
-        sample_fitness_function, [(-10, 10)], 10, SimpleClampStrategy()
-    )
+    evoBuilder.set_population_size(population_size).set_maximize(maximize)
+    evoBuilder.set_selection(selection)
+    evoBuilder.set_crossover(crossover)
+    evoBuilder.set_mutation(mutation)
+    evoBuilder.set_max_epoch(generations)
     evoBuilder.set_fitness_function(ff)
-    evoBuilder.set_representation(Representation(2))
-    evoBuilder.create_evolution().run()
-
+    evoBuilder.set_population_generator(custom_population_generator, population_size, len(domain), domain)
+    evoBuilder.set_representation(Representation.REAL)
+    evolution = evoBuilder.create_evolution()
+    evolution.run()
 
 if __name__ == "__main__":
     main()

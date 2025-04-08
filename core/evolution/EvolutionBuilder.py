@@ -13,6 +13,7 @@ from core.operators import Elitism
 from core.fitness_function import ClampStrategy
 from core.impl.conditions import EpochCondition
 from core.expression import Expression
+from core.expression import JobManager
 
 
 class EvolutionBuilder:
@@ -307,6 +308,8 @@ class EvolutionBuilder:
             self.population_size, self.individual_size, self.variable_domains
         )
 
+        job_manager = JobManager.JobManager(self.jobs)
+
         # Create the evolution instance
         evolution = self.evolution_reference(
             mutation=self.mutation,
@@ -314,7 +317,7 @@ class EvolutionBuilder:
             crossover=self.crossover,
             elitism=self.elitism,
             fitness_function=self.fitness_function,
-            job_queue=self.jobs,
+            job_queue=job_manager,
             init_population=init_population,
             population_size=self.population_size,
             terminator=self.terminator,
