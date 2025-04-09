@@ -6,7 +6,7 @@ from core.operators import Crossover
 from core.Representation import Representation
 
 
-class EGAXMultiUniformCrossover(Crossover):
+class ExtendedGACrossover(Crossover):
     """
     Operator krzyżowania wieloosobniczego równomiernego zgodny z metodą EGAX.
     
@@ -23,6 +23,7 @@ class EGAXMultiUniformCrossover(Crossover):
     def _cross(self, population_parent: Population) -> Population:
         parents = population_parent.population
 
+        #zakładam że znacznik alfa to ostatni gen w chromosomie by ułatwić, możemy przegadać jak to inaczej zrobić.
         groups = defaultdict(list)
         for individual in parents:
             marker = individual.chromosome[-1]
@@ -33,17 +34,19 @@ class EGAXMultiUniformCrossover(Crossover):
         for group in groups.values():
             group_size = len(group)
             if group_size < 2:
-                continue  
+                continue  # aby nie krzyżować 1-osobowych grupek
 
-            for _ in range(group_size):
-                new_chromosome = []
-                num_genes = len(group[0].chromosome)
-                for gene_idx in range(num_genes):
-                    gene_values = [ind.chromosome[gene_idx] for ind in group]
-                    selected_value = np.random.choice(gene_values)
-                    new_chromosome.append(selected_value)
+        # zrobilem tutaj swoje krzyzowanie bo nikt nie zaimplementował u nas tego
 
-                child = Individual(chromosome=np.array(new_chromosome, dtype=float), value=0)
+            chromosomes = [ind.chromosome for ind in group]
+            num_genes = len(chromosomes[0])
+
+            for _ in range(len(group)):
+                child_genes = [
+                    np.random.choice([chrom[gene_idx] for chrom in chromosomes])
+                    for gene_idx in range(num_genes)
+                ]
+                child = Individual(chromosome=np.array(child_genes, dtype=float), value=0)
                 offspring.append(child)
 
         return Population(population=offspring)
