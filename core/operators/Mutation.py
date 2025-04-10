@@ -41,7 +41,7 @@ class Mutation(ABC):
         """
         pass
 
-    def _init_mutation_round(self, population_parent: Population) -> None:
+    def _init_mutation_round(self, evolution_state: EvolutionState) -> None:
         """
         Sets up mutation class for the current mutation round.
         This method is called before the mutation process begins.
