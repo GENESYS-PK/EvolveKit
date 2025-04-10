@@ -2,6 +2,7 @@ import numpy as np
 from abc import ABC, abstractmethod
 from core.Population import Population
 from core.Individual import Individual
+from core.evolution import EvolutionState
 
 
 class Mutation(ABC):
