@@ -104,6 +104,7 @@ class Evolution:
         )
 
     def perform_mutation(self) -> None:
+        self.mutation._init_mutation_round(self.evolution_state)
         self.evolution_state.current_population = self.mutation.mutate(
             self.evolution_state.current_population
         )
