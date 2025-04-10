@@ -40,3 +40,14 @@ class Mutation(ABC):
         :returns: None
         """
         pass
+
+    def _init_mutation_round(self, population_parent: Population) -> None:
+        """
+        Sets up mutation class for the current mutation round.
+        This method is called before the mutation process begins.
+        Only some mutations require this method to be implemented,
+        so if you don't know if you need it, you probably don't heave to implement it.
+
+        :returns: None
+        """
+        pass

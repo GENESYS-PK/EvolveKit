@@ -79,9 +79,9 @@ class Evolution:
         self.fitness_function.eval_population(self.evolution_state.current_population)
         self.step_selection()
         self.step_crossover()
-        self.fitness_function.eval_population(self.evolution_state.current_population)
+        self.fitness_function.eval_population(self.evolution_state.new_population)
         self.step_mutation()
-        self.fitness_function.eval_population(self.evolution_state.current_population)
+        self.fitness_function.eval_population(self.evolution_state.new_population)
         self.evolution_state.update_evolution_state()
         self.job_queue.evaluate_jobs(self)
 
@@ -94,18 +94,19 @@ class Evolution:
         self.evolution_state.population_size = self.population_size
 
     def perform_crossover(self) -> None:
-        self.evolution_state.current_population = self.crossover.cross(
-            self.evolution_state.current_population
+        self.evolution_state.new_population = self.crossover.cross(
+            self.evolution_state.selected_population
         )
 
     def perform_selection(self) -> None:
-        self.evolution_state.current_population = self.selection.select(
+        self.evolution_state.selected_population = self.selection.select(
             self.evolution_state.current_population
         )
 
     def perform_mutation(self) -> None:
-        self.evolution_state.current_population = self.mutation.mutate(
-            self.evolution_state.current_population
+        self.mutation._init_mutation_round(self.evolution_state)
+        self.evolution_state.new_population = self.mutation.mutate(
+            self.evolution_state.new_population
         )
 
     def step_selection(self) -> None:
