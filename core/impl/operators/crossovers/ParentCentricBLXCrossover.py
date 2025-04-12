@@ -15,7 +15,7 @@ class ParentCentricBLXCrossover(Crossover):
     Takes 2 parents and creates 1 child.
 
     :param how_many_individuals: The number of individuals to create in the offspring.
-    :param interval: The interval for the crossover operation. [[lower, upper], [lower, upper]].
+    :param interval: The interval (for every variable) for the crossover operation. [(lower, upper), (lower, upper)].
     :param probability: The probability of performing the crossover operation.
     :param alfa: The alpha parameter for the crossover operation.
     :raises ValueError: If population size is less than 2 or k parameter is wrong.
