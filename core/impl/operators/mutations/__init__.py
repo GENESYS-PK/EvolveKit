@@ -8,6 +8,7 @@ from .SphereMutation import SphereMutation
 from .TimeVariantMutation import TimeVariantMutation
 from .UniformMutation import UniformMutation
 from .SelectionFollowerMutation import SelectionFollowerMutation
+from .NonlinearMutation1 import NonlinearMutation1
 
 __all__ = [
     "SphereMutation",
@@ -21,4 +22,5 @@ __all__ = [
     "TimeVariantMutation",
     "UniformMutation",
     "SelectionFollowerMutation",
+    "NonlinearMutation1"
 ]
