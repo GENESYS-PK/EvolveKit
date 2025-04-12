@@ -10,6 +10,7 @@ from core.Representation import Representation
 class SphereCrossover1(Crossover):
     """
     A class that implements Sphere Crossover version 1 (Algorytmy genetyczne: kompendium. T. 1 strona 228)
+    Takes 2 parents and creates 1 child.
 
     :param how_many_individuals: The number of individuals to create in the offspring.
     :param probability: The probability of performing the crossover operation.
