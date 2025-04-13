@@ -8,10 +8,10 @@ from core.Representation import Representation
 
 class ExtendedGACrossover(Crossover):
     """
-    Operator krzyżowania wieloosobniczego równomiernego zgodny z metodą EGAX.
+    Multi-parent uniform crossover operator compatible with the EGAX method.
     
-    Chromosomy posiadają dodatkowy znacznik (np. ostatni gen) reprezentujący operator krzyżowania.
-    Rodzice są grupowani wg znacznika, a krzyżowanie zachodzi osobno w każdej grupie.
+    Chromosomes contain an additional marker (e.g., the last gene) representing the crossover operator.
+    Parents are grouped based on this marker, and crossover is performed separately within each group.
     
     allowed_representation: [Representation.REAL]
     """

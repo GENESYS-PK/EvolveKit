@@ -23,7 +23,8 @@ from .SeedCrossover import SeedCrossover
 from .SetOrientedCrossover import SetOrientedCrossover
 from .SimulatedBinaryCrossover import SimulatedBinaryCrossover
 from .SingleGenCrossover import SingleGenCrossover
-from .ArithmeticalCrossover import ArithmeticalCrossover
+from .ArithmeticalCrossover import ArithmeticalCrossover    
+from .ExtendedGACrossover import ExtendedGACrossover
 
 __all__ = [
     "AdaptiveProbabilityOfGeneCrossover",
@@ -49,5 +50,6 @@ __all__ = [
     "SetOrientedCrossover",
     "SingleGenCrossover",
     "SimulatedBinaryCrossover",
-    "ArithmeticalCrossover"
+    "ArithmeticalCrossover",
+    "ExtendedGACrossover"
 ]
