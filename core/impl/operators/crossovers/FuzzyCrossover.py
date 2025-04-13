@@ -4,7 +4,7 @@ from core import Individual, Population, Representation
 from core.operators import Crossover
 
 
-class FuzzyCrossover1(Crossover):
+class FuzzyCrossover(Crossover):
     """
     Implements Fuzzy Crossover using bimodal triangular distributions. (Algorytmy genetyczne. Kompendium, t. 1, str. 211-212).
 
@@ -34,13 +34,16 @@ class FuzzyCrossover1(Crossover):
             range_width = abs(yi - xi)
             d_scaled = self.d * range_width
 
-            domain_x = (xi - d_scaled, xi + d_scaled)
-            domain_y = (yi - d_scaled, yi + d_scaled)
-
-            if random.random() < 0.5:
-                alpha = np.random.triangular(domain_x[0], xi, domain_x[1])
+            if d_scaled == 0:
+                alpha = xi
             else:
-                alpha = np.random.triangular(domain_y[0], yi, domain_y[1])
+                domain_x = (xi - d_scaled, xi + d_scaled)
+                domain_y = (yi - d_scaled, yi + d_scaled)
+
+                if random.random() < 0.5:
+                    alpha = np.random.triangular(domain_x[0], xi, domain_x[1])
+                else:
+                    alpha = np.random.triangular(domain_y[0], yi, domain_y[1])
 
             offspring_genes.append(alpha)
 
