@@ -23,6 +23,7 @@ from .SeedCrossover import SeedCrossover
 from .SetOrientedCrossover import SetOrientedCrossover
 from .SimulatedBinaryCrossover import SimulatedBinaryCrossover
 from .SingleGenCrossover import SingleGenCrossover
+from .ArithmeticalCrossover import ArithmeticalCrossover
 
 __all__ = [
     "AdaptiveProbabilityOfGeneCrossover",
@@ -47,5 +48,6 @@ __all__ = [
     "SeedCrossover",
     "SetOrientedCrossover",
     "SingleGenCrossover",
-    "SimulatedBinaryCrossover"
+    "SimulatedBinaryCrossover",
+    "ArithmeticalCrossover"
 ]
