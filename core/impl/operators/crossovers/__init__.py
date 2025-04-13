@@ -14,6 +14,7 @@ from .GenePoolingCrossover4 import GenePoolingCrossover4
 from .GeometricalCrossover1 import GeometricalCrossover1
 from .GeometricalCrossover2 import GeometricalCrossover2
 from .GeometricalCrossover3 import GeometricalCrossover3
+from .HeuristicCrossover2 import HeuristicCrossover2
 from .MessyAverageCrossover import MessyAverageCrossover
 from .MultipleCrossoverPerCouple import MultipleCrossoverPerCouple
 from .LinearCrossover import LinearCrossover
@@ -44,6 +45,7 @@ __all__ = [
     "GeometricalCrossover1",
     "GeometricalCrossover2",
     "GeometricalCrossover3",
+    "HeuristicCrossover2",
     "LinearCrossover",
     "LinearBGACrossover",
     "MessyAverageCrossover",
