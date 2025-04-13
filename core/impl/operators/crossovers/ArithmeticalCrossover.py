@@ -2,7 +2,7 @@ import numpy as np
 from core import Individual, Population, Representation
 from core.operators import Crossover
 
-class TwoParentCrossover(Crossover):
+class ArithmeticalCrossover(Crossover):
     """
     Implements the arithmetical two-parent crossover algorithm.
 
@@ -24,22 +24,26 @@ class TwoParentCrossover(Crossover):
         """
 
         parent_1, parent_2 = np.random.choice(population_parent.population, 2)
-        
-        size = min(len(parent_1), len(parent_2))
+
+        chromosome_1 = parent_1.chromosome
+        chromosome_2 = parent_2.chromosome
+
+        size = min(len(chromosome_1), len(chromosome_2))
         offspring1, offspring2 = [], []
-        
-        alpha = np.random.uniform(0, 1)  
-        
+
+        alpha = np.random.uniform(0, 1)
+
         for i in range(size):
-            new_xi = alpha * parent_1[i] + (1 - alpha) * parent_2[i]
-            new_yi = alpha * parent_2[i] + (1 - alpha) * parent_1[i]
-            
+            new_xi = alpha * chromosome_1[i] + (1 - alpha) * chromosome_2[i]
+            new_yi = alpha * chromosome_2[i] + (1 - alpha) * chromosome_1[i]
+
             offspring1.append(new_xi)
             offspring2.append(new_yi)
-        
+
         return Population(
             population=[
                 Individual(chromosome=offspring1, value=0),
                 Individual(chromosome=offspring2, value=0),
             ]
         )
+
