@@ -8,6 +8,7 @@ from .ContinuousAdaptiveCultureModelCrossover import (
 )
 from .FitnessBasedParabolicCrossover import FitnessBasedParabolicCrossover
 from .FitnessGuidedCrossover import FitnessGuidedCrossover
+from .FuzzyCrossover import FuzzyCrossover
 from .GaussianCrossover import GaussCrossover
 from .GenePoolingCrossover4 import GenePoolingCrossover4
 from .GeometricalCrossover1 import GeometricalCrossover1
@@ -36,6 +37,7 @@ __all__ = [
     "ContinuousAdaptiveCultureModelCrossover",
     "FitnessBasedParabolicCrossover",
     "FitnessGuidedCrossover",
+    "FuzzyCrossover",
     "GaussCrossover",
     "GenePoolingCrossover4",
     "GeometricalCrossover1",
@@ -53,5 +55,5 @@ __all__ = [
     "SimulatedBinaryCrossover",
     "ArithmeticalCrossover",
     "ExtendedGACrossover",
-    "GuidedCrossover"
+    "GuidedCrossover",
 ]
