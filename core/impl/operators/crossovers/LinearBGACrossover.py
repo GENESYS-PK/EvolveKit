@@ -52,7 +52,7 @@ class LinearBGACrossover(Crossover):
                 parent_1_chromosome = parent_1.chromosome
                 parent_2_chromosome = parent_2.chromosome
 
-            if parent_1_chromosome - parent_2_chromosome != 0:
+            if not np.array_equal(parent_1_chromosome, parent_2_chromosome):
                 break
 
         if self.fitness_function.calculate_individual_value(parent_1) >= self.fitness_function.calculate_individual_value(parent_2):

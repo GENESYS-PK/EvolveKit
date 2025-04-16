@@ -14,10 +14,11 @@ class SimulatedBinaryCrossover(Crossover):
      Algorytmy Genetyczne kompedium tom I Operator krzyżowania dla problemów numerycznych. Tomasz Gwiazda pp. 209.
 
     :param how_many_individuals: The number of individuals to create in the offspring.
-    :param probability: The probability of performing the crossover operation.
     :param offspring_distance: Changes in the value of this parameter allow you to determine the distance of offsprings
                                from their parents. High values of the parameter increase the probability that the created
                                offspring will be close to the parents, while low values reduce this probability.
+    :param probability: The probability of performing the crossover operation.
+
     """
 
     allowed_representation = [Representation.REAL]
