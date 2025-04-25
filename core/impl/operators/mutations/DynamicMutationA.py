@@ -28,9 +28,6 @@ class DynamicMutationA(Mutation):
         chromosome = individual.chromosome.copy()
         n_genes = len(chromosome)
 
-        if np.random.uniform(0, 1) > self.probability:
-            return
-
         mutation_index = np.random.randint(0, n_genes)
 
         alpha = np.random.normal(0, 1)

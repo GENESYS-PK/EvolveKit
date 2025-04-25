@@ -21,9 +21,6 @@ class DynamicMutationC(Mutation):
         super().__init__(probability)
 
     def _mutate(self, individual: Individual, population: Population) -> None:
-        if np.random.uniform(0, 1) > self.probability:
-            return
-
         chromosome = individual.chromosome.copy()
         n = len(chromosome)
 
