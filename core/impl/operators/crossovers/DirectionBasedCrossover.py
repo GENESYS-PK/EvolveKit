@@ -32,16 +32,22 @@ class DirectionBasedCrossover(Crossover):
         if f_x < f_y:
             parent_1, parent_2 = parent_2, parent_1
 
-        size = min(len(parent_1), len(parent_2))
+        f_x = self.fitness_function.calculate_individual_value(parent_1)
+        f_y = self.fitness_function.calculate_individual_value(parent_2)
+
+        chromosome_1 = np.array(parent_1.chromosome)
+        chromosome_2 = np.array(parent_2.chromosome)
+
+        size = min(len(chromosome_1), len(chromosome_2))
         offspring_chromosome = []
 
         psd = (f_x - f_y) / f_x
         alpha = np.random.uniform(0, 1)
 
         for i in range(size):
-            new_xi = parent_2[i] + alpha * (parent_1[i] - parent_2[i]) * psd
+            new_xi = chromosome_2[i] + alpha * (chromosome_1[i] - chromosome_2[i]) * psd
             offspring_chromosome.append(new_xi)
 
-        offspring = Individual(chromosome=offspring_chromosome, value=0)
+        offspring = Individual(chromosome=np.array(offspring_chromosome), value=0)
 
         return Population(population=[offspring])
