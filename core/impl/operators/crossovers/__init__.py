@@ -15,6 +15,9 @@ from .GeometricalCrossover2 import GeometricalCrossover2
 from .GeometricalCrossover3 import GeometricalCrossover3
 from .MessyAverageCrossover import MessyAverageCrossover
 from .MultipleCrossoverPerCouple import MultipleCrossoverPerCouple
+from .NonConvexLinearCombinationOfMultipleParentsCrossover import (
+    NonConvexLinearCombinationOfMultipleParentsCrossover,
+)
 from .OnePointAverageCrossover import OnePointAverageCrossover
 from .PositionCrossover import PositionCrossover
 from .SeedCrossover import SeedCrossover
@@ -37,6 +40,7 @@ __all__ = [
     "GeometricalCrossover3",
     "MessyAverageCrossover",
     "MultipleCrossoverPerCouple",
+    "NonConvexLinearCombinationOfMultipleParentsCrossover",
     "OnePointAverageCrossover",
     "PositionCrossover",
     "SeedCrossover",
