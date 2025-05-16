@@ -1,12 +1,14 @@
 from .BoundaryMutation import BoundaryMutation
 from .BreederGAMutation import BreederGAMutation
 from .DebGoyalMutation import DebGoyalMutation
-from .DifferentialEvolutionMutation import DifferentialEvolutionMutation
 from .ModifiedUniformMutation import ModifiedUniformMutation
 from .NonUniformMutation import NonUniformMutation
 from .SphereMutation import SphereMutation
 from .TimeVariantMutation import TimeVariantMutation
 from .UniformMutation import UniformMutation
+from .SelectionFollowerMutation import SelectionFollowerMutation
+from .NonlinearMutation1 import NonlinearMutation1
+from .DFPMMutation import DFPMMutation
 
 __all__ = [
     "SphereMutation",
@@ -19,4 +21,7 @@ __all__ = [
     "SphereMutation",
     "TimeVariantMutation",
     "UniformMutation",
+    "SelectionFollowerMutation",
+    "NonlinearMutation1",
+    "DFPMMutation"
 ]
