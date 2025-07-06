@@ -1,8 +1,8 @@
-from enum import StrEnum
+from enum import Enum, auto
 
 
-class GaClampStrategy(StrEnum):
-    CLAMP = "CLAMP"
-    BOUNCE = "BOUNCE"
-    OVERFLOW = "OVERFLOW"
-    RANDOM = "RANDOM"
+class GaClampStrategy(Enum):
+    CLAMP = auto()
+    BOUNCE = auto()
+    OVERFLOW = auto()
+    RANDOM = auto()

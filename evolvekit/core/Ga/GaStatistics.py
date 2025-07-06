@@ -10,7 +10,7 @@ class GaStatistics:
     mean: float
     median: float
     stdev: float
-    best_individual: GaIndividual
-    worst_individual: GaIndividual
+    best_indiv: GaIndividual
+    worst_indiv: GaIndividual
     start_time: float
     last_time: float

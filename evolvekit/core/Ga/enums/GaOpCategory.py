@@ -1,9 +1,9 @@
-from enum import StrEnum
+from enum import Enum, auto
 
 
-class GaOpCategory(StrEnum):
-    SELECTION = "SELECTION"
-    REAL_CROSSOVER = "REAL_CROSSOVER"
-    REAL_MUTATION = "REAL_MUTATION"
-    BIN_CROSSOVER = "BIN_CROSSOVER"
-    BIN_MUTATION = "BIN_MUTATION"
+class GaOpCategory(Enum):
+    SELECTION = auto()
+    REAL_CROSSOVER = auto()
+    REAL_MUTATION = auto()
+    BIN_CROSSOVER = auto()
+    BIN_MUTATION = auto()

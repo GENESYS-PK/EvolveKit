@@ -29,7 +29,7 @@ class GaIsland(GaState):
     def __finish(self) -> GaResults:
         pass
 
-    def run(self):
+    def run(self) -> GaResults:
         pass
 
     def set_elite_count(self, count: int):

@@ -1,6 +1,6 @@
-from enum import StrEnum
+from enum import Enum, auto
 
 
-class GaExtremum(StrEnum):
-    MINIMUM = ("MINIMUM",)
-    MAXIMUM = "MAXIMUM"
+class GaExtremum(Enum):
+    MINIMUM = auto()
+    MAXIMUM = auto()

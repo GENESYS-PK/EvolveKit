@@ -11,9 +11,9 @@ class GaStatisticEngine(GaStatistics):
         self.mean = 0
         self.median = 0
         self.stdev = 0
-        self.best_individual = None
-        self.worst_individual = None
-        self.start_time = time.time()
+        self.best_indiv = None
+        self.worst_indiv = None
+        self.start_time = time.process_time()
         self.last_time = self.start_time
 
     def advance(self, state: GaState):

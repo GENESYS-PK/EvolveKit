@@ -5,14 +5,8 @@ from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaState import GaState
 from evolvekit.core.Ga.GaStatistics import GaStatistics
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
-
-CATEGORY_TO_POPULATION_FIELD = {
-    GaOpCategory.SELECTION: "current_population",
-    GaOpCategory.REAL_CROSSOVER: "selected_population",
-    GaOpCategory.REAL_MUTATION: "offspring_population",
-    GaOpCategory.BIN_CROSSOVER: "selected_population",
-    GaOpCategory.BIN_MUTATION: "offspring_population",
-}
+from copy import deepcopy
+from ._internal import CATEGORY_TO_POPULATION_FIELD
 
 
 class GaOperatorArgs:
@@ -27,5 +21,5 @@ class GaOperatorArgs:
         except KeyError:
             raise ValueError(f"Invalid category provided: {category}")
 
-        self.statistics = state.statistic_engine
+        self.statistics = deepcopy(state.statistic_engine)
         self.evaluator = state.evaluator

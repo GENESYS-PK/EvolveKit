@@ -1,6 +1,6 @@
-from enum import StrEnum
+from enum import Enum, auto
 
 
-class GaAction(StrEnum):
-    CONTINUE = "CONTINUE"
-    TERMINATE = "TERMINATE"
+class GaAction(Enum):
+    CONTINUE = auto()
+    TERMINATE = auto()

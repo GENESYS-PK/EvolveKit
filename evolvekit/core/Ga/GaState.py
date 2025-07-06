@@ -18,11 +18,5 @@ class GaState:
     mutation_prob: float
     max_generations: int
     seed: int
-
-    @property
-    def population_size(self) -> int:
-        return len(self.current_population)
-
-    @property
-    def elite_size(self) -> int:
-        return len(self.elite_population)
+    population_size: int
+    elite_size: int
