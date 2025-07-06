@@ -1,0 +1,9 @@
+from enum import StrEnum
+
+
+class GaOpCategory(StrEnum):
+    SELECTION = "SELECTION"
+    REAL_CROSSOVER = "REAL_CROSSOVER"
+    REAL_MUTATION = "REAL_MUTATION"
+    BIN_CROSSOVER = "BIN_CROSSOVER"
+    BIN_MUTATION = "BIN_MUTATION"
