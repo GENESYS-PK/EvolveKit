@@ -1,11 +1,11 @@
 from typing import List
+from copy import deepcopy
 
 from evolvekit.core.Ga import GaEvaluator
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaState import GaState
 from evolvekit.core.Ga.GaStatistics import GaStatistics
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
-from copy import deepcopy
 from ._internal import CATEGORY_TO_POPULATION_FIELD
 
 

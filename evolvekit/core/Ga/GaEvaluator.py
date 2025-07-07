@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
+from typing import List, Tuple
 
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
-from typing import List, Tuple
 
 
 class GaEvaluator(ABC):

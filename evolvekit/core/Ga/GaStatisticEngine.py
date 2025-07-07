@@ -1,6 +1,7 @@
+import time
+
 from evolvekit.core.Ga import GaState
 from evolvekit.core.Ga.GaStatistics import GaStatistics
-import time
 
 
 class GaStatisticEngine(GaStatistics):

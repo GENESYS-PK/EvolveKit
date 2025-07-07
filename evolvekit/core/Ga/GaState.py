@@ -1,8 +1,8 @@
+from typing import List
+
 from evolvekit.core.Ga import GaIndividual, GaStatisticEngine
 from evolvekit.core.Ga.GaEvaluator import GaEvaluator
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
-
-from typing import List
 
 
 class GaState:

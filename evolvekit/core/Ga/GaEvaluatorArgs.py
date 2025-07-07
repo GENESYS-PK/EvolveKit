@@ -1,6 +1,7 @@
-from evolvekit.core.Ga import GaIndividual
 import numpy as np
 import numpy.typing as npt
+
+from evolvekit.core.Ga import GaIndividual
 
 
 class GaEvaluatorArgs:

@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import List
+
 from evolvekit.core.Ga import GaState
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
