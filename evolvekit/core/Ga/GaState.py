@@ -12,7 +12,7 @@ class GaState:
     elite_population: List[GaIndividual]
     elite_population: List[GaIndividual]
     statistic_engine: GaStatisticEngine
-    evaluator: GaEvaluator
+    evaluator: GaEvaluator | None
     real_clamp_strategy: GaClampStrategy
     crossover_prob: float
     mutation_prob: float
@@ -20,3 +20,19 @@ class GaState:
     seed: int
     population_size: int
     elite_size: int
+
+    def __init__(self):
+        self.current_population = []
+        self.selected_population = []
+        self.offspring_population = []
+        self.elite_population = []
+        self.elite_population = []
+        self.statistic_engine = []
+        self.evaluator = None
+        self.real_clamp_strategy = GaClampStrategy.NONE
+        self.crossover_prob = 0
+        self.mutation_prob = 0
+        self.max_generations = 0
+        self.seed = 0
+        self.population_size = 0
+        self.elite_size = 0
