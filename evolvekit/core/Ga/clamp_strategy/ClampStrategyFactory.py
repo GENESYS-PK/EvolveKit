@@ -3,33 +3,26 @@ from typing import Tuple, Callable
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 
 
-class ClampStrategyFactory:
-
-    @staticmethod
-    def get_clamp_strategy(
-        strategy: GaClampStrategy,
-    ) -> Callable[[float, Tuple[float, float]], float]:
-        if strategy == GaClampStrategy.CLAMP:
-            return ClampStrategyFactory.__strategy_clamp
-        elif strategy == GaClampStrategy.BOUNCE:
-            return ClampStrategyFactory.__strategy_bounce
-        elif strategy == GaClampStrategy.OVERFLOW:
-            return ClampStrategyFactory.__strategy_overflow
-        elif strategy == GaClampStrategy.RANDOM:
-            return ClampStrategyFactory.__strategy_random
-
-    @staticmethod
-    def __strategy_clamp(value: float, domain: Tuple[float, float]) -> float:
+def get_clamp_strategy(
+    strategy: GaClampStrategy,
+) -> Callable[[float, Tuple[float, float]], float]:
+    def strategy_clamp(value: float, domain: Tuple[float, float]) -> float:
         raise NotImplementedError()
 
-    @staticmethod
-    def __strategy_bounce(value: float, domain: Tuple[float, float]) -> float:
+    def strategy_bounce(value: float, domain: Tuple[float, float]) -> float:
         raise NotImplementedError()
 
-    @staticmethod
-    def __strategy_overflow(value: float, domain: Tuple[float, float]) -> float:
+    def strategy_overflow(value: float, domain: Tuple[float, float]) -> float:
         raise NotImplementedError()
 
-    @staticmethod
-    def __strategy_random(value: float, domain: Tuple[float, float]) -> float:
+    def strategy_random(value: float, domain: Tuple[float, float]) -> float:
         raise NotImplementedError()
+
+    MAP_STRATEGY_NAME_TO_FUNCTION = {
+        GaClampStrategy.CLAMP: strategy_clamp,
+        GaClampStrategy.BOUNCE: strategy_bounce,
+        GaClampStrategy.OVERFLOW: strategy_overflow,
+        GaClampStrategy.RANDOM: strategy_random,
+    }
+
+    return MAP_STRATEGY_NAME_TO_FUNCTION[strategy]

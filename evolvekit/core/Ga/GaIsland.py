@@ -7,7 +7,7 @@ import numpy as np
 
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.core.Ga.GaIndividual import GaIndividual
-from evolvekit.core.Ga.clamp_strategy.ClampStrategyFactory import ClampStrategyFactory
+from evolvekit.core.Ga.clamp_strategy.ClampStrategyFactory import get_clamp_strategy
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 from evolvekit.core.Ga.GaEvaluator import GaEvaluator
 from evolvekit.core.Ga.GaInspector import GaInspector
@@ -33,6 +33,66 @@ class GaIsland(GaState):
             raise ValueError(
                 "Both bin_length is 0 and real_domain is empty list in evaluator."
             )
+        if self.evaluator.bin_length() > 0 and (
+            not self.bin_mutation or not self.bin_crossover
+        ):
+            raise ValueError(
+                "Binary chromosome set as active but binary mutation or binary crossover is empty."
+            )
+
+        if len(self.evaluator.real_domain()) > 0 and (
+            not self.real_mutation or not self.real_crossover
+        ):
+            raise ValueError(
+                "Real chromosome set as active but real mutation or real crossover is empty."
+            )
+
+        if (
+            self.real_crossover
+            and self.real_crossover.category() != GaOpCategory.REAL_CROSSOVER
+        ):
+            raise TypeError(
+                f"Expected type for real crossover is REAL_CROSSOVER, got: {self.real_crossover.category().name}."
+            )
+
+        if (
+            self.real_mutation
+            and self.real_mutation.category() != GaOpCategory.REAL_MUTATION
+        ):
+            raise TypeError(
+                f"Expected type for real mutation is REAL_MUTATION, got: {self.real_mutation.category().name}."
+            )
+
+        if (
+            self.bin_crossover
+            and self.bin_crossover.category() != GaOpCategory.BIN_CROSSOVER
+        ):
+            raise TypeError(
+                f"Expected type for binary crossover is BIN_CROSSOVER, got: {self.bin_crossover.category().name}."
+            )
+
+        if (
+            self.bin_mutation
+            and self.bin_mutation.category() != GaOpCategory.BIN_MUTATION
+        ):
+            raise TypeError(
+                f"Expected type for binary mutation is BIN_MUTATION, got: {self.bin_mutation.category().name}."
+            )
+
+        if self.population_size <= 0:
+            raise ValueError("Population size must be greater than 0.")
+
+        if self.elite_size < 0:
+            raise ValueError("Elite size must be greater than or equal 0.")
+
+        if not 0 <= self.crossover_prob <= 1:
+            raise ValueError("Crossover probability must be between 0 and 1.")
+
+        if not 0 <= self.mutation_prob <= 1:
+            raise ValueError("Mutation probability must be between 0 and 1.")
+
+        if self.max_generations < 0:
+            raise ValueError("Max generations must be greater than 0.")
 
     def __initialize(self):
         np.random.seed(self.seed)
@@ -66,7 +126,12 @@ class GaIsland(GaState):
         self.selected_population = copy.deepcopy(
             self.selection.perform(GaOperatorArgs(self, self.selection.category()))
         )
-        self.offspring_population = copy.deepcopy(self.current_population)
+        self.offspring_population = [
+            GaIndividual(
+                np.array([], dtype=np.float64), np.array([], dtype=np.float64), 0
+            )
+            for _ in range(self.population_size)
+        ]
 
         if self.real_crossover:
             real_crossover_list = self.__perform_crossover(self.real_crossover)
@@ -82,26 +147,20 @@ class GaIsland(GaState):
             ):
                 offspring.bin_chrom = crossover_indiv.bin_chrom
 
-        temp_offspring = []
+        mutation_offspring = []
         if self.real_mutation:
-            temp_offspring = self.real_mutation.perform(
+            mutation_offspring = self.real_mutation.perform(
                 GaOperatorArgs(self, self.selection.category())
             )
 
         if self.bin_mutation:
-            temp_offspring = self.bin_mutation.perform(
+            mutation_offspring = self.bin_mutation.perform(
                 GaOperatorArgs(self, self.selection.category())
             )
 
-        indices = np.random.choice(
-            len(self.offspring_population),
-            size=len(self.elite_population),
-            replace=False,
-        )
-
-        for i in range(len(self.offspring_population)):
+        for i in range(self.population_size):
             if np.random.random() < self.mutation_prob:
-                self.offspring_population[i] = temp_offspring[i]
+                self.offspring_population[i] = mutation_offspring[i]
 
         if self.real_clamp_strategy != GaClampStrategy.NONE:
             for indiv in self.offspring_population:
@@ -110,12 +169,18 @@ class GaIsland(GaState):
                     domain = self.evaluator.real_domain()[i]
                     lower, upper = domain
                     if not lower <= gene_value <= upper:
-                        indiv.real_chrom[i] = ClampStrategyFactory.get_clamp_strategy(
+                        indiv.real_chrom[i] = get_clamp_strategy(
                             self.real_clamp_strategy
                         )(gene_value, domain)
 
+        indices = np.random.choice(
+            len(self.offspring_population),
+            size=len(self.elite_population),
+            replace=False,
+        )
+
         for i, idx in enumerate(indices):
-            self.offspring_population[i] = self.elite_population[idx]
+            self.offspring_population[idx] = self.elite_population[i]
 
         self.current_population = self.offspring_population
         self.selected_population = []
@@ -131,7 +196,7 @@ class GaIsland(GaState):
                 )
             else:
                 crossover_list.append(random.choice(self.selected_population))
-        crossover_list = crossover_list[: self.population_size - 1]
+        crossover_list = crossover_list[: self.population_size]
         return crossover_list
 
     def __finish(self) -> GaResults:
