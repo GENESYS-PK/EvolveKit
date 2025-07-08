@@ -95,6 +95,12 @@ class GaIsland(GaState):
         if self.max_generations < 0:
             raise ValueError("Max generations must be greater than 0.")
 
+        if not self.evaluator:
+            raise TypeError("Evaluator cannot be empty")
+
+        if not self.inspector:
+            raise TypeError("Inspector cannot be empty")
+
     def __initialize(self):
         self.current_population = generate_random_population(self.evaluator)
         np.random.seed(self.seed)
