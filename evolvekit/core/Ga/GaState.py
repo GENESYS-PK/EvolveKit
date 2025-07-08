@@ -1,7 +1,8 @@
 import time
 from typing import List
 
-from evolvekit.core.Ga import GaIndividual, GaStatisticEngine
+from evolvekit.core.Ga.GaIndividual import GaIndividual
+from evolvekit.core.Ga.GaStatisticEngine import GaStatisticEngine
 from evolvekit.core.Ga.GaEvaluator import GaEvaluator
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 
@@ -28,7 +29,6 @@ class GaState:
         self.offspring_population = []
         self.elite_population = []
         self.elite_population = []
-        self.statistic_engine = []
         self.evaluator = None
         self.real_clamp_strategy = GaClampStrategy.NONE
         self.crossover_prob = 0
@@ -37,3 +37,4 @@ class GaState:
         self.seed = time.time_ns()
         self.population_size = 0
         self.elite_size = 0
+        self.statistic_engine = GaStatisticEngine()

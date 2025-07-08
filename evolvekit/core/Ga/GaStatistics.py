@@ -5,12 +5,12 @@ from evolvekit.core.Ga.GaIndividual import GaIndividual
 
 @dataclass
 class GaStatistics:
-    generation: int
-    stagnation: int
-    mean: float
-    median: float
-    stdev: float
-    best_indiv: GaIndividual | None
-    worst_indiv: GaIndividual | None
-    start_time: float
-    last_time: float
+    generation: int = 1
+    stagnation: int = 0
+    mean: float = 0.0
+    median: float = 0.0
+    stdev: float = 0.0
+    best_indiv: GaIndividual | None = None
+    worst_indiv: GaIndividual | None = None
+    start_time: float = 0.0
+    last_time: float = 0.0

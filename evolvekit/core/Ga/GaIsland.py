@@ -16,6 +16,7 @@ from evolvekit.core.Ga.GaState import GaState
 from evolvekit.core.Ga.enums.GaAction import GaAction
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
+from evolvekit.core.Ga.helpers.GaGenerateRandomPopulation import generate_random_population
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
@@ -95,9 +96,10 @@ class GaIsland(GaState):
             raise ValueError("Max generations must be greater than 0.")
 
     def __initialize(self):
+        self.current_population = generate_random_population(self.evaluator)
         np.random.seed(self.seed)
         self.inspector.initialize()
-        self.statistic_engine.start()
+        self.statistic_engine.start(self)
         self.selection.initialize(self)
         if self.real_crossover:
             self.real_crossover.initialize(self)
@@ -200,7 +202,8 @@ class GaIsland(GaState):
         return crossover_list
 
     def __finish(self) -> GaResults:
-        pass
+        self.inspector.finish(self.statistic_engine)
+        return GaResults(self.statistic_engine)
 
     def run(self) -> GaResults:
         self.__verify()
@@ -208,10 +211,11 @@ class GaIsland(GaState):
 
         while True:
             self.__evaluate()
-            self.statistic_engine.advance()
+            self.statistic_engine.advance(self)
             action = self.inspector.inspect(self.statistic_engine)
             if action is GaAction.TERMINATE:
                 break
+            self.__evolve()
 
         return self.__finish()
 
