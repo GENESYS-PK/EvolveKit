@@ -102,8 +102,8 @@ class GaIsland(GaState):
             raise TypeError("Inspector cannot be empty")
 
     def __initialize(self):
-        self.current_population = generate_random_population(self.evaluator)
         np.random.seed(self.seed)
+        self.current_population = generate_random_population(self.evaluator, self.population_size)
         self.inspector.initialize()
         self.statistic_engine.start(self)
         self.selection.initialize(self)
