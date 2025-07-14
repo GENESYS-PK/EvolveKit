@@ -16,7 +16,9 @@ from evolvekit.core.Ga.GaState import GaState
 from evolvekit.core.Ga.enums.GaAction import GaAction
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
-from evolvekit.core.Ga.helpers.GaGenerateRandomPopulation import generate_random_population
+from evolvekit.core.Ga.helpers.GaGenerateRandomPopulation import (
+    generate_random_population,
+)
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
@@ -103,7 +105,9 @@ class GaIsland(GaState):
 
     def __initialize(self):
         np.random.seed(self.seed)
-        self.current_population = generate_random_population(self.evaluator, self.population_size)
+        self.current_population = generate_random_population(
+            self.evaluator, self.population_size
+        )
         self.inspector.initialize()
         self.statistic_engine.start(self)
         self.selection.initialize(self)

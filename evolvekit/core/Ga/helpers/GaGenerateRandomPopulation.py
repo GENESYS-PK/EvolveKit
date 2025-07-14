@@ -1,4 +1,5 @@
 from typing import List
+
 import numpy as np
 
 from evolvekit.core.Ga.GaEvaluator import GaEvaluator
@@ -19,7 +20,7 @@ def generate_random_population(
     population: List[GaIndividual] = []
 
     real_domain = evaluator.real_domain()
-    bit_length = evaluator.bit_length()
+    bit_length = evaluator.bin_length()
 
     for _ in range(population_size):
         individual = GaIndividual()
@@ -27,11 +28,11 @@ def generate_random_population(
         if real_domain:
             real_genes = [np.random.uniform(low, high) for low, high in real_domain]
             individual.real_chrom = np.array(real_genes, dtype=np.float64)
-        
+
         if bit_length > 0:
-            bits = np.random.randint(0,2, size=bit_length, dtype=np.uint8)
+            bits = np.random.randint(0, 2, size=bit_length, dtype=np.uint8)
             individual.bin_chrom = np.packbits(bits)
-        
+
         individual.value = 0.0
         population.append(individual)
 
