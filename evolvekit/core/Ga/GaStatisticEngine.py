@@ -54,7 +54,7 @@ class GaStatisticEngine(GaStatistics):
         self.stdev = np.std(all_values)
 
         key_func = lambda ind: ind.value
-        extremum = state.evaluator.extremum() if state.evaluator else GaExtremum.MAXIMUM
+        extremum = state.evaluator.extremum()
         population = state.current_population
 
         match extremum:
