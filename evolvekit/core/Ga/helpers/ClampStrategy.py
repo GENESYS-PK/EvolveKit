@@ -14,23 +14,19 @@ def get_clamp_strategy(
 
     def strategy_bounce(value: float, domain: Tuple[float, float]) -> float:
         lower, upper = domain
+        range_size = upper - lower
 
-        while not (lower <= value <= upper):
-            if value > upper:
-                value = upper - (value - upper)
-            elif value < lower:
-                value = lower + (lower - value)
-        return value
+        normalized = (value - lower) % (2 * range_size)
+        if normalized > range_size:
+            normalized = 2 * range_size - normalized
+        return lower + normalized
 
     def strategy_overflow(value: float, domain: Tuple[float, float]) -> float:
         lower, upper = domain
+        range_size = upper - lower + 1
 
-        while value > upper:
-            value = lower + (value - upper - 1)
-        while value < lower:
-            value = upper - (lower - value - 1)
-
-        return value
+        wrapped = (value - lower) % range_size
+        return lower + wrapped
 
     def strategy_random(value: float, domain: Tuple[float, float]) -> float:
         lower, upper = domain
