@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import numpy as np
 import numpy.typing as npt
@@ -6,9 +6,13 @@ import numpy.typing as npt
 
 @dataclass
 class GaIndividual:
-    real_chrom: npt.NDArray[np.float64]
-    bin_chrom: npt.NDArray[np.uint8]
-    value: float
+    real_chrom: npt.NDArray[np.float64] = field(
+        default_factory=lambda: np.array([], dtype=np.float64)
+    )
+    bin_chrom: npt.NDArray[np.uint8] = field(
+        default_factory=lambda: np.array([], dtype=np.uint8)
+    )
+    value: float = field(default=0.0)
 
     def __deepcopy__(self, memodict=None):
         if memodict is None:

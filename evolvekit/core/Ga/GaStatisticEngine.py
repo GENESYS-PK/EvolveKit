@@ -1,3 +1,4 @@
+from __future__ import annotations
 import time
 import copy
 
@@ -10,7 +11,7 @@ from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 
 class GaStatisticEngine(GaStatistics):
 
-    def start(self, state: GaState):
+    def start(self, state: "GaState"):
         self.generation = 1
         self.stagnation = 0
         self.mean = 0
@@ -21,7 +22,7 @@ class GaStatisticEngine(GaStatistics):
         self.start_time = time.process_time()
         self.last_time = self.start_time
 
-    def advance(self, state: GaState):
+    def advance(self, state: "GaState"):
         """
         Advance the GA statistics by one generation.
 
@@ -40,7 +41,7 @@ class GaStatisticEngine(GaStatistics):
 
         self.last_time = time.process_time()
 
-    def refresh(self, state: GaState):
+    def refresh(self, state: "GaState"):
         """
         Refresh statistical metrics (mean, median, stddev) and update best/worst individuals.
 

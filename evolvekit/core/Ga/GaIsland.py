@@ -7,7 +7,7 @@ import numpy as np
 
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.core.Ga.GaIndividual import GaIndividual
-from evolvekit.core.Ga.clamp_strategy.ClampStrategyFactory import get_clamp_strategy
+from evolvekit.core.Ga.helpers.ClampStrategy import get_clamp_strategy
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 from evolvekit.core.Ga.GaEvaluator import GaEvaluator
 from evolvekit.core.Ga.GaInspector import GaInspector
@@ -24,15 +24,30 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 
 class GaIsland(GaState):
-    inspector: GaInspector
-    selection: GaOperator
+    inspector: GaInspector | None
+    selection: GaOperator | None
     real_crossover: GaOperator | None
     real_mutation: GaOperator | None
     bin_crossover: GaOperator | None
     bin_mutation: GaOperator | None
 
+    def __init__(self):
+        super().__init__()
+        self.inspector = None
+        self.selection = None
+        self.real_crossover = None
+        self.real_mutation = None
+        self.bin_crossover = None
+        self.bin_mutation = None
+
     def __verify(self):
-        if self.evaluator.bin_length() == 0 and len(self.evaluator.real_domain()) == 0:
+        if not self.evaluator:
+            raise TypeError("Evaluator cannot be empty")
+
+        if not self.inspector:
+            raise TypeError("Inspector cannot be empty")
+
+        if self.evaluator.bin_length() == 0 and not self.evaluator.real_domain():
             raise ValueError(
                 "Both bin_length is 0 and real_domain is empty list in evaluator."
             )
@@ -43,7 +58,10 @@ class GaIsland(GaState):
                 "Binary chromosome set as active but binary mutation or binary crossover is empty."
             )
 
-        if len(self.evaluator.real_domain()) > 0 and (
+        if not self.selection:
+            raise TypeError("Selection cannot be empty")
+
+        if self.evaluator.real_domain() and (
             not self.real_mutation or not self.real_crossover
         ):
             raise ValueError(
@@ -96,12 +114,6 @@ class GaIsland(GaState):
 
         if self.max_generations < 0:
             raise ValueError("Max generations must be greater than 0.")
-
-        if not self.evaluator:
-            raise TypeError("Evaluator cannot be empty")
-
-        if not self.inspector:
-            raise TypeError("Inspector cannot be empty")
 
     def __initialize(self):
         np.random.seed(self.seed)
@@ -251,16 +263,17 @@ class GaIsland(GaState):
         self.inspector = inspector
 
     def set_operator(self, operator: GaOperator):
-        if operator.category() == GaOpCategory.SELECTION:
-            self.selection = operator
-        elif operator.category() == GaOpCategory.REAL_CROSSOVER:
-            self.real_crossover = operator
-        elif operator.category() == GaOpCategory.REAL_MUTATION:
-            self.real_mutation = operator
-        elif operator.category() == GaOpCategory.BIN_CROSSOVER:
-            self.bin_crossover = operator
-        elif operator.category() == GaOpCategory.BIN_MUTATION:
-            self.bin_mutation = operator
+        match operator.category():
+            case GaOpCategory.SELECTION:
+                self.selection = operator
+            case GaOpCategory.REAL_CROSSOVER:
+                self.real_crossover = operator
+            case GaOpCategory.REAL_MUTATION:
+                self.real_mutation = operator
+            case GaOpCategory.BIN_CROSSOVER:
+                self.bin_crossover = operator
+            case GaOpCategory.BIN_MUTATION:
+                self.bin_mutation = operator
 
     def set_real_clamp_strategy(self, strategy: GaClampStrategy):
         self.real_clamp_strategy = strategy

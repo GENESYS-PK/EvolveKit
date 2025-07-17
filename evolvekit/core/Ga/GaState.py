@@ -1,4 +1,4 @@
-import time
+import random
 from typing import List
 
 from evolvekit.core.Ga.GaIndividual import GaIndividual
@@ -34,7 +34,7 @@ class GaState:
         self.crossover_prob = 0
         self.mutation_prob = 0
         self.max_generations = 0
-        self.seed = time.time_ns()
+        self.seed = random.randint(1, 2**32 - 1)
         self.population_size = 0
         self.elite_size = 0
         self.statistic_engine = GaStatisticEngine()
