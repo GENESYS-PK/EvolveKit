@@ -188,7 +188,8 @@ class GaIsland(GaState):
 
         if self.real_clamp_strategy != GaClampStrategy.NONE:
             for indiv in self.offspring_population:
-                for i in range(len(self.evaluator.real_domain())):
+                domain_count = len(self.evaluator.real_domain())
+                for i in range(domain_count):
                     gene_value = indiv.real_chrom[i]
                     domain = self.evaluator.real_domain()[i]
                     lower, upper = domain
@@ -203,8 +204,8 @@ class GaIsland(GaState):
             replace=False,
         )
 
-        for i, idx in enumerate(indices):
-            self.offspring_population[idx] = self.elite_population[i]
+        for elite_index, offspring_index in enumerate(indices):
+            self.offspring_population[offspring_index] = self.elite_population[elite_index]
 
         self.current_population = self.offspring_population
         self.selected_population = []
