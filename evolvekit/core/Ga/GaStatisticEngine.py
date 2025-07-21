@@ -49,7 +49,7 @@ class GaStatisticEngine(GaStatistics):
         :returns: None
         :raises: None
         """
-        all_values = [ind.value for ind in state.current_population]
+        all_values = np.array([ind.value for ind in state.current_population])
 
         self.mean = np.mean(all_values)
         self.median = np.median(all_values)
