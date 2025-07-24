@@ -54,22 +54,18 @@ class OnePointCrossover(GaOperator):
             List[GaIndividual]: A list containing two offspring individuals
                 resulting from the crossover operation.
         """
-        offspring_population = []
-        population = args.state.selected_population
-        n = np.random.choice(len(population), 2, replace=False)
-        parent_1 = population[n[0]]
-        parent_2 = population[n[1]]
+        n = np.random.choice(args.population, 2, replace=False)
+        parent_1 = n[0]
+        parent_2 = n[1]
         offspring_1 = copy.deepcopy(parent_1)
         offspring_2 = copy.deepcopy(parent_2)
-        crossover_point = np.random.randint(0, len(parent_1.real_chrom) - 1)
-        offspring_1.real_chrom[:crossover_point + 1] = \
-            parent_1.real_chrom[:crossover_point + 1]
-        offspring_2.real_chrom[:crossover_point + 1] = \
-            parent_2.real_chrom[:crossover_point + 1]
-        offspring_1.real_chrom[crossover_point + 1:] = \
-            parent_2.real_chrom[crossover_point + 1:]
-        offspring_2.real_chrom[crossover_point + 1:] = \
-            parent_1.real_chrom[crossover_point + 1:]
-        offspring_population.append(offspring_1)
-        offspring_population.append(offspring_2)
-        return offspring_population
+        crossover_point = np.random.randint(1, len(parent_1.real_chrom))
+        offspring_1.real_chrom[:crossover_point] = \
+            parent_1.real_chrom[:crossover_point]
+        offspring_2.real_chrom[:crossover_point] = \
+            parent_2.real_chrom[:crossover_point]
+        offspring_1.real_chrom[crossover_point:] = \
+            parent_2.real_chrom[crossover_point:]
+        offspring_2.real_chrom[crossover_point:] = \
+            parent_1.real_chrom[crossover_point:]
+        return [offspring_1, offspring_2]
