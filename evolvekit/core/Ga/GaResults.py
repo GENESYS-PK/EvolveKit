@@ -5,6 +5,10 @@ from evolvekit.core.Ga.GaStatistics import GaStatistics
 
 
 class GaResults:
+    """
+    Class containing final result of running genetic algorithm.
+    """
+
     real_chrom: npt.NDArray[np.float64]
     bin_chrom: npt.NDArray[np.uint8]
     value: float
@@ -12,6 +16,15 @@ class GaResults:
     total_time: float
 
     def __init__(self, stats: GaStatistics):
+        """
+        Constructor method.
+        Initializes :class:`GaResults` object based on data in
+        :class:`GaStatistics` object.
+
+        :param stats: Object to initialize results with.
+        :type stats: :class:`GaStatistics`.
+        """
+
         self.total_generations = stats.generation
         self.total_time = stats.last_time - stats.start_time
         self.real_chrom = np.copy(stats.best_indiv.real_chrom)
