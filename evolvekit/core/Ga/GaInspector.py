@@ -19,6 +19,7 @@ class GaInspector(ABC):
 
         Use this method to initialize services needed by 
         the :func:`inspect()` function.
+        :returns: None.
         """
 
         pass
@@ -49,6 +50,7 @@ class GaInspector(ABC):
 
         :param stats: Object containing statistics of current simulation.
         :type stats: :class:`GaStatistics`.
+        :returns: None.
         """
 
         pass

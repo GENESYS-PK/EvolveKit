@@ -23,6 +23,7 @@ class GaResults:
 
         :param stats: Object to initialize results with.
         :type stats: :class:`GaStatistics`.
+        :returns: None.
         """
 
         self.total_generations = stats.generation

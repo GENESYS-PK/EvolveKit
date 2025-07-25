@@ -18,6 +18,7 @@ class GaStatisticEngine(GaStatistics):
 
         :param state: Object representing current state of evolution loop.
         :type state: :class:`GaState`.
+        :returns: None.
         """
 
         self.generation = 1
@@ -36,6 +37,7 @@ class GaStatisticEngine(GaStatistics):
 
         :param state: Object representing current state of evolution loop.
         :type state: :class:`GaState`.
+        :returns: None.
         """
         pass
 
@@ -45,5 +47,6 @@ class GaStatisticEngine(GaStatistics):
 
         :param state: Object representing current state of evolution loop.
         :type state: :class:`GaState`.
+        :returns: None.
         """
         pass

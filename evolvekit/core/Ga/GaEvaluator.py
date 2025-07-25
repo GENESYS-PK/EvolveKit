@@ -18,7 +18,7 @@ class GaEvaluator(ABC):
         :param args: Object representing a particular solution for the
         posited problem.
         :type args: :class:`GaEvaluatorArgs`
-        :return: A value representing fitness for this particular
+        :returns: A value representing fitness for this particular
         solution.
         :rtype: float
         """
@@ -29,7 +29,7 @@ class GaEvaluator(ABC):
         """
         Returns optimalization criterion for the posited problem.
 
-        :return: A value signaling whether to search for minimum
+        :returns: A value signaling whether to search for minimum
         or maximum in posited problem.
         :rtype: :class:`GaExtremum`
         """
@@ -41,7 +41,7 @@ class GaEvaluator(ABC):
         If return value is set to an empty list, real valued
         chromosome is ignored.
 
-        :return: A list of tuples representing lower and 
+        :returns: A list of tuples representing lower and 
         upper bounds, respectively, of every gene domain.
         Defaults to an empty list.
         :rtype: list
@@ -55,7 +55,7 @@ class GaEvaluator(ABC):
         If return value is set to 0, bit-string represented
         chromosome is ignored. Returned value must be nonnegative
 
-        :return: A length in bits. Defaults to 0.
+        :returns: A length in bits. Defaults to 0.
         :rtype: int
         """
         return 0

@@ -26,6 +26,7 @@ class GaIsland(GaState):
         appropriate exception will be thrown.
 
         :throws: TODO list all possible exceptions
+        :returns: None.
         """
 
         pass
@@ -35,6 +36,7 @@ class GaIsland(GaState):
         Initializes evolution.
 
         TODO describe in more detail what is being initialized here.
+        :returns: None.
         """
 
         pass
@@ -42,6 +44,8 @@ class GaIsland(GaState):
     def __evaluate(self):
         """
         Runs fitness evaluation on every individual.
+
+        :returns: None.
         """
 
         pass
@@ -51,6 +55,7 @@ class GaIsland(GaState):
         Generates next population.
 
         TODO describe exactly what is being done here.
+        :returns: None.
         """
 
         pass
@@ -83,6 +88,7 @@ class GaIsland(GaState):
 
         :param count: Number of elite individuals.
         :type count: int.
+        :returns: None.
         """
 
         pass
@@ -95,6 +101,7 @@ class GaIsland(GaState):
 
         :param prob: The probability [0.0, 1.0].
         :type prob: float.
+        :returns: None.
         """
 
         pass
@@ -107,6 +114,7 @@ class GaIsland(GaState):
 
         :param prob: The probability [0.0, 1.0].
         :type prob: float.
+        :returns: None.
         """
 
         pass
@@ -119,6 +127,7 @@ class GaIsland(GaState):
 
         :param count: Generation number after which simulation should end.
         :type count: int.
+        :returns: None.
         """
 
         pass
@@ -131,6 +140,7 @@ class GaIsland(GaState):
 
         :param seed: A provided seed.
         :type seed: int.
+        :returns: None.
         """
 
         pass
@@ -143,6 +153,7 @@ class GaIsland(GaState):
 
         :param evaluator: Object representing valid evaluator.
         :type evaluator: :class:`GaEvaluator`.
+        :returns: None.
         """
 
         pass
@@ -155,6 +166,7 @@ class GaIsland(GaState):
 
         :param inspector: Object representing valid inspector.
         :type inspector: :class:`GaInspector`.
+        :returns: None.
         """
 
         pass
@@ -167,6 +179,7 @@ class GaIsland(GaState):
 
         :param operator: An operator used by genetic algorithm.
         :type operator: :class:`GaOperator`.
+        :returns: None.
         """
 
         pass
@@ -179,6 +192,7 @@ class GaIsland(GaState):
 
         :param strategy: A value representing chosen clamping strategy.
         :type strategy: :class:`GaClampStrategy`.
+        :returns: None.
         """
 
         pass

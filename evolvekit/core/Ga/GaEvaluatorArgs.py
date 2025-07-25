@@ -19,6 +19,7 @@ class GaEvaluatorArgs:
 
         :param individual: Individual to copy data from.
         :type individual: :class:`GaIndividual`.
+        :returns: None.
         """
         self.real_chrom = np.copy(individual.real_chrom)
         self.bin_chrom = np.copy(individual.bin_chrom)
