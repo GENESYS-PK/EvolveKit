@@ -5,6 +5,11 @@ from evolvekit.core.Ga.GaIndividual import GaIndividual
 
 @dataclass
 class GaStatistics:
+    """
+    Data class responsible for storing statistics about
+    current run of genetic algoritm. Serves as a base class
+    for :class:`GaStatisticEngine`.
+    """
     generation: int
     stagnation: int
     mean: float

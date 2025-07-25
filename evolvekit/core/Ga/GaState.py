@@ -6,6 +6,11 @@ from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 
 
 class GaState:
+    """
+    Class containing all data about current state of 
+    genetic algorithm run.
+    """
+
     current_population: List[GaIndividual]
     selected_population: List[GaIndividual]
     offspring_population: List[GaIndividual]
