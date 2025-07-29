@@ -1,6 +1,5 @@
 from typing import List, Union
 import numpy as np
-import random
 import copy
 
 from evolvekit.core.Ga.GaIndividual import GaIndividual
@@ -68,7 +67,7 @@ class VirusInfectionMutation(GaOperator):
             candidates = [i for i in range(len(args.population)) if i not in used]
             if not candidates:
                 break
-            chosen = random.choice(candidates)
+            chosen = np.random.choice(candidates)
             used.add(chosen)
 
             infected = copy.deepcopy(args.population[chosen])
@@ -87,15 +86,15 @@ class VirusInfectionMutation(GaOperator):
 
             self.life_force[j] -= 1
             if self.life_force[j] < 0:
-                if random.random() < 0.5:
-                    donor = random.choice(args.population)
+                if np.random.rand() < 0.5:
+                    donor = np.random.choice(args.population)
                     donor_bits = np.unpackbits(donor.bin_chrom)
                     for i in range(n):
-                        if random.random() < self.p_copy:
+                        if np.random.rand() < self.p_copy:
                             self.virus_vectors[j][i] = int(donor_bits[i])
                 else:
                     for i in range(n):
-                        if random.random() < self.p_replace:
+                        if np.random.rand() < self.p_replace:
                             self.virus_vectors[j][i] = '*'
                 self.life_force[j] = 3
 

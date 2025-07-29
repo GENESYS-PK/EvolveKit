@@ -6,7 +6,6 @@ from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 from evolvekit.core.Ga.GaIndividual import GaIndividual
-from evolvekit.core.Ga import GaState
 
 
 class OnePointCrossover(GaOperator):
@@ -18,17 +17,6 @@ class OnePointCrossover(GaOperator):
         chromosomes.
         """
         pass
-
-    def initialize(self, state: GaState):
-        """
-        Initializes the OnePointCrossover operator with the current state.
-
-        This method is called before performing the crossover operation.
-
-        Args:
-            state (GaState): The current state of the genetic algorithm.
-        """
-        self.state = state
 
     def category(self) -> GaOpCategory:
         """

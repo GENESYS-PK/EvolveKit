@@ -1,7 +1,6 @@
 from typing import List
 import numpy as np
 
-from evolvekit.core.Ga import GaState
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
@@ -18,15 +17,6 @@ class RankSelection(GaOperator):
             for the target population.
         """
         self.target_population = target_population
-
-    def initialize(self, state: GaState):
-        """Initializes the state for the RankSelection operator.
-
-        Args:
-            state (GaState): The current state of the genetic algorithm,
-            containing population and other parameters.
-        """
-        self.state = state
 
     def category(self) -> GaOpCategory:
         """Returns the category of this operator.
@@ -52,11 +42,11 @@ class RankSelection(GaOperator):
             their rank.
         """
         selected_individuals = []
-        pop_size = self.state.population_size
+        pop_size = len(args.population)
         sorted_pop = sorted(
             args.population,
             key=lambda obj: obj.value,
-            reverse=(args.evaluator.extremum == GaExtremum.MAXIMUM),
+            reverse=(args.evaluator.extremum == GaExtremum.MINIMUM),
         )
 
         for i in range(pop_size):
@@ -64,7 +54,7 @@ class RankSelection(GaOperator):
 
         while len(selected_individuals) < self.target_population:
             index = np.random.randint(0, pop_size)
-            individual = args.population[index]
+            individual = sorted_pop[index]
             weight = (index + 1) / pop_size
 
             if np.random.rand() < weight:
