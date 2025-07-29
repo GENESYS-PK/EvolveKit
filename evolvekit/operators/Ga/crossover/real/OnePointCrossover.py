@@ -12,7 +12,6 @@ class OnePointCrossover(GaOperator):
     def __init__(self):
         """
         Initializes the OnePointCrossover operator.
-
         This operator performs one-point crossover on real-valued
         chromosomes.
         """
@@ -22,11 +21,7 @@ class OnePointCrossover(GaOperator):
         """
         Returns the category of the operator.
 
-        This is used to classify its type in the evolutionary algorithm
-        framework.
-
-        Returns:
-            GaOpCategory: The operator category indicating real crossover.
+        :returns: GaOpCategory indicating real crossover operator type
         """
         return GaOpCategory.REAL_CROSSOVER
 
@@ -34,13 +29,9 @@ class OnePointCrossover(GaOperator):
         """
         Performs one-point crossover on two randomly selected parents.
 
-        Args:
-            args (GaOperatorArgs): Arguments containing the current state,
-                including the selected population.
-
-        Returns:
-            List[GaIndividual]: A list containing two offspring individuals
-                resulting from the crossover operation.
+        :param args: GaOperatorArgs containing the current population
+        :returns: list of two GaIndividual offspring after crossover
+        :raises ValueError: if population has fewer than two individuals
         """
         n = np.random.choice(args.population, 2, replace=False)
         parent_1 = n[0]

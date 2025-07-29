@@ -24,8 +24,7 @@ class OnePointCrossover(GaOperator):
         This is used to classify its type in the evolutionary algorithm
         framework.
 
-        Returns:
-            GaOpCategory: The operator category indicating binary crossover.
+        returns: The operator category indicating binary crossover.
         """
         return GaOpCategory.BIN_CROSSOVER
 
@@ -33,13 +32,11 @@ class OnePointCrossover(GaOperator):
         """
         Performs one-point crossover on two randomly selected parents.
 
-        Args:
-            args (GaOperatorArgs): Arguments containing the current state,
-                including the selected population.
-
-        Returns:
-            List[GaIndividual]: A list containing two offspring individuals
-                resulting from the crossover operation.
+        :param args: GaOperatorArgs containing the current state,
+            including the selected population
+        :returns: list of two GaIndividual offspring resulting from
+            the crossover operation
+        :raises ValueError: if population has fewer than two individuals
         """
         population = args.population
         n = np.random.choice(population, 2, replace=False)

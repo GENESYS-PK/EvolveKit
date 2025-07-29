@@ -10,19 +10,21 @@ from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 
 class RankSelection(GaOperator):
     def __init__(self, target_population: int):
-        """Initializes the RankSelection operator.
+        """
+        Initializes the RankSelection operator.
 
-        Args:
-            target_population (int): The number of individuals to select
-            for the target population.
+        :param target_population: int, number of individuals to select
+        :returns: None
+        :raises ValueError: if target_population is not an integer
         """
         self.target_population = target_population
 
     def category(self) -> GaOpCategory:
-        """Returns the category of this operator.
+        """
+        Returns the category of this operator.
 
-        Returns:
-            GaOpCategory: The category of the operator, which is SELECTION.
+        :returns: GaOpCategory, SELECTION category of the operator
+        :raises ValueError: never raises
         """
         return GaOpCategory.SELECTION
 
@@ -30,16 +32,12 @@ class RankSelection(GaOperator):
         """
         Performs the rank-based selection on the population.
 
-        For more details about stochastic acceptance roulette-wheel, see:
-        https://arxiv.org/abs/1109.3627
+        For more details about stochastic acceptance roulette-wheel,
+        see: https://arxiv.org/abs/1109.3627
 
-        Args:
-            args (GaOperatorArgs): The arguments for the operator, including
-            the population and evaluator.
-
-        Returns:
-            List[GaIndividual]: A list of selected individuals based on
-            their rank.
+        :param args: GaOperatorArgs, includes population and evaluator
+        :returns: list of selected GaIndividual based on their rank
+        :raises ValueError: if args is not a GaOperatorArgs instance
         """
         selected_individuals = []
         pop_size = len(args.population)
