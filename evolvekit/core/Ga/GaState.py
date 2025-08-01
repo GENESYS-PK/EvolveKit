@@ -12,7 +12,6 @@ class GaState:
     selected_population: List[GaIndividual]
     offspring_population: List[GaIndividual]
     elite_population: List[GaIndividual]
-    elite_population: List[GaIndividual]
     statistic_engine: GaStatisticEngine
     evaluator: GaEvaluator | None
     real_clamp_strategy: GaClampStrategy
@@ -27,7 +26,6 @@ class GaState:
         self.current_population = []
         self.selected_population = []
         self.offspring_population = []
-        self.elite_population = []
         self.elite_population = []
         self.evaluator = None
         self.real_clamp_strategy = GaClampStrategy.NONE

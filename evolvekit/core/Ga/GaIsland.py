@@ -1,6 +1,5 @@
 import heapq
 import copy
-import random
 from typing import List
 
 import numpy as np
@@ -112,7 +111,7 @@ class GaIsland(GaState):
         if not 0 <= self.mutation_prob <= 1:
             raise ValueError("Mutation probability must be between 0 and 1.")
 
-        if self.max_generations < 0:
+        if self.max_generations <= 0:
             raise ValueError("Max generations must be greater than 0.")
 
     def __initialize(self):
@@ -134,7 +133,7 @@ class GaIsland(GaState):
 
     def __evaluate(self):
         for indiv in self.current_population:
-            self.evaluator.evaluate(GaEvaluatorArgs(indiv))
+            indiv.value = self.evaluator.evaluate(GaEvaluatorArgs(indiv))
 
     def __evolve(self):
         if self.evaluator.extremum() == GaExtremum.MAXIMUM:
@@ -152,7 +151,7 @@ class GaIsland(GaState):
         )
         self.offspring_population = [
             GaIndividual(
-                np.array([], dtype=np.float64), np.array([], dtype=np.float64), 0
+                np.array([], dtype=np.float64), np.array([], dtype=np.uint8), 0
             )
             for _ in range(self.population_size)
         ]
@@ -220,7 +219,7 @@ class GaIsland(GaState):
                     crossover.perform(GaOperatorArgs(self, crossover.category()))
                 )
             else:
-                crossover_list.append(random.choice(self.selected_population))
+                crossover_list.append(np.random.choice(self.selected_population))
         crossover_list = crossover_list[: self.population_size]
         return crossover_list
 
@@ -236,7 +235,7 @@ class GaIsland(GaState):
             self.__evaluate()
             self.statistic_engine.advance(self)
             action = self.inspector.inspect(self.statistic_engine)
-            if action is GaAction.TERMINATE:
+            if action is GaAction.TERMINATE or self.statistic_engine.generation > self.max_generations:
                 break
             self.__evolve()
 
