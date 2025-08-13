@@ -75,13 +75,11 @@ def test_rosenbrock_properties():
     :raises: None
     """
     ev = RosenbrockEvaluator(dim=3)
-    # At zeros: value = (n-1) because (1 - x_i)^2 = 1 for i=0..n-2; the other term is 0
     args_zero = make_args([0, 0, 0])
     val_zero = ev.evaluate(args_zero)
     print(f"\nRosenbrock f([0,0,0]) -> {val_zero}")
     show_assert_equal("Rosenbrock f([0,0,0])", val_zero, 2.0)
 
-    # Global minimum at ones vector -> 0
     args_one = make_args([1, 1, 1])
     val_one = ev.evaluate(args_one)
     print(f"Rosenbrock f([1,1,1]) -> {val_one}")
