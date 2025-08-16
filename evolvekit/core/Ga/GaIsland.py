@@ -164,7 +164,7 @@ class GaIsland(GaState):
                 offspring.real_chrom = crossover_indiv.real_chrom
 
         if self.bin_crossover:
-            bin_crossover_list = self.__perform_crossover(self.real_crossover)
+            bin_crossover_list = self.__perform_crossover(self.bin_crossover)
             for offspring, crossover_indiv in zip(
                 self.offspring_population, bin_crossover_list
             ):
@@ -173,12 +173,12 @@ class GaIsland(GaState):
         mutation_offspring = []
         if self.real_mutation:
             mutation_offspring = self.real_mutation.perform(
-                GaOperatorArgs(self, self.selection.category())
+                GaOperatorArgs(self, self.real_mutation.category())
             )
 
         if self.bin_mutation:
             mutation_offspring = self.bin_mutation.perform(
-                GaOperatorArgs(self, self.selection.category())
+                GaOperatorArgs(self, self.bin_mutation.category())
             )
 
         for i in range(self.population_size):
