@@ -16,8 +16,11 @@ class ArthmeticalCrossover(GaOperator):
         self.k = k
 
     def category(self) -> GaOpCategory:
-        """Initializes ArthmeticalCrossover operator :param k: int
-        number of parents to use in crossover."""
+        """
+        Returns the category of the operator.
+
+        :returns: GaOpCategory indicating real crossover operator type
+        """
         return GaOpCategory.REAL_CROSSOVER
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
