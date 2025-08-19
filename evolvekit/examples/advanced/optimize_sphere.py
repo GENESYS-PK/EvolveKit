@@ -53,7 +53,7 @@ def optimize_sphere() -> None:
     ga.set_real_clamp_strategy(GaClampStrategy.BOUNCE)
 
     results = ga.run()
-    logged_generations = results.total_generations - 1
+    logged_generations = results.total_generations
 
     print("Sphere optimization")
     print(f"  best fitness: {results.value:.6f}")

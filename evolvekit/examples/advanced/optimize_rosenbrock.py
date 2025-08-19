@@ -53,7 +53,7 @@ def optimize_rosenbrock() -> None:
     ga.set_real_clamp_strategy(GaClampStrategy.RANDOM)
 
     results = ga.run()
-    logged_generations = results.total_generations - 1
+    logged_generations = results.total_generations
 
     print("Rosenbrock optimization")
     print(f"  best fitness: {results.value:.6f}")

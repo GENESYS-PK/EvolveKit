@@ -52,7 +52,7 @@ def optimize_rastrigin() -> None:
     ga.set_real_clamp_strategy(GaClampStrategy.CLAMP)
 
     results = ga.run()
-    logged_generations = results.total_generations - 1
+    logged_generations = results.total_generations
 
     print("Rastrigin optimization")
     print(f"  best fitness: {results.value:.6f}")
