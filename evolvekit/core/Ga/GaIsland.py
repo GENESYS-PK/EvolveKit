@@ -263,8 +263,10 @@ class GaIsland(GaState):
             self.statistic_engine.advance(self)
             if self.inspector:
                 action = self.inspector.inspect(self.statistic_engine)
-                if action is GaAction.TERMINATE or self.statistic_engine.generation > self.max_generations:
+                if action is GaAction.TERMINATE:
                     break
+            if self.statistic_engine.generation > self.max_generations:
+                break
             self.__evolve()
 
         return self.__finish()
