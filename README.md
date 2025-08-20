@@ -1,5 +1,5 @@
 <img src="docs/resources/logo.svg" style="width: 100%; height: auto;" />
----
+
 **EvolveKit is an upcoming Python library designed to simplify solving complex optimization problems using evolutionary algorithms. Please note that EvolveKit is currently under active development and has not yet been released under an open-source license.**
 
 # :star: Features
