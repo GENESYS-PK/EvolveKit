@@ -15,11 +15,6 @@ class BoundaryMutation(GaOperator):
         Initializes the boundary mutation operator for
         real-valued chromosomes.
 
-        With probability ``p_bm`` per individual, the operator picks
-        one random gene and replaces its value with either the lower
-        or the upper boundary of that gene's domain, where domains
-        are obtained from the evaluator's ``real_domain()`` method.
-
         :param p_bm: Probability of applying boundary mutation to a
          given individual.
         :type p_bm: float
@@ -40,14 +35,6 @@ class BoundaryMutation(GaOperator):
         """
         Applies the boundary mutation operator to a given
         population of individuals.
-
-        For each individual, with probability ``p_bm``, a mutation
-        index ``k`` is drawn uniformly from the set of gene positions.
-        The gene value ``x_k`` is then overwritten with either the
-        lower bound ``x_k^l`` or the upper bound ``x_k^u`` of its
-        domain (chosen with equal probability). Bounds are read from
-        ``args.evaluator.real_domain()``, which must return a list of
-        tuples ``(low, up)`` for each gene.
 
         :param args: ``GaOperatorArgs`` containing the current population
          and an evaluator providing ``real_domain()``.
