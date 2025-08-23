@@ -22,7 +22,7 @@ Next, install all required dependencies listed in `requirements.txt`:
 pip install -r requirements.txt
 ```
 
-:test_tube: Examples
+# :test_tube: Examples
 
 EvolveKit has many built-in examples. They are stored in `evolvekit/examples` directory. To run a basic example, navigate to the root of the repository and execute:
 
