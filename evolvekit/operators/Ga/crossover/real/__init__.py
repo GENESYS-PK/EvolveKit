@@ -1,6 +1,6 @@
 # Real Crossover Operators
-from evolvekit.operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover as RealOnePointCrossover
+from evolvekit.operators.Ga.crossover.real.OnePointCrossover import (
+    OnePointCrossover as RealOnePointCrossover,
+)
 
-__all__ = [
-    'RealOnePointCrossover'
-]
+__all__ = ["RealOnePointCrossover"]

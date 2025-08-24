@@ -4,7 +4,9 @@ from evolvekit.core.benchmarks import SphereEvaluator
 
 from evolvekit.operators.Ga.selection.RankSelection import RankSelection
 from evolvekit.operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover
-from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import VirusInfectionMutation
+from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import (
+    VirusInfectionMutation,
+)
 
 from evolvekit.examples.inspectors.CSVInspector import CSVInspector
 
@@ -45,12 +47,14 @@ def compare_clamp_strategies() -> None:
 
         # Force out-of-bounds to highlight clamp behavior
         virus_vectors = [
-            [9.0] * dim,   # above upper bound
+            [9.0] * dim,  # above upper bound
             [-9.0] * dim,  # below lower bound
             [0.0 if i % 2 == 0 else None for i in range(dim)],
-            ]
+        ]
         ga.set_operator(
-            VirusInfectionMutation(virus_vectors=virus_vectors, p_copy=0.4, p_replace=0.25)
+            VirusInfectionMutation(
+                virus_vectors=virus_vectors, p_copy=0.4, p_replace=0.25
+            )
         )
 
         ga.set_crossover_probability(0.85)

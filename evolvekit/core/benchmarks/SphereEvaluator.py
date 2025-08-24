@@ -23,9 +23,9 @@ class SphereEvaluator(GaEvaluator):
         :raises ValueError: if dim <= 0 or lower >= upper
         """
         if dim <= 0:
-            raise ValueError("dim must be > 0")
+            raise ValueError("dim must be greater than 0")
         if bounds[0] >= bounds[1]:
-            raise ValueError("Invalid bounds: lower must be < upper")
+            raise ValueError("Invalid bounds: lower must be lower than upper")
         self._dim = dim
         self._bounds = bounds
 

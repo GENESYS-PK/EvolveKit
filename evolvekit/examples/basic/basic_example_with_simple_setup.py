@@ -1,12 +1,11 @@
 from evolvekit.core.Ga.GaIsland import GaIsland
 from evolvekit.core.benchmarks import RastriginEvaluator
 
+
 def basic_example_with_simple_setup() -> None:
     """
     This is basic example to show how to use our library with custom setup some parameters.
-    """
 
-    """
     The only thing you must provide is the evaluator! The remaining parameters and operators are set by default.
     However, our library gives you the opportunity to custom configure every parameter! See how:
     """
@@ -31,7 +30,7 @@ def basic_example_with_simple_setup() -> None:
     """
     You can also customize the crossover, mutation and selection operators.
     Additionally, you can add inspector which will allow you to monitor the course of the genetic algorithm.
-    For more details look at the advanced example :). 
+    For more details look at the advanced example. 
     """
 
     results = ga.run()

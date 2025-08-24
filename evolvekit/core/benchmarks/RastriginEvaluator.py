@@ -14,7 +14,9 @@ class RastriginEvaluator(GaEvaluator):
     Default per-dimension domain: [-5.12, 5.12]
     """
 
-    def __init__(self, dim: int, bounds: Tuple[float, float] = (-5.12, 5.12), A: float = 10.0):
+    def __init__(
+        self, dim: int, bounds: Tuple[float, float] = (-5.12, 5.12), A: float = 10.0
+    ):
         """
         Initialize the Rastrigin evaluator.
 
@@ -25,11 +27,11 @@ class RastriginEvaluator(GaEvaluator):
         :raises ValueError: if dim <= 0, lower >= upper, or A <= 0
         """
         if dim <= 0:
-            raise ValueError("dim must be > 0")
+            raise ValueError("dim must be greater than 0")
         if bounds[0] >= bounds[1]:
-            raise ValueError("Invalid bounds: lower must be < upper")
+            raise ValueError("Invalid bounds: lower must be lower than upper")
         if A <= 0:
-            raise ValueError("A must be > 0")
+            raise ValueError("A must be greater than 0")
         self._dim = dim
         self._bounds = bounds
         self._A = A
@@ -43,7 +45,9 @@ class RastriginEvaluator(GaEvaluator):
         :raises: None
         """
         x = args.real_chrom[: self._dim]
-        return float(self._A * self._dim + np.sum(x**2 - self._A * np.cos(2 * np.pi * x)))
+        return float(
+            self._A * self._dim + np.sum(x**2 - self._A * np.cos(2 * np.pi * x))
+        )
 
     def extremum(self) -> GaExtremum:
         """

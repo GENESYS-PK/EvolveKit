@@ -12,10 +12,10 @@ class CSVInspector(GaInspector):
     """
 
     def __init__(
-            self,
-            filename: str,
-            stagnation_limit: int = 100,
-            generation_offset: int = 1,
+        self,
+        filename: str,
+        stagnation_limit: int = 100,
+        generation_offset: int = 1,
     ):
         """
         Initialize the CSV inspector.

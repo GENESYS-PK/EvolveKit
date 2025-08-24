@@ -21,11 +21,18 @@ from evolvekit.core.Ga.helpers.GaGenerateRandomPopulation import (
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 from evolvekit.operators.Ga.selection.RankSelection import RankSelection
-from evolvekit.operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover as OnePointCrossover
-from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import VirusInfectionMutation as VirusInfectionMutation
-from evolvekit.operators.Ga.crossover.binary.OnePointCrossover import OnePointCrossover as BinaryOnePointCrossover
-from evolvekit.operators.Ga.mutation.binary.VirusInfectionMutation import VirusInfectionMutation as BinaryVirusInfectionMutation
-
+from evolvekit.operators.Ga.crossover.real.OnePointCrossover import (
+    OnePointCrossover as OnePointCrossover,
+)
+from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import (
+    VirusInfectionMutation as VirusInfectionMutation,
+)
+from evolvekit.operators.Ga.crossover.binary.OnePointCrossover import (
+    OnePointCrossover as BinaryOnePointCrossover,
+)
+from evolvekit.operators.Ga.mutation.binary.VirusInfectionMutation import (
+    VirusInfectionMutation as BinaryVirusInfectionMutation,
+)
 
 
 class GaIsland(GaState):
@@ -46,18 +53,24 @@ class GaIsland(GaState):
         self.seed = 0
         self.real_clamp_strategy = GaClampStrategy.NONE
 
-        ## I know I shouldn't do this in a constructor. It's a temporary solution until more basic operators will be implemented.
+        # FIXME: I know I shouldn't do this in a constructor. It's a temporary solution until more basic operators will be implemented.
         dim = 15
         virus_vectors = [
             [0.0] * dim,  # full reset pattern
             [None if i < dim // 2 else 0.0 for i in range(dim)],  # half reset
-            [np.random.normal(0.0, 0.7) if np.random.rand() < 0.5 else None for _ in range(dim)],
+            [
+                np.random.normal(0.0, 0.7) if np.random.rand() < 0.5 else None
+                for _ in range(dim)
+            ],
         ]
 
         virus_vectors_binary = [
             [0] * dim,  # full reset pattern
-            ['*' if i < dim // 2 else 0 for i in range(dim)],  # half reset
-            [np.random.choice([0, 1]) if np.random.rand() < 0.5 else '*' for _ in range(dim)],
+            ["*" if i < dim // 2 else 0 for i in range(dim)],  # half reset
+            [
+                np.random.choice([0, 1]) if np.random.rand() < 0.5 else "*"
+                for _ in range(dim)
+            ],
         ]
 
         self.inspector = None
@@ -65,7 +78,9 @@ class GaIsland(GaState):
         self.real_crossover = OnePointCrossover()
         self.real_mutation = VirusInfectionMutation(virus_vectors=virus_vectors)
         self.bin_crossover = BinaryOnePointCrossover()
-        self.bin_mutation = BinaryVirusInfectionMutation(virus_vectors=virus_vectors_binary)
+        self.bin_mutation = BinaryVirusInfectionMutation(
+            virus_vectors=virus_vectors_binary
+        )
         self.binary_representation = False
         self.real_representation = False
 
@@ -230,7 +245,9 @@ class GaIsland(GaState):
         )
 
         for elite_index, offspring_index in enumerate(indices):
-            self.offspring_population[offspring_index] = self.elite_population[elite_index]
+            self.offspring_population[offspring_index] = self.elite_population[
+                elite_index
+            ]
 
         self.current_population = self.offspring_population
         self.selected_population = []

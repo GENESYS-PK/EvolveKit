@@ -24,9 +24,9 @@ class RosenbrockEvaluator(GaEvaluator):
         :raises ValueError: if dim < 2 or lower >= upper
         """
         if dim < 2:
-            raise ValueError("Rosenbrock requires dim >= 2")
+            raise ValueError("Rosenbrock requires dim to be greater or equal to 2")
         if bounds[0] >= bounds[1]:
-            raise ValueError("Invalid bounds: lower must be < upper")
+            raise ValueError("Invalid bounds: lower must be lower than upper")
         self._dim = dim
         self._bounds = bounds
 

@@ -44,7 +44,9 @@ def test_sphere_zero_is_zero():
     args = make_args([0, 0, 0, 0, 0])
     val = ev.evaluate(args)
     dom = ev.real_domain()
-    print(f"\nSphere.evaluate -> {val}; domain len={len(dom)}, sample={dom[0] if dom else None}")
+    print(
+        f"\nSphere.evaluate -> {val}; domain len={len(dom)}, sample={dom[0] if dom else None}"
+    )
     show_assert_equal("Sphere f(0)", val, 0.0)
     show_assert_equal("Sphere domain length", len(dom), 5)
 
@@ -60,7 +62,9 @@ def test_rastrigin_zero_is_zero():
     args = make_args([0, 0, 0])
     val = ev.evaluate(args)
     dom = ev.real_domain()
-    print(f"\nRastrigin.evaluate -> {val}; domain len={len(dom)}, sample={dom[0] if dom else None}")
+    print(
+        f"\nRastrigin.evaluate -> {val}; domain len={len(dom)}, sample={dom[0] if dom else None}"
+    )
     show_assert_equal("Rastrigin f(0)", val, 0.0)
     show_assert_equal("Rastrigin domain length", len(dom), 3)
 

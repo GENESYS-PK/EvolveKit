@@ -6,7 +6,9 @@ from evolvekit.core.benchmarks import RastriginEvaluator
 
 from evolvekit.operators.Ga.selection.RankSelection import RankSelection
 from evolvekit.operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover
-from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import VirusInfectionMutation
+from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import (
+    VirusInfectionMutation,
+)
 
 from evolvekit.examples.inspectors.CSVInspector import CSVInspector
 
@@ -23,7 +25,9 @@ def optimize_rastrigin() -> None:
 
     ga = GaIsland()
     ga.set_evaluator(evaluator)
-    ga.set_inspector(CSVInspector(filename="rastrigin_evolution.csv", stagnation_limit=150))
+    ga.set_inspector(
+        CSVInspector(filename="rastrigin_evolution.csv", stagnation_limit=150)
+    )
 
     ga.set_population_size(200)
     ga.set_elite_count(15)
@@ -34,7 +38,10 @@ def optimize_rastrigin() -> None:
     virus_vectors = [
         [0.0] * dim,  # full reset pattern
         [None if i < dim // 2 else 0.0 for i in range(dim)],  # half reset
-        [np.random.normal(0.0, 0.7) if np.random.rand() < 0.5 else None for _ in range(dim)],
+        [
+            np.random.normal(0.0, 0.7) if np.random.rand() < 0.5 else None
+            for _ in range(dim)
+        ],
     ]
 
     ga.set_operator(

@@ -4,9 +4,4 @@ from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
 
-__all__ = [
-    'GaAction',
-    'GaClampStrategy', 
-    'GaExtremum',
-    'GaOpCategory'
-]
+__all__ = ["GaAction", "GaClampStrategy", "GaExtremum", "GaOpCategory"]

@@ -19,14 +19,19 @@ from evolvekit.core.Ga.enums import __all__ as enums_all
 from evolvekit.core.Ga.helpers import __all__ as helpers_all
 from evolvekit.core.Ga.operators import __all__ as operators_all
 
-__all__ = [
-    'GaEvaluator',
-    'GaEvaluatorArgs', 
-    'GaIndividual',
-    'GaInspector',
-    'GaIsland',
-    'GaResults',
-    'GaState',
-    'GaStatisticEngine',
-    'GaStatistics',
-] + enums_all + helpers_all + operators_all
+__all__ = (
+    [
+        "GaEvaluator",
+        "GaEvaluatorArgs",
+        "GaIndividual",
+        "GaInspector",
+        "GaIsland",
+        "GaResults",
+        "GaState",
+        "GaStatisticEngine",
+        "GaStatistics",
+    ]
+    + enums_all
+    + helpers_all
+    + operators_all
+)

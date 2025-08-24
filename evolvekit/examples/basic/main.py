@@ -1,6 +1,11 @@
 from evolvekit.examples.basic.basic_example import basic_example
-from evolvekit.examples.basic.basic_example_with_custom_evaluator import basic_example_with_custom_evaluator
-from evolvekit.examples.basic.basic_example_with_simple_setup import basic_example_with_simple_setup
+from evolvekit.examples.basic.basic_example_with_custom_evaluator import (
+    basic_example_with_custom_evaluator,
+)
+from evolvekit.examples.basic.basic_example_with_simple_setup import (
+    basic_example_with_simple_setup,
+)
+
 
 def main() -> None:
     """

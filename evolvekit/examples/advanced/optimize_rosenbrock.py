@@ -6,7 +6,9 @@ from evolvekit.core.benchmarks import RosenbrockEvaluator
 
 from evolvekit.operators.Ga.selection.RankSelection import RankSelection
 from evolvekit.operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover
-from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import VirusInfectionMutation
+from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import (
+    VirusInfectionMutation,
+)
 
 from evolvekit.examples.inspectors.CSVInspector import CSVInspector
 
