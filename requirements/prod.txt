@@ -1,0 +1,3 @@
+-r ../requirements.txt
+
+#TBD requirements for production environment

@@ -5,7 +5,7 @@ from evolvekit.core.Ga.GaIndividual import GaIndividual
 
 @dataclass
 class GaStatistics:
-    generation: int = field(default=1)
+    generation: int = field(default=0)
     stagnation: int = field(default=0)
     mean: float = field(default=0.0)
     median: float = field(default=0.0)
