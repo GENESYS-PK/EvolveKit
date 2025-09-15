@@ -64,4 +64,6 @@ def compare_clamp_strategies() -> None:
         ga.set_real_clamp_strategy(strategy)
 
         results = ga.run()
-        print(f"Clamp {strategy.name:<8} -> best fitness: {results.value:.6f}")
+        print(
+            f"Clamp {strategy.name:<8} -> best fitness: {results.value:.6f}, chromosome value: {results.real_chrom}"
+        )

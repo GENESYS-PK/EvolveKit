@@ -64,4 +64,5 @@ def optimize_rastrigin() -> None:
     print("Rastrigin optimization")
     print(f"  best fitness: {results.value:.6f}")
     print(f"  generations:  {logged_generations}")
+    print(f"  chromosome value: {results.real_chrom}")
     print("  csv: rastrigin_evolution.csv")

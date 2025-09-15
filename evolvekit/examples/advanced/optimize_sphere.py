@@ -60,4 +60,5 @@ def optimize_sphere() -> None:
     print("Sphere optimization")
     print(f"  best fitness: {results.value:.6f}")
     print(f"  generations:  {logged_generations}")
+    print(f"  chromosome value: {results.real_chrom}")
     print("  csv: sphere_evolution.csv")

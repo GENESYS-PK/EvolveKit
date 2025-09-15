@@ -81,8 +81,8 @@ class GaIsland(GaState):
         self.bin_mutation = BinaryVirusInfectionMutation(
             virus_vectors=virus_vectors_binary
         )
-        self.binary_representation = False
-        self.real_representation = False
+        self.__binary_representation = False
+        self.__real_representation = False
 
     def __verify(self):
         if not self.evaluator:
@@ -93,7 +93,7 @@ class GaIsland(GaState):
                 "Both bin_length is 0 and real_domain is empty list in evaluator."
             )
         if self.evaluator.bin_length() > 0:
-            self.binary_representation = True
+            self.__binary_representation = True
             if not self.bin_mutation or not self.bin_crossover:
                 raise ValueError(
                     "Binary chromosome set as active but binary mutation or binary crossover is empty."
@@ -103,7 +103,7 @@ class GaIsland(GaState):
             raise TypeError("Selection cannot be empty")
 
         if self.evaluator.real_domain():
-            self.real_representation = True
+            self.__real_representation = True
             if not self.real_mutation or not self.real_crossover:
                 raise ValueError(
                     "Real chromosome set as active but real mutation or real crossover is empty."
@@ -199,19 +199,7 @@ class GaIsland(GaState):
             for _ in range(self.population_size)
         ]
 
-        mutation_offspring = []
-        if self.real_representation:
-            real_crossover_list = self.__perform_crossover(self.real_crossover)
-            for offspring, crossover_indiv in zip(
-                self.offspring_population, real_crossover_list
-            ):
-                offspring.real_chrom = crossover_indiv.real_chrom
-
-            mutation_offspring = self.real_mutation.perform(
-                GaOperatorArgs(self, self.real_mutation.category())
-            )
-
-        if self.binary_representation:
+        if self.__binary_representation:
             bin_crossover_list = self.__perform_crossover(self.bin_crossover)
             for offspring, crossover_indiv in zip(
                 self.offspring_population, bin_crossover_list
@@ -221,10 +209,19 @@ class GaIsland(GaState):
             mutation_offspring = self.bin_mutation.perform(
                 GaOperatorArgs(self, self.bin_mutation.category())
             )
+            self.__assignPopulationAfterMutation(mutation_offspring)
 
-        for i in range(self.population_size):
-            if np.random.random() < self.mutation_prob:
-                self.offspring_population[i] = mutation_offspring[i]
+        if self.__real_representation:
+            real_crossover_list = self.__perform_crossover(self.real_crossover)
+            for offspring, crossover_indiv in zip(
+                self.offspring_population, real_crossover_list
+            ):
+                offspring.real_chrom = crossover_indiv.real_chrom
+
+            mutation_offspring = self.real_mutation.perform(
+                GaOperatorArgs(self, self.real_mutation.category())
+            )
+            self.__assignPopulationAfterMutation(mutation_offspring)
 
         if self.real_clamp_strategy != GaClampStrategy.NONE:
             for indiv in self.offspring_population:
@@ -265,6 +262,11 @@ class GaIsland(GaState):
                 crossover_list.append(np.random.choice(self.selected_population))
         crossover_list = crossover_list[: self.population_size]
         return crossover_list
+
+    def __assignPopulationAfterMutation(self, mutation_offspring: List[GaIndividual]):
+        for i in range(self.population_size):
+            if np.random.random() < self.mutation_prob:
+                self.offspring_population[i] = mutation_offspring[i]
 
     def __finish(self) -> GaResults:
         if self.inspector:

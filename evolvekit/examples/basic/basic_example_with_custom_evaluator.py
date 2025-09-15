@@ -106,3 +106,4 @@ def basic_example_with_custom_evaluator() -> None:
     print("Quadratic optimization")
     print(f"  best fitness: {results.value:.6f}")
     print(f"  generations:  {logged_generations}")
+    print(f"  chromosome value: {results.real_chrom}")

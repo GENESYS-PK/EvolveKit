@@ -15,19 +15,16 @@ class CSVInspector(GaInspector):
         self,
         filename: str,
         stagnation_limit: int = 100,
-        generation_offset: int = 1,
     ):
         """
         Initialize the CSV inspector.
 
         :param filename: output CSV file path
         :param stagnation_limit: max generations without improvement
-        :param generation_offset: value subtracted from `stats.generation`
-            when logging, so you can start from 1.
+
         """
         self.filename: str = filename
         self.stagnation_limit: int = stagnation_limit
-        self.generation_offset: int = generation_offset
         self._csv_file: Optional[object] = None
         self._csv_writer: Optional[csv._writer] = None
         self._previous_best: Optional[float] = None
@@ -63,7 +60,7 @@ class CSVInspector(GaInspector):
         if self._previous_best is not None and stats.best_indiv:
             improvement = self._previous_best - stats.best_indiv.value
 
-        gen_to_log = max(1, stats.generation - self.generation_offset)
+        gen_to_log = max(1, stats.generation)
 
         self._csv_writer.writerow(
             [
