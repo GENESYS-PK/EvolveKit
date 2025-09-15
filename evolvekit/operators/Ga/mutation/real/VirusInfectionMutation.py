@@ -9,8 +9,12 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 
 class VirusInfectionMutation(GaOperator):
-    def __init__(self, virus_vectors: List[List[Optional[float]]],
-                 p_copy: float = 0.5, p_replace: float = 0.1):
+    def __init__(
+        self,
+        virus_vectors: List[List[Optional[float]]],
+        p_copy: float = 0.5,
+        p_replace: float = 0.1,
+    ):
         """
         Initializes the virus infection mutation operator for
         real-valued chromosomes.
@@ -91,6 +95,7 @@ class VirusInfectionMutation(GaOperator):
                             self.virus_vectors[j][i] = None
                 self.life_force[j] = 3
 
-        untouched = [copy.deepcopy(ind) for i, ind in enumerate(args.population)
-                     if i not in used]
+        untouched = [
+            copy.deepcopy(ind) for i, ind in enumerate(args.population) if i not in used
+        ]
         return new_population + untouched

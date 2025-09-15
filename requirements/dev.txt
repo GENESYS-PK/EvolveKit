@@ -1,0 +1,5 @@
+#dev requirements for development environment
+-r ../requirements.txt
+
+black==25.1.0
+pytest>=7.4

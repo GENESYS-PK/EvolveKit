@@ -12,7 +12,7 @@ from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 class GaStatisticEngine(GaStatistics):
 
     def start(self, state: "GaState"):
-        self.generation = 1
+        self.generation = 0
         self.stagnation = 0
         self.mean = 0
         self.median = 0
