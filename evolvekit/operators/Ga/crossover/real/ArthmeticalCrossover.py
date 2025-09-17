@@ -10,8 +10,11 @@ from evolvekit.core.Ga.GaIndividual import GaIndividual
 
 class ArthmeticalCrossover(GaOperator):
     def __init__(self, k: int = 2):
-        """Initializes ArthmeticalCrossover operator :param k: int
-        number of parents to use in crossover."""
+        """Initializes ArthmeticalCrossover operator
+
+        :param k: number of parents to use in crossover.
+        :type k: int
+        """
         super().__init__()
         self.k = k
 
@@ -39,7 +42,8 @@ class ArthmeticalCrossover(GaOperator):
         parents = np.random.choice(population, size=self.k, replace=False)
         for i in range(self.k):
             child = copy.deepcopy(parents[i])
-            child.real_chrom = sum(alpha * parent.real_chrom for alpha, parent
-                                   in zip(alphas, parents))
+            child.real_chrom = sum(
+                alpha * parent.real_chrom for alpha, parent in zip(alphas, parents)
+            )
             offspring.append(child)
         return offspring

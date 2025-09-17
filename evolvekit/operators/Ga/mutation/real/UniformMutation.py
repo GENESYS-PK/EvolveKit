@@ -8,12 +8,12 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 
 class UniformMutaion(GaOperator):
-    def __init__(self, p_um):
+    def __init__(self, p_um: float = 0.1):
         """Initializes uniform mutation operator for real-valued
         chromosomes.
 
-        :param p_um: Propability of mutation for uniform mutation
-        :type p_copy: float
+        :param p_um: Probability of mutation for uniform mutation
+        :type p_um: float
         """
         self.p_um = p_um
 
