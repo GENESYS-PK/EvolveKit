@@ -41,15 +41,17 @@ class DynamicMutationE(GaOperator):
         n = len(population[0].real_chrom)
         new_population: List[GaIndividual] = []
 
-        if n >= 2:
-            for individual in population:
-                child = copy.deepcopy(individual)
-                if np.random.rand() < self.p_m:
-                    lam = np.random.randint(0, n-1)
-                    chromosome = child.real_chrom
-                    chromosome[lam], chromosome[lam+1] = chromosome[lam+1], chromosome[lam]
-                    child.real_chrom = chromosome
+        if n < 2:
+            return population
 
-                new_population.append(child)
+        for individual in population:
+            child = copy.deepcopy(individual)
+            if np.random.rand() < self.p_m:
+                lam = np.random.randint(0, n-1)
+                chromosome = child.real_chrom
+                chromosome[lam], chromosome[lam+1] = chromosome[lam+1], chromosome[lam]
+                child.real_chrom = chromosome
+
+            new_population.append(child)
 
         return new_population
