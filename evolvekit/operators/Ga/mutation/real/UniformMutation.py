@@ -1,5 +1,6 @@
-import numpy as np
 from typing import List
+
+import numpy as np
 
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory

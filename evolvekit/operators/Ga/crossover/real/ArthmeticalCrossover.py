@@ -1,6 +1,7 @@
-from typing import List
-import numpy as np
 import copy
+from typing import List
+
+import numpy as np
 
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
@@ -15,7 +16,6 @@ class ArthmeticalCrossover(GaOperator):
         :param k: number of parents to use in crossover.
         :type k: int
         """
-        super().__init__()
         self.k = k
 
     def category(self) -> GaOpCategory:

@@ -1,6 +1,7 @@
-import numpy as np
-from typing import List
 import copy
+from typing import List
+
+import numpy as np
 
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
@@ -39,12 +40,8 @@ class OnePointCrossover(GaOperator):
         offspring_1 = copy.deepcopy(parent_1)
         offspring_2 = copy.deepcopy(parent_2)
         crossover_point = np.random.randint(1, len(parent_1.real_chrom))
-        offspring_1.real_chrom[:crossover_point] = \
-            parent_1.real_chrom[:crossover_point]
-        offspring_2.real_chrom[:crossover_point] = \
-            parent_2.real_chrom[:crossover_point]
-        offspring_1.real_chrom[crossover_point:] = \
-            parent_2.real_chrom[crossover_point:]
-        offspring_2.real_chrom[crossover_point:] = \
-            parent_1.real_chrom[crossover_point:]
+        offspring_1.real_chrom[:crossover_point] = parent_1.real_chrom[:crossover_point]
+        offspring_2.real_chrom[:crossover_point] = parent_2.real_chrom[:crossover_point]
+        offspring_1.real_chrom[crossover_point:] = parent_2.real_chrom[crossover_point:]
+        offspring_2.real_chrom[crossover_point:] = parent_1.real_chrom[crossover_point:]
         return [offspring_1, offspring_2]

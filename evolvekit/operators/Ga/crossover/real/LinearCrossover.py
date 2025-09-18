@@ -1,6 +1,6 @@
 from typing import List
+
 import numpy as np
-import copy
 
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
@@ -11,10 +11,6 @@ from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 
 
 class LinearCrossover(GaOperator):
-    def __init__(self):
-        """Initialize the LinearCrossover operator."""
-        super().__init__()
-
     def category(self) -> GaOpCategory:
         """Returns the category of the operator.
 
@@ -45,9 +41,9 @@ class LinearCrossover(GaOperator):
         child_Z.value = args.evaluator.evaluate(GaEvaluatorArgs(child_Z))
         child_V.value = args.evaluator.evaluate(GaEvaluatorArgs(child_V))
         child_W.value = args.evaluator.evaluate(GaEvaluatorArgs(child_W))
-        pottential_children = [child_Z, child_V, child_W]
-        pottential_children.sort(
+        potential_children = [child_Z, child_V, child_W]
+        potential_children.sort(
             key=lambda ind: ind.value,
             reverse=args.evaluator.extremum() == GaExtremum.MAXIMUM,
         )
-        return pottential_children[:2]
+        return potential_children[:2]
