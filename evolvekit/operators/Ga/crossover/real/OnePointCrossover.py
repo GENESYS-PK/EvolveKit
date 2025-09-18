@@ -1,6 +1,7 @@
-import numpy as np
-from typing import List
 import copy
+from typing import List
+
+import numpy as np
 
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
