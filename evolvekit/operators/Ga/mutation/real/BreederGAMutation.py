@@ -65,7 +65,6 @@ class BreederGAMutation(GaOperator):
                     else:
                         new_value = child.real_chrom[i] + step
 
-                    new_value = min(max(new_value, low), up)
                     child.real_chrom[i] = new_value
 
             new_population.append(child)

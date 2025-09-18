@@ -61,7 +61,6 @@ class DynamicMutationA(GaOperator):
                 else:
                     x_new = x - (x - low) * s
 
-                x_new = min(max(x_new, low), up)
                 child.real_chrom[lam] = x_new
 
             new_population.append(child)
