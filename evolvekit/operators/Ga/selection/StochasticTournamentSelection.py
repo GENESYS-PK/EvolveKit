@@ -56,7 +56,7 @@ class StochasticTournamentSelection(GaOperator):
             threshold = self.p
 
             for crr in indiv:
-                if np.random.random() < threshold:
+                if np.random.rand() < threshold:
                     selected_individuals.append(crr)
                 threshold = threshold * (1.0 - self.p)
 
