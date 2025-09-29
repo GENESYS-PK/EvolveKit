@@ -7,3 +7,6 @@ CATEGORY_TO_POPULATION_FIELD = {
     GaOpCategory.BIN_CROSSOVER: "selected_population",
     GaOpCategory.BIN_MUTATION: "offspring_population",
 }
+"""
+Should be the same as member names in `GaState` class.
+"""
