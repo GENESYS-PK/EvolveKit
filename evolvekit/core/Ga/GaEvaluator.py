@@ -16,10 +16,9 @@ class GaEvaluator(ABC):
         Calculates the fitness value for a given set of arguments.
 
         :param args: Object representing a particular solution for the
-        posited problem.
-        :type args: :class:`GaEvaluatorArgs`
+            posited problem.
         :returns: A value representing fitness for this particular
-        solution.
+            solution.
         :rtype: float
         """
         pass
@@ -27,11 +26,10 @@ class GaEvaluator(ABC):
     @abstractmethod
     def extremum(self) -> GaExtremum:
         """
-        Returns optimalization criterion for the posited problem.
+        Returns optimization criterion for the posited problem.
 
         :returns: A value signaling whether to search for minimum
-        or maximum in posited problem.
-        :rtype: :class:`GaExtremum`
+            or maximum in posited problem.
         """
         pass
 
@@ -42,8 +40,8 @@ class GaEvaluator(ABC):
         chromosome is ignored.
 
         :returns: A list of tuples representing lower and 
-        upper bounds, respectively, of every gene domain.
-        Defaults to an empty list.
+            upper bounds, respectively, of every gene domain.
+            Defaults to an empty list.
         :rtype: list
         """
 
