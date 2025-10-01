@@ -8,7 +8,7 @@ from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 
-class UniformMutaion(GaOperator):
+class UniformMutation(GaOperator):
     def __init__(self, p_um: float = 0.1):
         """Initializes uniform mutation operator for real-valued
         chromosomes.
