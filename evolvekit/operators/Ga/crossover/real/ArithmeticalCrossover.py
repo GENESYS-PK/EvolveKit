@@ -9,7 +9,7 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 
 
-class ArthmeticalCrossover(GaOperator):
+class ArithmeticalCrossover(GaOperator):
     def __init__(self, k: int = 2):
         """Initializes ArthmeticalCrossover operator
 
