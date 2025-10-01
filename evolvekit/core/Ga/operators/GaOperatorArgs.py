@@ -1,5 +1,5 @@
 from typing import List
-from copy import deepcopy
+import copy
 
 from evolvekit.core.Ga import GaEvaluator
 from evolvekit.core.Ga.GaIndividual import GaIndividual
@@ -48,9 +48,9 @@ class GaOperatorArgs:
         """
         try:
             attr_name = CATEGORY_TO_POPULATION_FIELD[category]
-            self.population = getattr(state, attr_name)
+            self.population = copy.deepcopy(getattr(state, attr_name))
         except KeyError:
             raise ValueError(f"Invalid category provided: {category}")
 
-        self.statistics = deepcopy(state.statistic_engine)
+        self.statistics = copy.deepcopy(state.statistic_engine)
         self.evaluator = state.evaluator

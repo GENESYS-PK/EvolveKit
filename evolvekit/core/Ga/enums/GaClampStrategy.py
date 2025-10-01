@@ -29,6 +29,8 @@ class GaClampStrategy(Enum):
     -   OVERFLOW: Analogous to BOUNCE, but instead of bouncing off the boundaries, the value wraps around
         just like integer overflow in computer systems.
     """
+    
+    NONE = auto()
     CLAMP = auto()
     BOUNCE = auto()
     OVERFLOW = auto()
