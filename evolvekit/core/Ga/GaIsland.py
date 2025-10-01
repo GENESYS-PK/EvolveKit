@@ -36,6 +36,10 @@ from evolvekit.operators.Ga.mutation.binary.VirusInfectionMutation import (
 
 
 class GaIsland(GaState):
+    """
+    Class representing a single, self contained simulation environment.
+    """
+
     inspector: GaInspector | None
     selection: GaOperator | None
     real_crossover: GaOperator | None
@@ -85,6 +89,16 @@ class GaIsland(GaState):
         self.__real_representation = False
 
     def __verify(self):
+        """
+        Self-verifies integrity of provided data.
+
+        Checks whether all required data was provided. If not, an
+        appropriate exception will be thrown.
+
+        :throws: TODO list all possible exceptions
+        :returns: None.
+        """
+        
         if not self.evaluator:
             raise TypeError("Evaluator cannot be empty")
 
@@ -157,6 +171,13 @@ class GaIsland(GaState):
             raise ValueError("Max generations must be greater than 0.")
 
     def __initialize(self):
+        """
+        Initializes evolution.
+
+        TODO describe in more detail what is being initialized here.
+        :returns: None.
+        """
+        
         np.random.seed(self.seed)
         self.current_population = generate_random_population(
             self.evaluator, self.population_size
@@ -175,10 +196,23 @@ class GaIsland(GaState):
             self.bin_mutation.initialize(self)
 
     def __evaluate(self):
+        """
+        Runs fitness evaluation on every individual.
+
+        :returns: None.
+        """
+        
         for indiv in self.current_population:
             indiv.value = self.evaluator.evaluate(GaEvaluatorArgs(indiv))
 
     def __evolve(self):
+        """
+        Generates next population.
+
+        TODO describe exactly what is being done here.
+        :returns: None.
+        """
+        
         if self.evaluator.extremum() == GaExtremum.MAXIMUM:
             elite_population = heapq.nlargest(
                 self.elite_size, self.current_population, key=lambda indiv: indiv.value
@@ -269,11 +303,25 @@ class GaIsland(GaState):
                 self.offspring_population[i] = mutation_offspring[i]
 
     def __finish(self) -> GaResults:
+        """
+        Finishes current simulation and returns its results.
+
+        :returns: Object representing final result of running genetic algorithm.
+        :rtype: :class:`GaResults`.
+        """
+
         if self.inspector:
             self.inspector.finish(self.statistic_engine)
         return GaResults(self.statistic_engine)
 
     def run(self) -> GaResults:
+        """
+        Run entire simulation.
+
+        :returns: Object representing final result of running genetic algorithm.
+        :rtype: :class:`GaResults`.
+        """
+
         self.__verify()
         self.__initialize()
 
@@ -291,27 +339,107 @@ class GaIsland(GaState):
         return self.__finish()
 
     def set_elite_count(self, count: int):
+        """
+        Setter method.
+
+        Set the number of elite individuals passed onto the next generation.
+
+        :param count: Number of elite individuals.
+        :type count: int.
+        :returns: None.
+        """
+        
         self.elite_size = count
 
     def set_crossover_probability(self, prob: float):
+        """
+        Setter method.
+
+        Set the probability of crossover.
+
+        :param prob: The probability [0.0, 1.0].
+        :type prob: float.
+        :returns: None.
+        """
+        
         self.crossover_prob = prob
 
     def set_mutation_probability(self, prob: float):
+        """
+        Setter method.
+
+        Set the probability of mutation.
+
+        :param prob: The probability [0.0, 1.0].
+        :type prob: float.
+        :returns: None.
+        """
+        
         self.mutation_prob = prob
 
     def set_max_generations(self, count: int):
+        """
+        Setter method.
+
+        Set the maximum number of generations.
+
+        :param count: Generation number after which simulation should end.
+        :type count: int.
+        :returns: None.
+        """
+        
         self.max_generations = count
 
     def set_seed(self, seed: int):
+        """
+        Setter method.
+
+        Set the simulation seed.
+
+        :param seed: A provided seed.
+        :type seed: int.
+        :returns: None.
+        """
+        
         self.seed = seed
 
     def set_evaluator(self, evaluator: GaEvaluator):
+        """
+        Setter method.
+
+        Set the evaluator object used by the simulation.
+
+        :param evaluator: Object representing valid evaluator.
+        :type evaluator: :class:`GaEvaluator`.
+        :returns: None.
+        """
+        
         self.evaluator = evaluator
 
     def set_inspector(self, inspector: GaInspector):
+        """
+        Setter method.
+
+        Set the inspector object used by the simulation.
+
+        :param inspector: Object representing valid inspector.
+        :type inspector: :class:`GaInspector`.
+        :returns: None.
+        """
+        
         self.inspector = inspector
 
     def set_operator(self, operator: GaOperator):
+        """
+        Setter method.
+
+        Set the operator acting on the population.
+
+        :param operator: An operator used by genetic algorithm.
+        :type operator: :class:`GaOperator`.
+        :returns: None.
+        """
+        
         match operator.category():
             case GaOpCategory.SELECTION:
                 self.selection = operator
@@ -325,7 +453,26 @@ class GaIsland(GaState):
                 self.bin_mutation = operator
 
     def set_real_clamp_strategy(self, strategy: GaClampStrategy):
+        """
+        Setter method.
+
+        Set the clamping strategy used by the current simulation.
+
+        :param strategy: A value representing chosen clamping strategy.
+        :type strategy: :class:`GaClampStrategy`.
+        :returns: None.
+        """
+        
         self.real_clamp_strategy = strategy
 
     def set_population_size(self, size: int):
+        """
+        Setter method.
+
+        Set the maximum number of individuals in this simulation.
+
+        :param size: Number of individuals.
+        :type size: int. 
+        """
+        
         self.population_size = size

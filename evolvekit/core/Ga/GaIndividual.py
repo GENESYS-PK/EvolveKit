@@ -6,6 +6,11 @@ import numpy.typing as npt
 
 @dataclass
 class GaIndividual:
+    """
+    Class representing a single, potential solution of a problem
+    posited in the simulation.
+    """
+
     real_chrom: npt.NDArray[np.float64] = field(
         default_factory=lambda: np.array([], dtype=np.float64)
     )

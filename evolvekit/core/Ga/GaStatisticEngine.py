@@ -10,8 +10,22 @@ from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 
 
 class GaStatisticEngine(GaStatistics):
+    """
+    Class responsible for manipulating and keeping track of
+    various statistics regarding the current run of genetic
+    algorithm.
+    """
 
     def start(self, state: "GaState"):
+        """
+        Initializes data class structure of :class:`GaStatisticEngine`
+        to default values.        
+
+        :param state: Object representing current state of evolution loop.
+        :type state: :class:`GaState`.
+        :returns: None.
+        """
+        
         self.generation = 0
         self.stagnation = 0
         self.mean = 0
@@ -24,12 +38,13 @@ class GaStatisticEngine(GaStatistics):
 
     def advance(self, state: "GaState"):
         """
-        Advance the GA statistics by one generation.
+        Updates statistics AND increases generation number.
 
-        :param state: GaState object
-        :returns: None
-        :raises: None
+        :param state: Object representing current state of evolution loop.
+        :type state: :class:`GaState`.
+        :returns: None.
         """
+
         prev_best = self.best_indiv
         self.refresh(state)
 
@@ -43,12 +58,13 @@ class GaStatisticEngine(GaStatistics):
 
     def refresh(self, state: "GaState"):
         """
-        Refresh statistical metrics (mean, median, stddev) and update best/worst individuals.
+        Updates statistics WITHOUT increasing generation number.
 
-        :param state: GaState object
-        :returns: None
-        :raises: None
+        :param state: Object representing current state of evolution loop.
+        :type state: :class:`GaState`.
+        :returns: None.
         """
+
         all_values = np.array([ind.value for ind in state.current_population])
 
         self.mean = np.mean(all_values)
