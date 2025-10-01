@@ -11,7 +11,7 @@ from evolvekit.core.Ga.GaIndividual import GaIndividual
 
 class ArithmeticalCrossover(GaOperator):
     def __init__(self, k: int = 2):
-        """Initializes ArthmeticalCrossover operator
+        """Initializes ArithmeticalCrossover operator
 
         :param k: number of parents to use in crossover.
         :type k: int
