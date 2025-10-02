@@ -1,8 +1,8 @@
 import numpy as np
 
-from evolvekit.core.benchmarks.SphereEvaluator import SphereEvaluator
-from evolvekit.core.benchmarks.RastriginEvaluator import RastriginEvaluator
-from evolvekit.core.benchmarks.RosenbrockEvaluator import RosenbrockEvaluator
+from evolvekit.benchmarks.SphereEvaluator import SphereEvaluator
+from evolvekit.benchmarks.RastriginEvaluator import RastriginEvaluator
+from evolvekit.benchmarks.RosenbrockEvaluator import RosenbrockEvaluator
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 
