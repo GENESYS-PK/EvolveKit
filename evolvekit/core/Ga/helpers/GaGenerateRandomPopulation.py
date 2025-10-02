@@ -11,7 +11,7 @@ def generate_random_population(
     population_size: int,
 ) -> List[GaIndividual]:
     """
-    Generate a random population of individuals.
+    Internal: Generate a random population of individuals.
 
     :param evaluator: instance of a problem-specific evaluator
     :param population_size: number of individuals to generate
