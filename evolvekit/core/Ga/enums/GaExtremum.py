@@ -3,11 +3,13 @@ from enum import Enum, auto
 
 class GaExtremum(Enum):
     """
-    Enum representing the optimization criterion for the genetic algorithm.
+    Enum represents the optimization criterion for the genetic algorithm.
 
-    Members:
-        MINIMUM: Search for the minimum value.
-        MAXIMUM: Search for the maximum value.
+    This enum helps determine if larger values returned by the fitness
+    function are better or worse than the smaller ones.
+
+    :cvar MINIMUM: Search for the minimum value.
+    :cvar MAXIMUM: Search for the maximum value.
     """
 
     MINIMUM = auto()
