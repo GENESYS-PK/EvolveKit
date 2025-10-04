@@ -1,5 +1,5 @@
 from evolvekit.core.Ga.GaIsland import GaIsland
-from evolvekit.core.benchmarks import RastriginEvaluator
+from evolvekit.benchmarks import RastriginEvaluator
 
 
 def basic_example() -> None:
