@@ -15,3 +15,13 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
+   versions/vLatest/code/evolvekit
+
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
