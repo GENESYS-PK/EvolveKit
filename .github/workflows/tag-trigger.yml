@@ -1,0 +1,28 @@
+name: Tag Trigger
+
+on:
+  push:
+    # Trigger on any tag push
+    tags:
+      - '*'
+
+jobs:
+  run_on_tag:
+    name: Run on tag ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show tag and context
+        run: |
+          echo "Ref: $GITHUB_REF"
+          echo "Ref name: ${{ github.ref_name }}"
+          echo "Tag pushed by: ${{ github.actor }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "SHA: ${{ github.sha }}"
+
+      - name: Example task
+        run: |
+          echo "This job runs whenever a tag is pushed."
