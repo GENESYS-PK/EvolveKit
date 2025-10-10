@@ -2,7 +2,6 @@ name: Tag Trigger
 
 on:
   push:
-    # Trigger on any tag push
     tags:
       - '*'
 
@@ -14,15 +13,29 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Important! We need full history to check branches
+
+      - name: Check if tag commit is on main
+        id: check_branch
+        run: |
+          if git merge-base --is-ancestor ${{ github.sha }} origin/main; then
+            echo "on_main=true" >> $GITHUB_OUTPUT
+          else
+            echo "on_main=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Stop if tag not from main
+        if: steps.check_branch.outputs.on_main == 'false'
+        run: |
+          echo "Tag not created from main branch. Skipping workflow."
+          exit 0
 
       - name: Show tag and context
+        if: steps.check_branch.outputs.on_main == 'true'
         run: |
-          echo "Ref: $GITHUB_REF"
+          echo "✅ Tag is from main branch"
           echo "Ref name: ${{ github.ref_name }}"
           echo "Tag pushed by: ${{ github.actor }}"
           echo "Repository: ${{ github.repository }}"
           echo "SHA: ${{ github.sha }}"
-
-      - name: Example task
-        run: |
-          echo "This job runs whenever a tag is pushed."
