@@ -2,7 +2,7 @@ import numpy as np
 
 from evolvekit.core.Ga.GaIsland import GaIsland
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
-from evolvekit.core.benchmarks import RastriginEvaluator
+from evolvekit.benchmarks import RastriginEvaluator
 
 from evolvekit.operators.Ga.selection.RankSelection import RankSelection
 from evolvekit.operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover
