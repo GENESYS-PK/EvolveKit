@@ -49,7 +49,7 @@ class DynamicMutationA(GaOperator):
             child = copy.deepcopy(individual)
 
             if np.random.rand() < self.p_m:
-                lam = np.random.randint(0,n)
+                lam = np.random.randint(0, n)
                 low, up = domain[lam]
                 x = child.real_chrom[lam]
 

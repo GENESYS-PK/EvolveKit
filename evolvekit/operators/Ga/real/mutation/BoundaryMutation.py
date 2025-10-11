@@ -10,7 +10,7 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 
 class BoundaryMutation(GaOperator):
-    def __init__(self,  p_bm: float = 0.1):
+    def __init__(self, p_bm: float = 0.1):
         """
         Initializes the boundary mutation operator for
         real-valued chromosomes.
@@ -52,7 +52,7 @@ class BoundaryMutation(GaOperator):
             child = copy.deepcopy(individual)
 
             if np.random.rand() <= self.p_bm:
-                k = np.random.randint(0,n)
+                k = np.random.randint(0, n)
                 low, up = domain[k]
 
                 child.real_chrom[k] = low if np.random.rand() < 0.5 else up
@@ -60,5 +60,3 @@ class BoundaryMutation(GaOperator):
             new_population.append(child)
 
         return new_population
-
-

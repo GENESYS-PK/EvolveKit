@@ -76,4 +76,3 @@ class DynamicMutationB(GaOperator):
             new_population.append(child)
 
         return new_population
-

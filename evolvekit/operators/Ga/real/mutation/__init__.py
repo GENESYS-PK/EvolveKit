@@ -7,7 +7,9 @@ from evolvekit.operators.Ga.real.mutation.DynamicMutationC import DynamicMutatio
 from evolvekit.operators.Ga.real.mutation.DynamicMutationD import DynamicMutationD
 from evolvekit.operators.Ga.real.mutation.DynamicMutationE import DynamicMutationE
 from evolvekit.operators.Ga.real.mutation.UniformMutation import UniformMutation
-from evolvekit.operators.Ga.real.mutation.VirusInfectionMutation import VirusInfectionMutation
+from evolvekit.operators.Ga.real.mutation.VirusInfectionMutation import (
+    VirusInfectionMutation,
+)
 
 __all__ = [
     "BoundaryMutation",

@@ -8,6 +8,7 @@ from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
+
 class DynamicMutationC(GaOperator):
     def __init__(self, p_m: float = 0.1):
         """

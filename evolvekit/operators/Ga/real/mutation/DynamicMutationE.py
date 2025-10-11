@@ -8,6 +8,7 @@ from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
+
 class DynamicMutationE(GaOperator):
     def __init__(self, p_m: float = 0.1):
         """
@@ -47,9 +48,12 @@ class DynamicMutationE(GaOperator):
         for individual in population:
             child = copy.deepcopy(individual)
             if np.random.rand() < self.p_m:
-                lam = np.random.randint(0, n-1)
+                lam = np.random.randint(0, n - 1)
                 chromosome = child.real_chrom
-                chromosome[lam], chromosome[lam+1] = chromosome[lam+1], chromosome[lam]
+                chromosome[lam], chromosome[lam + 1] = (
+                    chromosome[lam + 1],
+                    chromosome[lam],
+                )
                 child.real_chrom = chromosome
 
             new_population.append(child)
