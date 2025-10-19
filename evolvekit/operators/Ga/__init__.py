@@ -1,11 +1,11 @@
 # GA Operators
-from evolvekit.operators.Ga.crossover import *
-from evolvekit.operators.Ga.mutation import *
-from evolvekit.operators.Ga.selection import *
+from evolvekit.operators.Ga.binary import *
+from evolvekit.operators.Ga.real import *
+from evolvekit.operators.Ga.universal import *
 
 # Combine __all__
-from evolvekit.operators.Ga.crossover import __all__ as crossover_all
-from evolvekit.operators.Ga.mutation import __all__ as mutation_all
-from evolvekit.operators.Ga.selection import __all__ as selection_all
+from evolvekit.operators.Ga.binary import __all__ as binary_all
+from evolvekit.operators.Ga.real import __all__ as real_all
+from evolvekit.operators.Ga.universal import __all__ as universal_all
 
-__all__ = crossover_all + mutation_all + selection_all
+__all__ = binary_all + real_all + universal_all

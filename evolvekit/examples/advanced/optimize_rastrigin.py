@@ -4,11 +4,9 @@ from evolvekit.core.Ga.GaIsland import GaIsland
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 from evolvekit.benchmarks import RastriginEvaluator
 
-from evolvekit.operators.Ga.selection.RankSelection import RankSelection
-from evolvekit.operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover
-from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import (
-    VirusInfectionMutation,
-)
+from evolvekit.operators.Ga.universal.selection.RankSelection import RankSelection
+from evolvekit.operators.Ga.real.crossover.OnePointCrossover import OnePointCrossover
+from evolvekit.operators.Ga.real.mutation.VirusInfectionMutation import VirusInfectionMutation
 
 from evolvekit.examples.inspectors.CSVInspector import CSVInspector
 

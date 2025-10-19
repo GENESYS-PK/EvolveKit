@@ -9,20 +9,16 @@ from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 
-class BreederGAMutation(GaOperator):
-    def __init__(self, p_m: float = 0.1, k: float = 5.0):
+class DynamicMutationA(GaOperator):
+    def __init__(self, p_m: float = 0.1):
         """
-        Initializes the Breeder GA (BGA) mutation operator for
+        Initializes the dynamic (type A) mutation operator for
         real-valued chromosomes.
 
-        :param p_m: Probability of mutating a single gene.
+        :param p_m: Probability of applying mutation to an individual.
         :type p_m: float
-        :param k: Precision parameter of the BGA method — larger values
-         produce smaller expected mutation steps.
-        :type k: float
         """
         self.p_m = float(p_m)
-        self.k = float(k)
 
     def category(self) -> GaOpCategory:
         """
@@ -36,11 +32,10 @@ class BreederGAMutation(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
-        Applies the Breeder GA (BGA) mutation operator to a given
-        population of individuals.
+        Applies the dynamic (type A) mutation to a given population.
 
-        :param args: ``GaOperatorArgs`` containing the current population
-         and an evaluator providing ``real_domain()``.
+        :param args: ``GaOperatorArgs`` containing the population
+                     and an evaluator providing ``real_domain()``.
         :type args: GaOperatorArgs
         :returns: A new population list with mutated individuals.
         :rtype: List[GaIndividual]
@@ -48,24 +43,25 @@ class BreederGAMutation(GaOperator):
         population = args.population
         n = len(population[0].real_chrom)
         domain = args.evaluator.real_domain()
-
         new_population: List[GaIndividual] = []
 
         for individual in population:
             child = copy.deepcopy(individual)
 
-            for i in range(n):
-                if np.random.rand() < self.p_m:
-                    low, up = domain[i]
-                    gene_range = up - low
-                    alpha = np.random.rand()
-                    step = gene_range * (2.0 ** (-self.k * alpha))
-                    if np.random.rand() <= 0.5:
-                        new_value = child.real_chrom[i] - step
-                    else:
-                        new_value = child.real_chrom[i] + step
+            if np.random.rand() < self.p_m:
+                lam = np.random.randint(0, n)
+                low, up = domain[lam]
+                x = child.real_chrom[lam]
 
-                    child.real_chrom[i] = new_value
+                alpha = np.random.normal(0.0, 1.0)
+                s = 1.0 - np.exp(-abs(alpha))
+
+                if np.random.rand() < 0.5:
+                    x_new = x + (up - x) * s
+                else:
+                    x_new = x - (x - low) * s
+
+                child.real_chrom[lam] = x_new
 
             new_population.append(child)
 

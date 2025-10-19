@@ -8,13 +8,14 @@ from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
-class DynamicMutationE(GaOperator):
+
+class DynamicMutationD(GaOperator):
     def __init__(self, p_m: float = 0.1):
         """
-        Initializes the dynamic (type E) swap mutation for
-        real-valued chromosomes.
+        Initializes the dynamic (type D) smoothing mutation operator
+        for real-valued chromosomes.
 
-        :param p_m: Probability of applying the swap to an individual.
+        :param p_m: Probability of applying smoothing to an individual.
         :type p_m: float
         """
         self.p_m = p_m
@@ -30,7 +31,7 @@ class DynamicMutationE(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
-        Applies the dynamic (type E) swap mutation to a population.
+        Applies the dynamic (type D) smoothing mutation to a population.
 
         :param args: ``GaOperatorArgs`` containing the current population.
         :type args: GaOperatorArgs
@@ -39,18 +40,32 @@ class DynamicMutationE(GaOperator):
         """
         population = args.population
         n = len(population[0].real_chrom)
-        new_population: List[GaIndividual] = []
 
         if n < 2:
             return population
 
+        new_population: List[GaIndividual] = []
+
         for individual in population:
             child = copy.deepcopy(individual)
-            if np.random.rand() < self.p_m:
-                lam = np.random.randint(0, n-1)
-                chromosome = child.real_chrom
-                chromosome[lam], chromosome[lam+1] = chromosome[lam+1], chromosome[lam]
-                child.real_chrom = chromosome
+
+            if np.random.rand() <= self.p_m:
+                start = np.random.randint(0, n - 1)
+                stop = np.random.randint(start + 1, n)
+
+                source = child.real_chrom
+                destination = source.copy()
+
+                destination[start] = 0.67 * source[start] + 0.33 * source[start + 1]
+
+                for i in range(start + 1, stop):
+                    destination[i] = (
+                        0.25 * source[i - 1] + 0.5 * source[i] + 0.25 * source[i + 1]
+                    )
+
+                destination[stop] = 0.67 * source[stop] + 0.33 * source[stop - 1]
+
+                child.real_chrom = destination
 
             new_population.append(child)
 

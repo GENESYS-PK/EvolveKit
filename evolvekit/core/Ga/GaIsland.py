@@ -20,19 +20,10 @@ from evolvekit.core.Ga.helpers.GaGenerateRandomPopulation import (
 )
 from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
-from evolvekit.operators.Ga.selection.RankSelection import RankSelection
-from evolvekit.operators.Ga.crossover.real.OnePointCrossover import (
-    OnePointCrossover as OnePointCrossover,
-)
-from evolvekit.operators.Ga.mutation.real.VirusInfectionMutation import (
-    VirusInfectionMutation as VirusInfectionMutation,
-)
-from evolvekit.operators.Ga.crossover.binary.OnePointCrossover import (
-    OnePointCrossover as BinaryOnePointCrossover,
-)
-from evolvekit.operators.Ga.mutation.binary.VirusInfectionMutation import (
-    VirusInfectionMutation as BinaryVirusInfectionMutation,
-)
+
+import evolvekit.operators.Ga.real as real_ops
+import evolvekit.operators.Ga.binary as bin_ops
+import evolvekit.operators.Ga.universal as uni_ops
 
 
 class GaIsland(GaState):
@@ -78,11 +69,11 @@ class GaIsland(GaState):
         ]
 
         self.inspector = None
-        self.selection = RankSelection(target_population=15)
-        self.real_crossover = OnePointCrossover()
-        self.real_mutation = VirusInfectionMutation(virus_vectors=virus_vectors)
-        self.bin_crossover = BinaryOnePointCrossover()
-        self.bin_mutation = BinaryVirusInfectionMutation(
+        self.selection = uni_ops.RankSelection(target_population=15)
+        self.real_crossover = real_ops.OnePointCrossover()
+        self.real_mutation = real_ops.VirusInfectionMutation(virus_vectors=virus_vectors)
+        self.bin_crossover = bin_ops.OnePointCrossover()
+        self.bin_mutation = bin_ops.VirusInfectionMutation(
             virus_vectors=virus_vectors_binary
         )
         self.__binary_representation = False
