@@ -1,5 +1,5 @@
 from evolvekit import *
-from evolvekit.operators.Ga.mutation.real.UniformMutation import UniformMutaion
+from evolvekit.operators.Ga.real.mutation.UniformMutation import UniformMutation
 
 
 class Rosenbrock(GaEvaluator):
@@ -39,7 +39,7 @@ inspector = Inspector()
 selection = RankSelection(10)
 crossover_real = OnePointCrossover()
 crossover_bin = OnePointCrossoverBin()
-mutation_real = UniformMutaion()
+mutation_real = UniformMutation()
 mutation_bin = VirusInfectionMutationBin(
     [
         [0, 1, "*", "*", 0, 1, "*", 0, 1, "*", "*", 0, 1, "*", 0, 1],

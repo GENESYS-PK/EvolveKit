@@ -15,15 +15,15 @@ from .core.Ga.operators.GaOperator import GaOperator
 from .core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 from .core.Ga.helpers.ClampStrategy import get_clamp_strategy
 from .core.Ga.helpers.GaGenerateRandomPopulation import generate_random_population
-from .operators.Ga.crossover.binary.OnePointCrossover import (
+from .operators.Ga.binary.crossover.OnePointCrossover import (
     OnePointCrossover as OnePointCrossoverBin,
 )
-from .operators.Ga.crossover.real.OnePointCrossover import OnePointCrossover
-from .operators.Ga.mutation.binary.VirusInfectionMutation import (
+from .operators.Ga.real.crossover.OnePointCrossover import OnePointCrossover
+from .operators.Ga.binary.mutation.VirusInfectionMutation import (
     VirusInfectionMutation as VirusInfectionMutationBin,
 )
-from .operators.Ga.mutation.real.VirusInfectionMutation import VirusInfectionMutation
-from .operators.Ga.selection.RankSelection import RankSelection
+from .operators.Ga.real.mutation.VirusInfectionMutation import VirusInfectionMutation
+from .operators.Ga.universal.selection.RankSelection import RankSelection
 
 __all__ = [
     "GaEvaluator",
