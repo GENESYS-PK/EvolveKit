@@ -20,7 +20,7 @@ class SimulatedAnnealingBasedMuttaion1(GaOperator):
 
         :param Q_parameter: parameter which determines after how many
             iteration should the cooling procedure related to annealing.
-        :type p_um: int
+        :type Q_parameter: int
         """
         self.Q_parameter = Q_parameter
 
@@ -68,7 +68,10 @@ class SimulatedAnnealingBasedMuttaion1(GaOperator):
             individual = population[i]
             random_indvidual = copy.deepcopy(individual)
             random_indvidual.real_chrom = np.array(
-                [np.random.uniform(low, high) for low, high in domains]
+                [
+                    np.random.uniform(low, high + sys.float_info.epsilon)
+                    for low, high in domains
+                ]
             )
             ga_evaluators_args = GaEvaluatorArgs(random_indvidual)
             random_indvidual.value = args.evaluator.evaluate(ga_evaluators_args)
@@ -84,7 +87,7 @@ class SimulatedAnnealingBasedMuttaion1(GaOperator):
                     (1 / individual.value - 1 / random_indvidual.value) / t_0
                 )
                 if p_accept < np.random.uniform(
-                    low=np.nextafter(0, 1), high=np.nextafter(1, 0)
+                    low=0.0, high=1 + sys.float_info.epsilon
                 ):
                     population[i] = random_indvidual
 
