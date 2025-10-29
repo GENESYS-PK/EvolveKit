@@ -12,7 +12,7 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 class BlendCrossoverAlpha(GaOperator):
     def __init__(self, alpha: float = 0.3):
         """
-        Initializes ArithmeticalCrossover operator.
+        Initializes ArithmeticalCrossover operator
 
         :param alpha: parameter alpha.
         :type alpha: int
@@ -33,8 +33,7 @@ class BlendCrossoverAlpha(GaOperator):
         from the population.
 
         :param args: GaOperatorArgs containing population and evaluator
-        :returns: two children created from two randomly selected
-            parents
+        :returns: two children created from two randomly selected parents
         """
         parent_1, parent_2 = np.random.choice(args.population, 2, replace=False)
         child_1 = GaIndividual()
