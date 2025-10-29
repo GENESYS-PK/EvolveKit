@@ -23,8 +23,7 @@ class FlatCrossover(GaOperator):
         from the population.
 
         :param args: GaOperatorArgs containing population and evaluator
-        :returns: two children created from two randomly selected
-            parents
+        :returns: two children created from two randomly selected parents
         """
         parent_1, parent_2 = np.random.choice(args.population, 2, replace=False)
         child = GaIndividual()
