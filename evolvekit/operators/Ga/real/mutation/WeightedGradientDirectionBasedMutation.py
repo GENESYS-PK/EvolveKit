@@ -22,17 +22,12 @@ class WeightedGradientDirectionBasedMutation(GaOperator):
         shape_k: int = 2,
         initial_theta: float = 0.5,
     ):
-        """
-        Initializes weighted gradient direction-based mutation
-        operator for real-valued chromosomes.
+        """Initializes weighted gradient direction-based mutation operator for real-valued
+        chromosomes.
 
-        :param constraint_functions: List of constraint functions for
-            mutation, these functions need to use autograd numpy, in
-            another case alhrotim won't work properly
-        :type gradient_constraint_functions: List[Callable[[np.ndarray],
-            float]]
-        :param p_m: Probability of mutation for weighted gradient
-            direction-based mutation
+        :param constraint_functions: List of constraint functions for mutation, these functions need to use autograd numpy, in another case alhrotim won't work properly
+        :type gradient_constraint_functions: List[Callable[[np.ndarray], float]]
+        :param p_m: Probability of mutation for weighted gradient direction-based mutation
         :type p_m: float
         """
         self.constraint_functions = constraint_functions
@@ -42,8 +37,7 @@ class WeightedGradientDirectionBasedMutation(GaOperator):
         self.initial_theta = initial_theta
 
     def category(self) -> GaOpCategory:
-        """
-        Returns the category of the operator, used to classify its
+        """Returns the category of the operator, used to classify its
         type in the evolutionary algorithm framework.
 
         :returns: The operator category indicating real-valued mutation
@@ -52,17 +46,15 @@ class WeightedGradientDirectionBasedMutation(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
-        Performs weighted gradient direction-based mutation on real-
-        valued chromosomes in the population.
+        Performs weighted gradient direction-based mutation on real-valued chromosomes in the
+        population.
 
         :param args: Container with population and evaluator for
             mutation operation
         :type args: GaOperatorArgs
         :returns: Population with potentially mutated individuals
         :rtype: List[GaIndividual]
-        :raises ValueError: If either contraints or evalution method is
-            not workig with autograd. All of these methods needs to be
-            written using autograd.numpy
+        :raises ValueError: If either contraints or evalution method is not workig with autograd. All of these methods needs to be written using autograd.numpy
         """
         population = args.population
         evaulator_wrapper = self.EvaluatorWrapper(args.evaluator)
@@ -145,14 +137,12 @@ Ensure it uses autograd.numpy: {e}"""
 
         def evaluate(self, real_chrom: np.ndarray):
             """
-            Call the orginal method from evaluator and returns its
-            orginal value or its negative value, depending on
-            optimization problem.
+            Call the orginal method from evaluator and returns its orginal value or its negative value, depending on optimization problem
 
-            :param args: Object representing a particular solution for
-                  the posited problem.
+            :param args: Object representing a particular solution for the
+                posited problem.
             :returns: A value representing fitness for this particular
-                  solution.
+                solution.
             :rtype: float
             """
             individual = GaIndividual()
@@ -172,28 +162,23 @@ Ensure it uses autograd.numpy: {e}"""
         gradient_constraint_function_values: List[float],
     ) -> List[float]:
         """
-        Finds Lagrange multipliers for active constraints using
-        gradient information.
+        Finds Lagrange multipliers for active constraints using gradient information.
 
-        This method solves for Lagrange multipliers in the context of
-        constrained optimization, focusing on constraints that are
-        active (i.e., where the constraint function value is zero). It
-        constructs a linear system from the gradients of active
-        constraints and attempts to solve for the multipliers using
-        least squares.
+        This method solves for Lagrange multipliers in the context of constrained optimization,
+        focusing on constraints that are active (i.e., where the constraint function value is zero).
+        It constructs a linear system from the gradients of active constraints and attempts to solve
+        for the multipliers using least squares.
 
-        :pararm gradient_evaluation_function_value: The gradient value
-        of the evaluation function         at the current point. :param
-        constraint_function_values (List[float]): List of values from
-        each constraint function         at the current point.
-        :type: constraint_function_values: List[float] :pararm
-            gradient_constraint_function_values: List of gradient values
-            from each constraint function at the current point.
+        :pararm gradient_evaluation_function_value: The gradient value of the evaluation function
+                at the current point.
+        :param constraint_function_values (List[float]): List of values from each constraint function
+                at the current point.
+        :type: constraint_function_values: List[float]
+        :pararm gradient_constraint_function_values: List of gradient values from each
+                constraint function at the current point.
         :type: gradient_constraint_function_values: List[float]
-        :returns: List[float]: A list of Lagrange multipliers, where
-            each element corresponds to a constraint. Returns None for
-            each inactive constraints if the system is
-            inconsistent/underdetermined.
+        :returns: List[float]: A list of Lagrange multipliers, where each element corresponds to a constraint.
+                Returns None for each inactive constraints if the system is inconsistent/underdetermined.
         :rtype: List[float]
         """
         lagrange_multpliers = []
