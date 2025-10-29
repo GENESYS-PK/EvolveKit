@@ -11,8 +11,7 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 class BlendCrossoverAlphaBeta(GaOperator):
     def __init__(self, alpha: float = 0.3, beta: float = 0.5):
-        """
-        Initializes Blend Crossover Alpha Beta operator.
+        """Initializes Blend Crossover Alpha Beta operator
 
         :param alpha: Parameter alpha.
         :type alpha: int
@@ -32,12 +31,11 @@ class BlendCrossoverAlphaBeta(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
-        Performs blend crossover alpha beta  on two randomly selected
-        parents from the population.
+        Performs blend crossover alpha beta  on two randomly selected parents
+        from the population.
 
         :param args: GaOperatorArgs containing population and evaluator
-        :returns: two children created from two randomly selected
-            parents
+        :returns: two children created from two randomly selected parents
         """
         parent_1, parent_2 = np.random.choice(args.population, 2, replace=False)
         child_1 = GaIndividual()
