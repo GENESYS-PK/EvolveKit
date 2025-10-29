@@ -17,8 +17,12 @@ class EntropyBasedMutation(GaOperator):
         Initializes uniform mutation operator for real-valued
         chromosomes.
 
+<<<<<<< HEAD
         :param L: number of intervals or number of bins used for
             discretizing the fitness range.
+=======
+        :param L: number of intervals or number of bins used for discretizing the fitness range.
+>>>>>>> ff0e010 (Implement EntropyBasedMutation (real) operator and tests)
         :type L: int
         """
         self.L = L
@@ -34,8 +38,13 @@ class EntropyBasedMutation(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
+<<<<<<< HEAD
         Performs entropy based muttation on real-valued chromosomes
         in the population.
+=======
+        Performs entropy based muttation on real-valued chromosomes in the
+        population.
+>>>>>>> ff0e010 (Implement EntropyBasedMutation (real) operator and tests)
 
         :param args: Container with population and evaluator for
             mutation operation
