@@ -19,7 +19,7 @@ class FlatCrossover(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
-        Performs flat crossover  on two randomly selected parents
+        Performs flat crossover on two randomly selected parents
         from the population.
 
         :param args: GaOperatorArgs containing population and evaluator
@@ -28,11 +28,7 @@ class FlatCrossover(GaOperator):
         """
         parent_1, parent_2 = np.random.choice(args.population, 2, replace=False)
         child = GaIndividual()
-        low_boundary = np.minimum(
-            parent_1.real_chrom, np.nextafter(parent_2.real_chrom, np.inf)
-        )
-        high_boundary = np.maximum(
-            parent_1.real_chrom, np.nextafter(parent_2.real_chrom, np.inf)
-        )
+        low_boundary = np.minimum(parent_1.real_chrom, parent_2.real_chrom)
+        high_boundary = np.maximum(parent_1.real_chrom, parent_2.real_chrom)
         child.real_chrom = np.random.uniform(low=low_boundary, high=high_boundary)
         return [child]

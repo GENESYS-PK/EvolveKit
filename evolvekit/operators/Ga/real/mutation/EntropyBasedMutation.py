@@ -1,6 +1,5 @@
 from typing import List
 import math
-import sys
 
 import numpy as np
 
@@ -14,7 +13,7 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 class EntropyBasedMutation(GaOperator):
     def __init__(self, L: int = 8):
         """
-        Initializes uniform mutation operator for real-valued
+        Initializes entropy based mutation operator for real-valued
         chromosomes.
 
         :param L: number of intervals or number of bins used for
@@ -67,7 +66,7 @@ class EntropyBasedMutation(GaOperator):
                 )
             )
         inclusive_start = i * calcualted_range
-        exclusive_end = (i + 1) * max_evauluation + sys.float_info.epsilon
+        exclusive_end = (i + 1) * max_evauluation
         number_of_occurances = sum(
             map(
                 lambda x: x.value >= inclusive_start and x.value < exclusive_end,
@@ -87,7 +86,7 @@ class EntropyBasedMutation(GaOperator):
         p_c = max((0.25, h))
         p_ebm = (1 - math.sqrt(p_c)) / 2
         for i in range(len(individual.real_chrom)):
-            if np.random.uniform(low=0.0, high=1 + sys.float_info.epsilon) < p_ebm:
+            if np.random.uniform() < p_ebm:
                 r = np.random.normal(loc=0, scale=h**2)
                 individual.real_chrom[i] += r
         return population

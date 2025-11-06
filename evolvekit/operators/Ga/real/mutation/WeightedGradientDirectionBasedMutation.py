@@ -3,7 +3,6 @@ from typing import Callable, List
 from autograd import grad
 from scipy.stats import gamma
 import numpy as np
-import sys
 
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
@@ -70,7 +69,7 @@ class WeightedGradientDirectionBasedMutation(GaOperator):
 
         for i in range(len(population)):
             if (
-                np.random.uniform(low=0.0, high=1.0 + sys.float_info.epsilon)
+                np.random.uniform()
                 <= self.p_m
             ):
                 real_chrom = population[i].real_chrom

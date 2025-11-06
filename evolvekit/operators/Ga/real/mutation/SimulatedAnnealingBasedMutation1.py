@@ -1,6 +1,5 @@
 from typing import List
 import copy
-import sys
 
 import numpy as np
 
@@ -12,10 +11,10 @@ from evolvekit.core.Ga.operators.GaOperator import GaOperator
 from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 
 
-class SimulatedAnnealingBasedMuttaion1(GaOperator):
+class SimulatedAnnealingBasedMutation1(GaOperator):
     def __init__(self, Q_parameter: int = 10):
         """
-        Initializes SimulatedAnnealingBasedMuttaion version 1
+        Initializes SimulatedAnnealingBasedMutation version 1
         operator for real-valued chromosomes.
 
         :param Q_parameter: parameter which determines after how many
@@ -59,7 +58,7 @@ class SimulatedAnnealingBasedMuttaion1(GaOperator):
         worst_individual = sorted_population[population_size - 1]
         best_individual = sorted_population[0]
         if worst_individual.value <= 0:
-            t_0 = 1 / (-worst_individual.value + sys.float_info.epsilon)
+            t_0 = 1 / (-worst_individual.value)
         else:
             t_0 = 1 / worst_individual.value
 
@@ -69,7 +68,7 @@ class SimulatedAnnealingBasedMuttaion1(GaOperator):
             random_indvidual = copy.deepcopy(individual)
             random_indvidual.real_chrom = np.array(
                 [
-                    np.random.uniform(low, high + sys.float_info.epsilon)
+                    np.random.uniform(low, high)
                     for low, high in domains
                 ]
             )
@@ -86,9 +85,7 @@ class SimulatedAnnealingBasedMuttaion1(GaOperator):
                 p_accept = counter ** (
                     (1 / individual.value - 1 / random_indvidual.value) / t_0
                 )
-                if p_accept < np.random.uniform(
-                    low=0.0, high=1 + sys.float_info.epsilon
-                ):
+                if p_accept < np.random.uniform():
                     population[i] = random_indvidual
 
             if (is_maximilation_problem and best_individual.value < population[i]) or (
@@ -108,7 +105,7 @@ class SimulatedAnnealingBasedMuttaion1(GaOperator):
                 )
                 worst_individual = sorted_population[population_size - 1]
                 if worst_individual.value <= 0:
-                    t_0 = 1 / (-worst_individual.value + sys.float_info.epsilon)
+                    t_0 = 1 / (-worst_individual.value)
                 else:
                     t_0 = 1 / worst_individual.value
             else:

@@ -1,5 +1,4 @@
 from typing import List
-import sys
 
 import numpy as np
 
@@ -12,7 +11,7 @@ from evolvekit.core.Ga.operators.GaOperatorArgs import GaOperatorArgs
 class BlendCrossoverAlpha(GaOperator):
     def __init__(self, alpha: float = 0.3):
         """
-        Initializes ArithmeticalCrossover operator.
+        Initializes BlendCrossoverAlpha operator.
 
         :param alpha: parameter alpha.
         :type alpha: int
@@ -29,7 +28,7 @@ class BlendCrossoverAlpha(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
-        Performs discrete crossover on two randomly selected parents
+        Performs blend crossover on two randomly selected parents
         from the population.
 
         :param args: GaOperatorArgs containing population and evaluator
@@ -48,7 +47,6 @@ class BlendCrossoverAlpha(GaOperator):
         high_boundary = (
             np.maximum(parent_1_chromosomes, parent_2_chromosomes)
             + self.alpha * delta
-            + sys.float_info.epsilon
         )
         u = np.random.uniform(low=low_boundary, high=high_boundary)
         child_1.real_chrom = u

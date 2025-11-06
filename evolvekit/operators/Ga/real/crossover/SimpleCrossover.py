@@ -1,5 +1,4 @@
 from typing import List
-import sys
 
 import numpy as np
 
@@ -15,7 +14,7 @@ class SimpleCrossover(GaOperator):
         Returns the category of the operator, used to classify its
         type in the evolutionary algorithm framework.
 
-        :returns: The operator category indicating real-valued mutation
+        :returns: The operator category indicating real-valued crossover
         """
         return GaOpCategory.REAL_CROSSOVER
 
@@ -25,7 +24,7 @@ class SimpleCrossover(GaOperator):
         from the population.
 
         :param args: Container with population and evaluator for
-            mutation operation
+            crossover operation
         :type args: GaOperatorArgs
         :returns: List of 2 two GaIndividual offspring after crossover
         :rtype: List[GaIndividual]
@@ -39,7 +38,7 @@ class SimpleCrossover(GaOperator):
         if cross_point < size_of_chrom:
             alphas = np.random.uniform(
                 low=0.0,
-                high=1.0 + sys.float_info.epsilon,
+                high=1.0,
                 size=size_of_chrom - cross_point,
             )
             one_minus_alphas = 1 - alphas

@@ -19,11 +19,11 @@ class AverageCrossover(GaOperator):
 
     def perform(self, args: GaOperatorArgs) -> List[GaIndividual]:
         """
-        Performs averrage crossover on two randomly selected parents
+        Performs average crossover on two randomly selected parents
         from the population.
 
         :param args: GaOperatorArgs containing population and evaluator
-        :returns: One child createdfrom two randomly selected parents
+        :returns: One child created from two randomly selected parents
         """
         parent_1, parent_2 = np.random.choice(args.population, 2, replace=False)
         child = GaIndividual()

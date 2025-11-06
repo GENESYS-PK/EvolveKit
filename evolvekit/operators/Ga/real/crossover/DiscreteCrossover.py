@@ -1,5 +1,4 @@
 from typing import List
-import sys
 
 import numpy as np
 
@@ -28,7 +27,7 @@ class DiscreteCrossover(GaOperator):
         """
         parent_1, parent_2 = np.random.choice(args.population, 2, replace=False)
         child = GaIndividual()
-        alpha = np.random.uniform(0, sys.float_info.epsilon)
+        alpha = np.random.uniform()
         if alpha <= 0.5:
             child.real_chrom = parent_1.real_chrom
         else:

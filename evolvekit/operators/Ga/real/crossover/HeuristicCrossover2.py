@@ -1,5 +1,4 @@
 from typing import List
-import sys
 
 import numpy as np
 
@@ -15,7 +14,7 @@ class HeuristicCrossover2(GaOperator):
         Returns the category of the operator, used to classify its
         type in the evolutionary algorithm framework.
 
-        :returns: The operator category indicating real-valued mutation
+        :returns: The operator category indicating real-valued crossover
         """
         return GaOpCategory.REAL_CROSSOVER
 
@@ -25,13 +24,13 @@ class HeuristicCrossover2(GaOperator):
         parents from the population.
 
         :param args: Container with population and evaluator for
-            mutation operation
+            crossover operation
         :type args: GaOperatorArgs
         :returns: One GaIndividual offspring after crossover
         :rtype: List[GaIndividual]
         """
         parent_1, parent_2 = np.random.choice(args.population, 2, replace=False)
-        alpha = np.random.uniform(low=0.0, high=1.0 + sys.float_info.epsilon)
+        alpha = np.random.uniform()
         child = GaIndividual()
         if parent_1.value >= parent_2.value:
             child.real_chrom = (
