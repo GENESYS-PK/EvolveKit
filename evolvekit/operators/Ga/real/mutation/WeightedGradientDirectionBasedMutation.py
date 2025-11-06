@@ -68,10 +68,7 @@ class WeightedGradientDirectionBasedMutation(GaOperator):
         gradient_evaluation_function = grad(evaulator_wrapper.evaluate)
 
         for i in range(len(population)):
-            if (
-                np.random.uniform()
-                <= self.p_m
-            ):
+            if np.random.uniform() <= self.p_m:
                 real_chrom = population[i].real_chrom
                 try:
                     gradient_evaluation_function_value = gradient_evaluation_function(

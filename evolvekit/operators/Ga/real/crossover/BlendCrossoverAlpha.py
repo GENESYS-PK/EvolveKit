@@ -45,8 +45,7 @@ class BlendCrossoverAlpha(GaOperator):
             np.minimum(parent_1_chromosomes, parent_2_chromosomes) - self.alpha * delta
         )
         high_boundary = (
-            np.maximum(parent_1_chromosomes, parent_2_chromosomes)
-            + self.alpha * delta
+            np.maximum(parent_1_chromosomes, parent_2_chromosomes) + self.alpha * delta
         )
         u = np.random.uniform(low=low_boundary, high=high_boundary)
         child_1.real_chrom = u

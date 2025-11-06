@@ -67,10 +67,7 @@ class SimulatedAnnealingBasedMutation1(GaOperator):
             individual = population[i]
             random_indvidual = copy.deepcopy(individual)
             random_indvidual.real_chrom = np.array(
-                [
-                    np.random.uniform(low, high)
-                    for low, high in domains
-                ]
+                [np.random.uniform(low, high) for low, high in domains]
             )
             ga_evaluators_args = GaEvaluatorArgs(random_indvidual)
             random_indvidual.value = args.evaluator.evaluate(ga_evaluators_args)
