@@ -97,7 +97,7 @@ class GaIsland(GaState):
 
         :returns: None.
         """
-        
+
         if not self.evaluator:
             raise TypeError("Evaluator cannot be empty")
 
@@ -175,7 +175,7 @@ class GaIsland(GaState):
 
         :returns: None.
         """
-        
+
         np.random.seed(self.seed)
         self.current_population = generate_random_population(
             self.evaluator, self.population_size
@@ -199,7 +199,7 @@ class GaIsland(GaState):
 
         :returns: None.
         """
-        
+
         for indiv in self.current_population:
             indiv.value = self.evaluator.evaluate(GaEvaluatorArgs(indiv))
 
@@ -210,7 +210,7 @@ class GaIsland(GaState):
 
         :returns: None.
         """
-        
+
         if self.evaluator.extremum() == GaExtremum.MAXIMUM:
             elite_population = heapq.nlargest(
                 self.elite_size, self.current_population, key=lambda indiv: indiv.value
@@ -296,7 +296,7 @@ class GaIsland(GaState):
                 )
             else:
                 crossover_list.append(np.random.choice(self.selected_population))
-        crossover_list = crossover_list[:self.population_size]
+        crossover_list = crossover_list[: self.population_size]
         return crossover_list
 
     def __assignPopulationAfterMutation(self, mutation_offspring: List[GaIndividual]):
@@ -354,7 +354,7 @@ class GaIsland(GaState):
         :type count: int.
         :returns: None.
         """
-        
+
         self.elite_size = count
 
     def set_crossover_probability(self, prob: float):
@@ -367,7 +367,7 @@ class GaIsland(GaState):
         :type prob: float.
         :returns: None.
         """
-        
+
         self.crossover_prob = prob
 
     def set_mutation_probability(self, prob: float):
@@ -380,7 +380,7 @@ class GaIsland(GaState):
         :type prob: float.
         :returns: None.
         """
-        
+
         self.mutation_prob = prob
 
     def set_max_generations(self, count: int):
@@ -393,7 +393,7 @@ class GaIsland(GaState):
         :type count: int.
         :returns: None.
         """
-        
+
         self.max_generations = count
 
     def set_seed(self, seed: int):
@@ -406,7 +406,7 @@ class GaIsland(GaState):
         :type seed: int.
         :returns: None.
         """
-        
+
         self.seed = seed
 
     def set_evaluator(self, evaluator: GaEvaluator):
@@ -419,7 +419,7 @@ class GaIsland(GaState):
         :type evaluator: :class:`GaEvaluator`.
         :returns: None.
         """
-        
+
         self.evaluator = evaluator
 
     def set_inspector(self, inspector: GaInspector):
@@ -432,7 +432,7 @@ class GaIsland(GaState):
         :type inspector: :class:`GaInspector`.
         :returns: None.
         """
-        
+
         self.inspector = inspector
 
     def set_operator(self, operator: GaOperator):
@@ -445,7 +445,7 @@ class GaIsland(GaState):
         :type operator: :class:`GaOperator`.
         :returns: None.
         """
-        
+
         match operator.category():
             case GaOpCategory.SELECTION:
                 self.selection = operator
@@ -468,7 +468,7 @@ class GaIsland(GaState):
         :type strategy: :class:`GaClampStrategy`.
         :returns: None.
         """
-        
+
         self.real_clamp_strategy = strategy
 
     def set_population_size(self, size: int):
@@ -478,7 +478,7 @@ class GaIsland(GaState):
         Set the maximum number of individuals in this simulation.
 
         :param size: Number of individuals.
-        :type size: int. 
+        :type size: int.
         """
-        
+
         self.population_size = size

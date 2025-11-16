@@ -9,6 +9,7 @@ class GaEvaluatorArgs:
     Class for supplying arguments to :class:`GaEvaulator` class.
     By default contains real and binary chromosome.
     """
+
     real_chrom: npt.NDArray[np.float64]
     bin_chrom: npt.NDArray[np.uint8]
 
