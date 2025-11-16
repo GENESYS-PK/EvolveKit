@@ -5,12 +5,13 @@ class GaOpCategory(Enum):
     """
     Enum representing categories of genetic algorithm operators.
 
-    Members:
-        SELECTION: Selection operator category.
-        REAL_CROSSOVER: Real-valued crossover operator category.
-        REAL_MUTATION: Real-valued mutation operator category.
-        BIN_CROSSOVER: Binary crossover operator category.
-        BIN_MUTATION: Binary mutation operator category.
+    This enum helps distinguish operator types from each other.
+
+    :cvar SELECTION: Selection operator category.
+    :cvar REAL_CROSSOVER: Real-valued crossover operator category.
+    :cvar REAL_MUTATION: Real-valued mutation operator category.
+    :cvar BIN_CROSSOVER: Binary crossover operator category.
+    :cvar BIN_MUTATION: Binary mutation operator category.
     """
 
     SELECTION = auto()

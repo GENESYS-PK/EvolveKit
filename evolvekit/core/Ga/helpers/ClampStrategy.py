@@ -7,6 +7,12 @@ from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 def get_clamp_strategy(
     strategy: GaClampStrategy,
 ) -> Callable[[float, Tuple[float, float]], float]:
+    """
+    Internal: Translate :class:`GaClampStrategy` value into function implementing given strategy.
+
+    :param strategy: :class:`GaClampStrategy` value.
+    :returns: Function that performs given clamp strategy.
+    """
 
     def strategy_clamp(value: float, domain: Tuple[float, float]) -> float:
         lower, upper = domain

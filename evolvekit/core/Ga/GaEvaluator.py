@@ -39,7 +39,7 @@ class GaEvaluator(ABC):
         If return value is set to an empty list, real valued
         chromosome is ignored.
 
-        :returns: A list of tuples representing lower and 
+        :returns: A list of tuples representing lower and
             upper bounds, respectively, of every gene domain.
             Defaults to an empty list.
         :rtype: list
@@ -51,7 +51,7 @@ class GaEvaluator(ABC):
         """
         Returns bit length of the bit-string represented chromosome.
         If return value is set to 0, bit-string represented
-        chromosome is ignored. Returned value must be nonnegative
+        chromosome is ignored. Returned value must be nonnegative.
 
         :returns: A length in bits. Defaults to 0.
         :rtype: int
