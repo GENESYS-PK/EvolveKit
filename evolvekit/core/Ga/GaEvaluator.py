@@ -51,7 +51,7 @@ class GaEvaluator(ABC):
         """
         Returns bit length of the bit-string represented chromosome.
         If return value is set to 0, bit-string represented
-        chromosome is ignored. Returned value must be nonnegative
+        chromosome is ignored. Returned value must be nonnegative.
 
         :returns: A length in bits. Defaults to 0.
         :rtype: int
