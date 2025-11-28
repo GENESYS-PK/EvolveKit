@@ -231,14 +231,3 @@ class TestScenarios:
                 "single_individual": test_population[0],
             },
         }
-
-
-# Predefined test data sets
-STANDARD_TEST_DIMENSIONS = [2, 5, 10, 20, 50]
-STANDARD_POPULATION_SIZES = [10, 50, 100, 500]
-STANDARD_BOUNDS = [
-    [(0.0, 1.0)],  # Unit bounds
-    [(-1.0, 1.0)],  # Symmetric bounds
-    [(-5.12, 5.12)],  # Rastrigin typical bounds
-    [(-2.048, 2.048)],  # Rosenbrock typical bounds
-]

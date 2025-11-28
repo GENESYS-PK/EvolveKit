@@ -3,7 +3,7 @@ import pytest
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 
-from tests.fixtures.mock_objects import (
+from tests.utils.mocks.mock_objects import (
     MockEvaluator,
     MockOperator,
     TestDataGenerator,
@@ -17,10 +17,10 @@ class TestMockEvaluator:
     def test_mock_evaluator_creation(self):
         """
         Test creating a mock evaluator with specific parameters.
-        
+
         Creates MockEvaluator with dim=5 and constant_value=42.0
         and verifies the initialization values are correctly set.
-        
+
         :returns: None
         :raises: None
         """
@@ -32,13 +32,13 @@ class TestMockEvaluator:
     def test_mock_evaluation(self):
         """
         Test mock evaluation functionality.
-        
+
         Evaluates an individual with chromosome [1.0, 2.0, 3.0]
         using MockEvaluator and verifies:
         - Result equals constant_value (10.0)
         - Evaluation count increments to 1
         - Chromosome is stored in evaluation history
-        
+
         :returns: None
         :raises: None
         """
@@ -55,10 +55,10 @@ class TestMockEvaluator:
     def test_mock_domain(self):
         """
         Test mock domain functionality.
-        
+
         Creates MockEvaluator with dim=3 and verifies
         the real_domain returns 3 bounds all set to (0.0, 1.0).
-        
+
         :returns: None
         :raises: None
         """
@@ -70,10 +70,10 @@ class TestMockEvaluator:
     def test_mock_reset(self):
         """
         Test resetting mock evaluator state.
-        
+
         Performs an evaluation to increment counters, then resets
         and verifies evaluation_count and history are cleared.
-        
+
         :returns: None
         :raises: None
         """
@@ -95,10 +95,10 @@ class TestMockOperator:
     def test_mock_operator_creation(self):
         """
         Test creating a mock operator with specific name.
-        
+
         Creates MockOperator with operation_name='test_op'
         and verifies initialization values are correctly set.
-        
+
         :returns: None
         :raises: None
         """
@@ -109,12 +109,12 @@ class TestMockOperator:
     def test_mock_apply(self):
         """
         Test mock operator application (identity operation).
-        
+
         Applies MockOperator to an individual and verifies:
         - Result is the same individual (identity)
         - Application count increments to 1
         - Last input is stored correctly
-        
+
         :returns: None
         :raises: None
         """
@@ -129,10 +129,10 @@ class TestMockOperator:
     def test_mock_reset(self):
         """
         Test resetting mock operator state.
-        
+
         Performs an apply operation to increment counters, then resets
         and verifies application_count and last_input are cleared.
-        
+
         :returns: None
         :raises: None
         """
@@ -151,11 +151,11 @@ class TestTestDataGenerator:
     def test_linear_population(self):
         """
         Test creating linearly spaced population.
-        
+
         Creates 5 individuals with 3D chromosomes starting at 1.0
         with step 0.5, and verifies correct population size,
         chromosome dimensions, and linear spacing.
-        
+
         :returns: None
         :raises: None
         """
@@ -172,11 +172,11 @@ class TestTestDataGenerator:
     def test_diverse_population(self):
         """
         Test creating diverse population within bounds.
-        
+
         Creates 10 individuals with 3D chromosomes within bounds
         [(0,1), (-1,1), (2,3)] and verifies all individuals
         respect their respective dimensional bounds.
-        
+
         :returns: None
         :raises: None
         """
@@ -193,11 +193,11 @@ class TestTestDataGenerator:
     def test_clustered_population(self):
         """
         Test creating clustered population.
-        
+
         Creates 15 individuals with 2D chromosomes in 3 clusters
         and verifies population size, chromosome dimensions,
         and bounds compliance [0,1] for all values.
-        
+
         :returns: None
         :raises: None
         """
@@ -214,11 +214,11 @@ class TestTestDataGenerator:
     def test_known_optima_data(self):
         """
         Test creating known optima data for benchmark functions.
-        
+
         Creates optima data for 3D problems and verifies:
         - Sphere optimum is at [0.0, 0.0, 0.0]
         - Rosenbrock optimum is at [1.0, 1.0, 1.0]
-        
+
         :returns: None
         :raises: None
         """
@@ -241,11 +241,11 @@ class TestTestScenarios:
     def test_optimization_convergence_scenario(self):
         """
         Test optimization convergence scenario creation.
-        
+
         Creates scenario with SphereEvaluator and 3 individuals,
         verifies scenario contains required keys and best fitness
         is 0.0 (from individual at origin).
-        
+
         :returns: None
         :raises: None
         """
@@ -272,11 +272,11 @@ class TestTestScenarios:
     def test_operator_stress_test_scenario(self):
         """
         Test operator stress test scenario creation.
-        
+
         Creates stress test scenario with MockOperator and 2 individuals,
         verifies scenario contains operator, population, and edge cases
         including identical and diverse parent combinations.
-        
+
         :returns: None
         :raises: None
         """

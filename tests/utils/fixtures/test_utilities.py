@@ -1,101 +1,7 @@
 import numpy as np
-import pytest
 
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
-from evolvekit.benchmarks.SphereEvaluator import SphereEvaluator
-from evolvekit.benchmarks.RastriginEvaluator import RastriginEvaluator
-from evolvekit.benchmarks.RosenbrockEvaluator import RosenbrockEvaluator
-
-
-@pytest.fixture
-def random_individual_2d():
-    """Create a random 2D individual."""
-    return GaIndividual(real_chrom=np.random.rand(2))
-
-
-@pytest.fixture
-def random_individual_5d():
-    """Create a random 5D individual."""
-    return GaIndividual(real_chrom=np.random.rand(5))
-
-
-@pytest.fixture
-def random_individual_10d():
-    """Create a random 10D individual."""
-    return GaIndividual(real_chrom=np.random.rand(10))
-
-
-@pytest.fixture
-def zero_individual_5d():
-    """Create a 5D individual at the origin."""
-    return GaIndividual(real_chrom=np.zeros(5))
-
-
-@pytest.fixture
-def ones_individual_5d():
-    """Create a 5D individual with all ones."""
-    return GaIndividual(real_chrom=np.ones(5))
-
-
-@pytest.fixture
-def small_population_5d():
-    """Create a small population of 5D individuals."""
-    population = []
-    for i in range(10):
-        chromosome = np.random.rand(5)
-        individual = GaIndividual(real_chrom=chromosome)
-        population.append(individual)
-    return population
-
-
-@pytest.fixture
-def large_population_10d():
-    """Create a larger population of 10D individuals."""
-    population = []
-    for i in range(100):
-        chromosome = np.random.rand(10)
-        individual = GaIndividual(real_chrom=chromosome)
-        population.append(individual)
-    return population
-
-
-@pytest.fixture
-def sphere_evaluator_5d():
-    """Create a 5D Sphere function evaluator."""
-    return SphereEvaluator(dim=5)
-
-
-@pytest.fixture
-def rastrigin_evaluator_5d():
-    """Create a 5D Rastrigin function evaluator."""
-    return RastriginEvaluator(dim=5)
-
-
-@pytest.fixture
-def rosenbrock_evaluator_5d():
-    """Create a 5D Rosenbrock function evaluator."""
-    return RosenbrockEvaluator(dim=5)
-
-
-@pytest.fixture
-def all_evaluators_5d():
-    """Create all benchmark evaluators for 5D problems."""
-    return {
-        "sphere": SphereEvaluator(dim=5),
-        "rastrigin": RastriginEvaluator(dim=5),
-        "rosenbrock": RosenbrockEvaluator(dim=5),
-    }
-
-
-def create_individual(chromosome_values):
-    """
-    Create an individual with specific chromosome values.
-
-    :param chromosome_values: List or array of chromosome values
-    :return: GaIndividual instance
-    """
-    return GaIndividual(real_chrom=np.array(chromosome_values, dtype=np.float64))
 
 
 def create_evaluator_args(chromosome_values):
@@ -105,6 +11,8 @@ def create_evaluator_args(chromosome_values):
     :param chromosome_values: List or array of chromosome values
     :return: GaEvaluatorArgs instance
     """
+    from ..factories.individual_factories import create_individual
+
     individual = create_individual(chromosome_values)
     return GaEvaluatorArgs(individual)
 
