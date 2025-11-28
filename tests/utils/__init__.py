@@ -1,14 +1,3 @@
-"""
-Test utilities package for EvolveKit testing.
-
-This package provides organized test utilities including:
-- factories/ - Individual, population, and evaluator factories
-- mocks/ - Mock objects for testing purposes  
-- fixtures/ - Test utilities for common testing operations
-
-All factories and utilities can be imported directly from this package.
-"""
-
 # Import individual factories
 from .factories.individual_factories import (
     random_individual_factory,
