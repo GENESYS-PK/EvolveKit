@@ -6,9 +6,18 @@ from evolvekit.operators.Ga.real.mutation.DynamicMutationB import DynamicMutatio
 from evolvekit.operators.Ga.real.mutation.DynamicMutationC import DynamicMutationC
 from evolvekit.operators.Ga.real.mutation.DynamicMutationD import DynamicMutationD
 from evolvekit.operators.Ga.real.mutation.DynamicMutationE import DynamicMutationE
+from evolvekit.operators.Ga.real.mutation.EntropyBasedMutation import (
+    EntropyBasedMutation,
+)
+from evolvekit.operators.Ga.real.mutation.SimulatedAnnealingBasedMutation1 import (
+    SimulatedAnnealingBasedMutation1,
+)
 from evolvekit.operators.Ga.real.mutation.UniformMutation import UniformMutation
 from evolvekit.operators.Ga.real.mutation.VirusInfectionMutation import (
     VirusInfectionMutation,
+)
+from evolvekit.operators.Ga.real.mutation.WeightedGradientDirectionBasedMutation import (
+    WeightedGradientDirectionBasedMutation,
 )
 
 __all__ = [
@@ -19,6 +28,9 @@ __all__ = [
     "DynamicMutationC",
     "DynamicMutationD",
     "DynamicMutationE",
+    "EntropyBasedMutation",
+    "SimulatedAnnealingBasedMutation1",
     "UniformMutation",
     "VirusInfectionMutation",
+    "WeightedGradientDirectionBasedMutation",
 ]
