@@ -3,20 +3,24 @@ from typing import List, Tuple, Any
 
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
+from evolvekit.core.Ga.GaEvaluator import GaEvaluator
+from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 
 
-class MockEvaluator:
+class MockEvaluator(GaEvaluator):
     """Mock evaluator for testing purposes."""
 
-    def __init__(self, dim: int = 5, constant_value: float = 1.0):
+    def __init__(self, dim: int = 5, constant_value: float = 1.0, extremum_type: GaExtremum = GaExtremum.MINIMUM):
         """
         Initialize mock evaluator.
 
         :param dim: Problem dimension
         :param constant_value: Constant value to return for all evaluations
+        :param extremum_type: Optimization direction (MINIMUM or MAXIMUM)
         """
         self.dim = dim
         self.constant_value = constant_value
+        self.extremum_type = extremum_type
         self.evaluation_count = 0
         self.evaluation_history = []
 
@@ -31,6 +35,14 @@ class MockEvaluator:
         chromosome = args.real_chrom.copy()
         self.evaluation_history.append(chromosome)
         return self.constant_value
+
+    def extremum(self) -> GaExtremum:
+        """
+        Returns the optimization direction.
+
+        :return: GaExtremum enum value
+        """
+        return self.extremum_type
 
     def real_domain(self) -> List[Tuple[float, float]]:
         """Return mock domain bounds."""
@@ -195,8 +207,12 @@ class TestScenarios:
             fitness = evaluator.evaluate(args)
             initial_fitness.append(fitness)
 
-        best_initial_idx = np.argmin(initial_fitness)
-        worst_initial_idx = np.argmax(initial_fitness)
+        if evaluator.extremum() == GaExtremum.MAXIMUM:
+            best_initial_idx = np.argmax(initial_fitness)
+            worst_initial_idx = np.argmin(initial_fitness)
+        else:
+            best_initial_idx = np.argmin(initial_fitness)
+            worst_initial_idx = np.argmax(initial_fitness)
 
         return {
             "initial_population": initial_population,

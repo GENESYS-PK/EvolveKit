@@ -38,11 +38,11 @@ def ones_individual_factory(dimension):
 
 def uniform_individual_factory(dimension, value):
     """
-    Create an individual with all chromosomes set to a specific value.
+    Create an individual with all genes set to a specific value.
 
     :param dimension: Number of dimensions for the chromosome
-    :param value: Value to set for all chromosome elements
-    :return: GaIndividual instance with uniform chromosome values
+    :param value: Value to set for all genes
+    :return: GaIndividual instance with uniform gene values
     """
     return GaIndividual(real_chrom=np.full(dimension, value))
 
