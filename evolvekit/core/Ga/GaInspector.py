@@ -17,7 +17,7 @@ class GaInspector(ABC):
         """
         Runs at the beginning of simulation, BEFORE first evolution takes place.
 
-        Use this method to initialize services needed by 
+        Use this method to initialize services needed by
         the :func:`inspect()` function.
         :returns: None.
         """
@@ -29,14 +29,14 @@ class GaInspector(ABC):
         """
         Analyzes current state of simulation and decides on it.
 
-        Use this method to monitor interesting simulation statistics, 
+        Use this method to monitor interesting simulation statistics,
         to log various data or to prematurely end simulation upon reaching
         specified criterion.
 
         :param stats: Object containing statistics of current simulation.
         :type stats: :class:`GaStatistics`.
         :returns: A value representing action chosen after inspection.
-        :rtype: :class:`GaAction`. 
+        :rtype: :class:`GaAction`.
         """
 
         pass

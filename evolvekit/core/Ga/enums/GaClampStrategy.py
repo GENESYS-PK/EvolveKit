@@ -8,15 +8,11 @@ class GaClampStrategy(Enum):
 
     Assume the gene value is 3 and the domain is [-8, 1] for the examples below.
 
-    Members:
-
-    - CLAMP: The value should be clamped to the range (in the example: 1)
-
-    - BOUNCE: The value should "bounce" off the boundary by the amount the gene exceeded the allowed range (in the example: -1)
-
-    - OVERFLOW: The value should "wrap around" (in the example: -6)
-
-    - RANDOM: Assign a random value within the range (in the example: any value from the range [-8, 1])
+    :cvar NONE: Clamp strategy is disabled (in the example: 3)
+    :cvar CLAMP: The value should be clamped to the range (in the example: 1)
+    :cvar BOUNCE: The value should "bounce" off the boundary by the amount the gene exceeded the allowed range (in the example: -1)
+    :cvar OVERFLOW: The value should "wrap around" (in the example: -6)
+    :cvar RANDOM: Assign a random value within the range (in the example: any value from the range [-8, 1])
 
     For the BOUNCE and OVERFLOW algorithms, if a gene appears that is significantly outside the problem domain,
     the "bounce" or "wrap-around" should occur repeatedly.
@@ -29,7 +25,7 @@ class GaClampStrategy(Enum):
     -   OVERFLOW: Analogous to BOUNCE, but instead of bouncing off the boundaries, the value wraps around
         just like integer overflow in computer systems.
     """
-    
+
     NONE = auto()
     CLAMP = auto()
     BOUNCE = auto()

@@ -11,25 +11,25 @@ from ._internal import CATEGORY_TO_POPULATION_FIELD
 
 class GaOperatorArgs:
     """
-    Class representing arguments required by genetic algorithm operators.
+    Class contains arguments required by genetic algorithm operators.
 
-    Attributes:
-        population (List[GaIndividual]): Object that stores a list of individuals.
-            The type of population depends on the context:
-            for the selection algorithm, it will store the current population;
-            for crossover, the population of selected individuals;
-            and for mutation, the population of offspring.
-            This object will hold a deep copy, so even if the operator modifies it,
-            it should not affect the state of evolution.
-        evaluator (GaEvaluator): Object that stores a reference to the GaEvaluator class instance
-            (i.e., we do not create a copy, just assign the reference).
-            This allows each operator to access the evaluation function
-            without having to manually pass it in the constructor.
-        statistics (GaStatistics): Object that stores general statistics such as
-            the current generation number, best/worst individual, etc. A deep copy is created,
-            so if the operator changes the statistics,
-            it will not affect the "real" statistics in the evolution state.
+    :ivar population: Object that stores a list of individuals.
+        The type of population depends on the context:
+        for the selection algorithm, it will store the current population;
+        for crossover, the population of selected individuals;
+        and for mutation, the population of offspring.
+        This object will hold a deep copy, so even if the operator modifies it,
+        it should not affect the state of evolution.
+    :ivar evaluator: Object that stores a reference to the GaEvaluator class instance
+        (i.e., we do not create a copy, just assign the reference).
+        This allows each operator to access the evaluation function
+        without having to manually pass it in the constructor.
+    :ivar statistics: Object that stores general statistics such as
+        the current generation number, best/worst individual, etc. A deep copy is created,
+        so if the operator changes the statistics,
+        it will not affect the "real" statistics in the evolution state.
     """
+
     population: List[GaIndividual]
     evaluator: GaEvaluator
     statistics: GaStatistics

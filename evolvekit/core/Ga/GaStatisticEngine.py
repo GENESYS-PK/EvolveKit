@@ -19,13 +19,13 @@ class GaStatisticEngine(GaStatistics):
     def start(self, state: "GaState"):
         """
         Initializes data class structure of :class:`GaStatisticEngine`
-        to default values.        
+        to default values.
 
         :param state: Object representing current state of evolution loop.
         :type state: :class:`GaState`.
         :returns: None.
         """
-        
+
         self.generation = 0
         self.stagnation = 0
         self.mean = 0

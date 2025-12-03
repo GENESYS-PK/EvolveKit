@@ -21,8 +21,8 @@ class CSVInspector(GaInspector):
 
         :param filename: output CSV file path
         :param stagnation_limit: max generations without improvement
-
         """
+
         self.filename: str = filename
         self.stagnation_limit: int = stagnation_limit
         self._csv_file: Optional[object] = None
@@ -33,6 +33,7 @@ class CSVInspector(GaInspector):
         """
         Open the CSV file and write the header row.
         """
+
         self._csv_file = open(self.filename, "w", newline="")
         self._csv_writer = csv.writer(self._csv_file)
         self._csv_writer.writerow(
@@ -56,6 +57,7 @@ class CSVInspector(GaInspector):
         :param stats: current generation statistics
         :returns: GaAction.CONTINUE or GaAction.TERMINATE
         """
+
         improvement = 0.0
         if self._previous_best is not None and stats.best_indiv:
             improvement = self._previous_best - stats.best_indiv.value
@@ -89,6 +91,7 @@ class CSVInspector(GaInspector):
         """
         Close the CSV file.
         """
+
         if self._csv_file:
             self._csv_file.close()
             self._csv_file = None
