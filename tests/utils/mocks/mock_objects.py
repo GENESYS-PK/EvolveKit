@@ -72,7 +72,8 @@ class MockBinaryEvaluator(GaEvaluator):
         :param args: Evaluation arguments
         :return: Sum of 1s in binary chromosome
         """
-        return float(np.sum(args.bin_chrom[:self._bin_len]))
+        bits = np.unpackbits(args.bin_chrom)
+        return float(np.sum(bits[:self._bin_len]))
     
     def extremum(self) -> GaExtremum:
         """
@@ -112,7 +113,8 @@ class MockMixedEvaluator(GaEvaluator):
         :return: Sum of squared real values plus binary 1s
         """
         real_part = np.sum(np.square(args.real_chrom[:self._real_dim]))
-        bin_part = np.sum(args.bin_chrom[:self._bin_len])
+        bits = np.unpackbits(args.bin_chrom)
+        bin_part = np.sum(bits[:self._bin_len])
         return float(real_part + bin_part)
     
     def extremum(self) -> GaExtremum:

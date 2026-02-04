@@ -8,11 +8,6 @@ import pytest
 import numpy as np
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.core.Ga.GaIndividual import GaIndividual
-from evolvekit.benchmarks.SphereEvaluator import SphereEvaluator
-from tests.utils.factories.individual_factories import (
-    random_individual_factory,
-    create_individual
-)
 from tests.utils.mocks.mock_objects import (
     MockBinaryEvaluator,
     MockMixedEvaluator
@@ -37,7 +32,7 @@ class TestDifferentChromosomeTypes:
         """
         bin_len = len(bin_values)
         evaluator = MockBinaryEvaluator(bin_len=bin_len)
-        individual = GaIndividual(bin_chrom=np.array(bin_values, dtype=np.uint8))
+        individual = GaIndividual(bin_chrom=np.packbits(np.array(bin_values, dtype=np.uint8)))
         args = GaEvaluatorArgs(individual)
         
         fitness = evaluator.evaluate(args)
@@ -57,7 +52,7 @@ class TestDifferentChromosomeTypes:
         
         individual = GaIndividual(
             real_chrom=np.array([1.0, 2.0], dtype=np.float64),
-            bin_chrom=np.array([1, 1, 1], dtype=np.uint8)
+            bin_chrom=np.packbits(np.array([1, 1, 1], dtype=np.uint8))
         )
         args = GaEvaluatorArgs(individual)
         
