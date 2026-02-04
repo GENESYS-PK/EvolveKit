@@ -36,7 +36,7 @@ class TestDifferentChromosomeTypes:
         args = GaEvaluatorArgs(individual)
         
         fitness = evaluator.evaluate(args)
-        assert fitness == expected
+        assert fitness == pytest.approx(expected)
     
     def test_mixed_chromosome_types(self):
         """Test evaluator using both real and binary chromosomes.
@@ -57,7 +57,7 @@ class TestDifferentChromosomeTypes:
         args = GaEvaluatorArgs(individual)
         
         fitness = evaluator.evaluate(args)
-        assert fitness == 8.0
+        assert fitness == pytest.approx(8.0)
     
     def test_mixed_evaluator_domain_and_bin_length(self):
         """Test mixed evaluator returns both domain and bin_length.

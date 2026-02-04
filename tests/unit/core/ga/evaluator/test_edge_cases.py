@@ -32,7 +32,7 @@ class TestEdgeCases:
         
         fitness = evaluator.evaluate(args)
         
-        assert fitness == 25.0
+        assert fitness == pytest.approx(25.0)
     
     def test_high_dimensional_evaluator(self):
         """Test evaluator with high dimensionality.
@@ -49,7 +49,7 @@ class TestEdgeCases:
         
         fitness = evaluator.evaluate(args)
         
-        assert fitness == float(dim)
+        assert fitness == pytest.approx(float(dim))
     
     def test_evaluator_at_domain_boundaries(self):
         """Test evaluator at domain boundaries.

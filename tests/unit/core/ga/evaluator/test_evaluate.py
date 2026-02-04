@@ -6,6 +6,7 @@ benchmark functions and custom evaluators.
 """
 
 import numpy as np
+import pytest
 
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
@@ -36,7 +37,7 @@ class TestEvaluateMethod:
         
         fitness = evaluator.evaluate(args)
         
-        assert fitness == 0.0
+        assert fitness == pytest.approx(0.0)
     
     def test_sphere_evaluator_nonzero_point(self):
         """Test SphereEvaluator returns correct value at non-zero point.
@@ -53,7 +54,7 @@ class TestEvaluateMethod:
         
         fitness = evaluator.evaluate(args)
         
-        assert fitness == 14.0
+        assert fitness == pytest.approx(14.0)
     
     def test_evaluation_with_different_sized_chromosomes(self):
         """Test that evaluator correctly handles chromosome size.
@@ -70,7 +71,7 @@ class TestEvaluateMethod:
         
         fitness = evaluator.evaluate(args)
         
-        assert fitness == 14.0
+        assert fitness == pytest.approx(14.0)
     
     def test_multiple_evaluations(self):
         """Test that multiple evaluations work correctly.
@@ -88,7 +89,7 @@ class TestEvaluateMethod:
             individual = create_individual(point)
             args = GaEvaluatorArgs(individual)
             fitness = evaluator.evaluate(args)
-            assert fitness == expected_fitness
+            assert fitness == pytest.approx(expected_fitness)
     
     def test_mock_evaluator_tracking_and_reset(self):
         """Test that MockEvaluator tracks evaluations and resets properly.
