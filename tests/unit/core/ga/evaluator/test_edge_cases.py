@@ -6,6 +6,7 @@ and boundary testing.
 """
 
 import numpy as np
+import pytest
 
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.benchmarks.SphereEvaluator import SphereEvaluator
@@ -64,7 +65,7 @@ class TestEdgeCases:
         args = GaEvaluatorArgs(individual)
         fitness = evaluator.evaluate(args)
         expected = dim * (bounds[1] ** 2)
-        assert abs(fitness - expected) < 1e-10
+        assert fitness == pytest.approx(expected, abs=1e-10)
     
     def test_very_small_values(self):
         """Test evaluator with very small values.
@@ -80,7 +81,7 @@ class TestEdgeCases:
         
         fitness = evaluator.evaluate(args)
         
-        assert fitness < 1e-15
+        assert fitness == pytest.approx(0.0, abs=1e-15)
     
     def test_very_large_values(self):
         """Test evaluator with very large values.
@@ -96,4 +97,4 @@ class TestEdgeCases:
         
         fitness = evaluator.evaluate(args)
         
-        assert abs(fitness - 2e12) < 1e6
+        assert fitness == pytest.approx(2e12, abs=1e-6)
