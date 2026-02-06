@@ -54,6 +54,94 @@ class MockEvaluator(GaEvaluator):
         self.evaluation_history = []
 
 
+class MockBinaryEvaluator(GaEvaluator):
+    """Mock evaluator that uses binary chromosome - counts 1s in bit string."""
+    
+    def __init__(self, bin_len: int = 10):
+        """
+        Initialize binary evaluator.
+        
+        :param bin_len: Length of binary chromosome
+        """
+        self._bin_len = bin_len
+    
+    def evaluate(self, args: GaEvaluatorArgs) -> float:
+        """
+        Count 1s in binary chromosome.
+        
+        :param args: Evaluation arguments
+        :return: Sum of 1s in binary chromosome
+        """
+        bits = np.unpackbits(args.bin_chrom)
+        return float(np.sum(bits[:self._bin_len]))
+    
+    def extremum(self) -> GaExtremum:
+        """
+        Returns MAXIMUM (we want to maximize 1s).
+        
+        :return: GaExtremum.MAXIMUM
+        """
+        return GaExtremum.MAXIMUM
+    
+    def bin_length(self) -> int:
+        """
+        Returns binary chromosome length.
+        
+        :return: Binary length
+        """
+        return self._bin_len
+
+
+class MockMixedEvaluator(GaEvaluator):
+    """Mock evaluator that uses both real and binary chromosomes."""
+    
+    def __init__(self, real_dim: int = 3, bin_len: int = 5):
+        """
+        Initialize mixed chromosome evaluator.
+        
+        :param real_dim: Number of real-valued dimensions
+        :param bin_len: Length of binary chromosome
+        """
+        self._real_dim = real_dim
+        self._bin_len = bin_len
+    
+    def evaluate(self, args: GaEvaluatorArgs) -> float:
+        """
+        Evaluate using both real and binary parts (sphere + binary sum).
+        
+        :param args: Evaluation arguments
+        :return: Sum of squared real values plus binary 1s
+        """
+        real_part = np.sum(np.square(args.real_chrom[:self._real_dim]))
+        bits = np.unpackbits(args.bin_chrom)
+        bin_part = np.sum(bits[:self._bin_len])
+        return float(real_part + bin_part)
+    
+    def extremum(self) -> GaExtremum:
+        """
+        Returns MINIMUM.
+        
+        :return: GaExtremum.MINIMUM
+        """
+        return GaExtremum.MINIMUM
+    
+    def real_domain(self) -> List[Tuple[float, float]]:
+        """
+        Returns domain bounds for real-valued dimensions.
+        
+        :return: List of (min, max) tuples
+        """
+        return [(-5.0, 5.0)] * self._real_dim
+    
+    def bin_length(self) -> int:
+        """
+        Returns binary chromosome length.
+        
+        :return: Binary length
+        """
+        return self._bin_len
+
+
 class MockOperator:
     """Mock operator for testing purposes."""
 
