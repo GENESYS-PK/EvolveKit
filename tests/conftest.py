@@ -6,6 +6,8 @@ from tests.utils import (
     individual_factory,
     population_factory_fixture, 
     evaluator_factory_fixture,
+    state_with_population_fixture,
+    configured_state_fixture,
 )
 
 
