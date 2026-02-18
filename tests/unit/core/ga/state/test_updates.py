@@ -1,13 +1,14 @@
 """
 Unit tests for GaState updates.
 
-Tests generation counter increments, best/worst individual tracking,
-stagnation detection, and statistical field updates driven by
-GaStatisticEngine operating on GaState.
+Tests that GaState correctly reflects changes to its generation counter,
+best/worst individual tracking and population fields after operations.
+
+Note: Tests covering GaStatisticEngine internals (stagnation logic,
+mean/median/stdev calculations) belong in the GaStatisticEngine test suite.
 """
 
 import pytest
-import numpy as np
 
 from evolvekit.core.Ga.GaState import GaState
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
@@ -210,153 +211,6 @@ class TestBestFitnessTrackingMaximum:
             state.current_population, values, minimize=True
         )
         assert state.statistic_engine.worst_indiv.value == pytest.approx(expected_worst)
-
-
-# ---------------------------------------------------------------------------
-# Stagnation counter
-# ---------------------------------------------------------------------------
-
-class TestStagnationCounter:
-    """Test the stagnation counter that tracks lack of improvement."""
-
-    def test_start_sets_stagnation_to_zero(self):
-        """Test that start() initialises stagnation to 0.
-
-        :returns: None
-        :raises: None
-        """
-        state = state_with_population_factory([1.0, 2.0, 3.0])
-        state.statistic_engine.start(state)
-
-        assert state.statistic_engine.stagnation == 0
-
-    def test_stagnation_increments_when_best_unchanged(self):
-        """Test that stagnation counter increments when best individual does not change.
-
-        :returns: None
-        :raises: None
-        """
-        state = state_with_population_factory([1.0, 2.0, 3.0], GaExtremum.MINIMUM)
-        state.statistic_engine.start(state)
-        state.statistic_engine.advance(state)  # generation 1, stagnation resets to 0 (no previous best)
-
-        # Same population → same best value
-        state.statistic_engine.advance(state)
-
-        assert state.statistic_engine.stagnation == 1
-
-    def test_stagnation_resets_when_best_improves(self):
-        """Test that stagnation counter resets to 0 when best individual improves.
-
-        :returns: None
-        :raises: None
-        """
-        state = state_with_population_factory([1.0, 2.0, 3.0], GaExtremum.MINIMUM)
-        state.statistic_engine.start(state)
-        state.statistic_engine.advance(state)
-        state.statistic_engine.advance(state)  # stagnation == 1
-
-        # Improve population
-        state.current_population = population_with_values_factory([0.1, 0.2, 0.3])
-        state.statistic_engine.advance(state)
-
-        assert state.statistic_engine.stagnation == 0
-
-    def test_stagnation_accumulates_over_multiple_unchanged_generations(self):
-        """Test that stagnation accumulates correctly across many unchanged generations.
-
-        :returns: None
-        :raises: None
-        """
-        n_stagnant = 4
-        state = state_with_population_factory([1.0, 2.0, 3.0], GaExtremum.MINIMUM)
-        state.statistic_engine.start(state)
-        state.statistic_engine.advance(state)  # first advance, no prev_best yet → stagnation stays 0
-
-        for _ in range(n_stagnant):
-            state.statistic_engine.advance(state)
-
-        assert state.statistic_engine.stagnation == n_stagnant
-
-
-# ---------------------------------------------------------------------------
-# Statistical field updates (mean, median, stdev)
-# ---------------------------------------------------------------------------
-
-class TestStatisticalFieldUpdates:
-    """Test that mean, median, and standard deviation are computed correctly."""
-
-    def test_refresh_computes_correct_mean(self):
-        """Test that refresh() sets mean to the population average.
-
-        :returns: None
-        :raises: None
-        """
-        values = [1.0, 3.0, 5.0]
-        state = state_with_population_factory(values)
-        state.statistic_engine.start(state)
-        state.statistic_engine.refresh(state)
-
-        assert state.statistic_engine.mean == pytest.approx(np.mean(values))
-
-    def test_refresh_computes_correct_median(self):
-        """Test that refresh() sets median correctly.
-
-        :returns: None
-        :raises: None
-        """
-        values = [1.0, 2.0, 10.0]
-        state = state_with_population_factory(values)
-        state.statistic_engine.start(state)
-        state.statistic_engine.refresh(state)
-
-        assert state.statistic_engine.median == pytest.approx(np.median(values))
-
-    def test_refresh_computes_correct_stdev(self):
-        """Test that refresh() sets standard deviation correctly.
-
-        :returns: None
-        :raises: None
-        """
-        values = [2.0, 4.0, 4.0, 4.0, 5.0, 5.0, 7.0, 9.0]
-        state = state_with_population_factory(values)
-        state.statistic_engine.start(state)
-        state.statistic_engine.refresh(state)
-
-        assert state.statistic_engine.stdev == pytest.approx(np.std(values))
-
-    def test_advance_computes_statistics_same_as_refresh(self):
-        """Test that advance() produces the same stats as refresh() for a given population.
-
-        :returns: None
-        :raises: None
-        """
-        values = [1.0, 4.0, 7.0]
-        state_adv = state_with_population_factory(values)
-        state_ref = state_with_population_factory(values)
-
-        state_adv.statistic_engine.start(state_adv)
-        state_adv.statistic_engine.advance(state_adv)
-
-        state_ref.statistic_engine.start(state_ref)
-        state_ref.statistic_engine.refresh(state_ref)
-
-        assert state_adv.statistic_engine.mean == pytest.approx(state_ref.statistic_engine.mean)
-        assert state_adv.statistic_engine.median == pytest.approx(state_ref.statistic_engine.median)
-        assert state_adv.statistic_engine.stdev == pytest.approx(state_ref.statistic_engine.stdev)
-
-    def test_uniform_population_has_zero_stdev(self):
-        """Test that a population where all individuals share the same value has stdev == 0.
-
-        :returns: None
-        :raises: None
-        """
-        values = [5.0] * 6
-        state = state_with_population_factory(values)
-        state.statistic_engine.start(state)
-        state.statistic_engine.refresh(state)
-
-        assert state.statistic_engine.stdev == pytest.approx(0.0)
 
 
 # ---------------------------------------------------------------------------

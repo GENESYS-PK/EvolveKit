@@ -14,8 +14,6 @@ import numpy as np
 import pytest
 
 from evolvekit.core.Ga.GaState import GaState
-from evolvekit.core.Ga.GaStatisticEngine import GaStatisticEngine
-from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 from tests.utils.factories.state_factories import configured_state_factory
 
 
