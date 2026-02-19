@@ -17,45 +17,22 @@ from tests.utils.mocks.mock_objects import MockEvaluator
 class TestGaStateDefaultValues:
     """Test that all fields are correctly initialized to their default values."""
 
-    def test_current_population_is_empty_list(self):
-        """Test that current_population defaults to an empty list.
+    @pytest.mark.parametrize("population_field", [
+        "current_population",
+        "selected_population",
+        "offspring_population",
+        "elite_population",
+    ])
+    def test_population_fields_default_to_empty_list(self, population_field):
+        """Test that all population fields default to an empty list.
 
+        :param population_field: Name of the population attribute to check
         :returns: None
         :raises: None
         """
         state = GaState()
 
-        assert state.current_population == []
-
-    def test_selected_population_is_empty_list(self):
-        """Test that selected_population defaults to an empty list.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert state.selected_population == []
-
-    def test_offspring_population_is_empty_list(self):
-        """Test that offspring_population defaults to an empty list.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert state.offspring_population == []
-
-    def test_elite_population_is_empty_list(self):
-        """Test that elite_population defaults to an empty list.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert state.elite_population == []
+        assert getattr(state, population_field) == []
 
     def test_evaluator_is_none(self):
         """Test that evaluator defaults to None.
@@ -77,55 +54,23 @@ class TestGaStateDefaultValues:
 
         assert state.real_clamp_strategy == GaClampStrategy.NONE
 
-    def test_crossover_prob_is_zero(self):
-        """Test that crossover_prob defaults to 0.
+    @pytest.mark.parametrize("numeric_field", [
+        "crossover_prob",
+        "mutation_prob",
+        "max_generations",
+        "population_size",
+        "elite_size",
+    ])
+    def test_numeric_fields_default_to_zero(self, numeric_field):
+        """Test that all numeric configuration fields default to 0.
 
+        :param numeric_field: Name of the numeric attribute to check
         :returns: None
         :raises: None
         """
         state = GaState()
 
-        assert state.crossover_prob == 0
-
-    def test_mutation_prob_is_zero(self):
-        """Test that mutation_prob defaults to 0.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert state.mutation_prob == 0
-
-    def test_max_generations_is_zero(self):
-        """Test that max_generations defaults to 0.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert state.max_generations == 0
-
-    def test_population_size_is_zero(self):
-        """Test that population_size defaults to 0.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert state.population_size == 0
-
-    def test_elite_size_is_zero(self):
-        """Test that elite_size defaults to 0.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert state.elite_size == 0
+        assert getattr(state, numeric_field) == 0
 
     def test_statistic_engine_is_created(self):
         """Test that statistic_engine is initialized as a GaStatisticEngine instance.
@@ -141,19 +86,8 @@ class TestGaStateDefaultValues:
 class TestGaStateSeedInitialization:
     """Test auto-generated seed behavior on state creation."""
 
-    def test_seed_is_positive_integer(self):
-        """Test that the auto-generated seed is a positive integer.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-
-        assert isinstance(state.seed, int)
-        assert state.seed >= 1
-
     def test_seed_is_within_valid_range(self):
-        """Test that the auto-generated seed is within [1, 2^32 - 1].
+        """Test that the auto-generated seed is a positive integer within [1, 2^32 - 1].
 
         :returns: None
         :raises: None
@@ -235,62 +169,7 @@ class TestGaStateInstanceIndependence:
 
 
 class TestGaStateParameterAssignment:
-    """Test that parameters can be assigned and stored correctly."""
-
-    def test_assign_crossover_prob(self):
-        """Test assigning a valid crossover probability.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-        state.crossover_prob = 0.85
-
-        assert state.crossover_prob == 0.85
-
-    def test_assign_mutation_prob(self):
-        """Test assigning a valid mutation probability.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-        state.mutation_prob = 0.05
-
-        assert state.mutation_prob == 0.05
-
-    def test_assign_max_generations(self):
-        """Test assigning max generations count.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-        state.max_generations = 500
-
-        assert state.max_generations == 500
-
-    def test_assign_population_size(self):
-        """Test assigning population size.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-        state.population_size = 200
-
-        assert state.population_size == 200
-
-    def test_assign_elite_size(self):
-        """Test assigning elite size.
-
-        :returns: None
-        :raises: None
-        """
-        state = GaState()
-        state.elite_size = 10
-
-        assert state.elite_size == 10
+    """Test that EvolveKit-specific types can be assigned and stored correctly."""
 
     def test_assign_evaluator(self):
         """Test assigning an evaluator to the state.
