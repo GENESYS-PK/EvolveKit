@@ -18,6 +18,13 @@ from .factories.evaluator_factories import (
     all_evaluators_factory,
 )
 
+# Import state factories
+from .factories.state_factories import (
+    population_with_values_factory,
+    state_with_population_factory,
+    configured_state_factory,
+)
+
 # Import test utilities and pytest fixtures
 from .fixtures import (
     create_evaluator_args,
@@ -27,9 +34,11 @@ from .fixtures import (
     verify_bounds_compliance,
     calculate_diversity,
     find_best_individual,
-    individual_factory,  # pytest fixture
-    population_factory_fixture,  # pytest fixture
-    evaluator_factory_fixture,  # pytest fixture
+    individual_factory,           
+    population_factory_fixture,   
+    evaluator_factory_fixture,    
+    state_with_population_fixture,  
+    configured_state_fixture,       
 )
 
 # Import mock objects
@@ -57,6 +66,11 @@ __all__ = [
     "evaluator_factory",
     "all_evaluators_factory", 
     "evaluator_factory_fixture",
+
+    # State factories
+    "population_with_values_factory",
+    "state_with_population_factory",
+    "configured_state_factory",
     
     # Test utilities
     "create_evaluator_args",
@@ -66,10 +80,14 @@ __all__ = [
     "verify_bounds_compliance",
     "calculate_diversity",
     "find_best_individual",
-    
+
     # Mock objects
     "MockEvaluator",
     "MockOperator", 
     "TestDataGenerator",
     "TestScenarios",
+
+    # Pytest fixtures – state
+    "state_with_population_fixture",
+    "configured_state_fixture",
 ]
