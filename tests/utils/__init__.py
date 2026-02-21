@@ -49,7 +49,11 @@ from .fixtures import (
 # Import mock objects
 from .mocks.mock_objects import (
     MockEvaluator,
+    MockBinaryEvaluator,
+    MockMixedEvaluator,
     MockOperator,
+    TestDataGenerator,
+    TestScenarios,
     TerminatingInspector,
 )
 
@@ -90,7 +94,11 @@ __all__ = [
 
     # Mock objects
     "MockEvaluator",
+    "MockBinaryEvaluator",
+    "MockMixedEvaluator",
     "MockOperator",
+    "TestDataGenerator",
+    "TestScenarios",
     "TerminatingInspector",
 
     # Pytest fixtures – state
