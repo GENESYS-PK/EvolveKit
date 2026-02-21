@@ -25,6 +25,11 @@ from .factories.state_factories import (
     configured_state_factory,
 )
 
+# Import island factories
+from .factories.island_factories import (
+    minimal_island_factory,
+)
+
 # Import test utilities and pytest fixtures
 from .fixtures import (
     create_evaluator_args,
@@ -44,9 +49,12 @@ from .fixtures import (
 # Import mock objects
 from .mocks.mock_objects import (
     MockEvaluator,
+    MockBinaryEvaluator,
+    MockMixedEvaluator,
     MockOperator,
     TestDataGenerator,
     TestScenarios,
+    TerminatingInspector,
 )
 
 __all__ = [
@@ -71,6 +79,9 @@ __all__ = [
     "population_with_values_factory",
     "state_with_population_factory",
     "configured_state_factory",
+
+    # Island factories
+    "minimal_island_factory",
     
     # Test utilities
     "create_evaluator_args",
@@ -83,9 +94,12 @@ __all__ = [
 
     # Mock objects
     "MockEvaluator",
-    "MockOperator", 
+    "MockBinaryEvaluator",
+    "MockMixedEvaluator",
+    "MockOperator",
     "TestDataGenerator",
     "TestScenarios",
+    "TerminatingInspector",
 
     # Pytest fixtures – state
     "state_with_population_fixture",
