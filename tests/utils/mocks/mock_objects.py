@@ -4,6 +4,8 @@ from typing import List, Tuple, Any
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.core.Ga.GaEvaluator import GaEvaluator
+from evolvekit.core.Ga.GaInspector import GaInspector
+from evolvekit.core.Ga.enums.GaAction import GaAction
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 
 
@@ -90,6 +92,18 @@ class MockBinaryEvaluator(GaEvaluator):
         :return: Binary length
         """
         return self._bin_len
+
+
+class TerminatingInspector(GaInspector):
+    """Inspector that immediately signals termination on the first inspect call."""
+
+    def inspect(self, stats) -> GaAction:
+        """Return TERMINATE unconditionally.
+
+        :param stats: Current simulation statistics (unused).
+        :returns: GaAction.TERMINATE
+        """
+        return GaAction.TERMINATE
 
 
 class MockMixedEvaluator(GaEvaluator):
