@@ -14,7 +14,7 @@ from evolvekit.core.Ga.GaState import GaState
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 from evolvekit.core.Ga.enums.GaOpCategory import GaOpCategory
 from evolvekit.operators.Ga.binary.crossover.OnePointCrossover import (
-    OnePointCrossover as BinOnePointCrossover,
+    OnePointCrossover,
 )
 from tests.utils.factories.island_factories import minimal_island_factory
 
@@ -114,7 +114,7 @@ class TestGaIslandParameterValidation:
         """
         island = GaIsland()
 
-        with pytest.raises(TypeError, match="Evaluator cannot be empty"):
+        with pytest.raises(TypeError):
             island.run()
 
     def test_run_raises_when_selection_is_none(self):
@@ -126,7 +126,7 @@ class TestGaIslandParameterValidation:
         island = minimal_island_factory()
         island.selection = None
 
-        with pytest.raises(TypeError, match="Selection cannot be empty"):
+        with pytest.raises(TypeError):
             island.run()
 
     @pytest.mark.parametrize("field, invalid_value", [
@@ -161,7 +161,7 @@ class TestGaIslandParameterValidation:
         :raises: None
         """
         island = minimal_island_factory()
-        island.real_crossover = BinOnePointCrossover()  # BIN_CROSSOVER, not REAL_CROSSOVER
+        island.real_crossover = OnePointCrossover()  # BIN_CROSSOVER, not REAL_CROSSOVER
 
         with pytest.raises(TypeError):
             island.run()

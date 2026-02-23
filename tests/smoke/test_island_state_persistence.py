@@ -1,14 +1,12 @@
 """
-Unit tests for GaIsland serialization.
+Smoke tests for GaIsland state persistence.
 
-Representative smoke tests verifying that a GaIsland instance survives a
-pickle round-trip (save / load) and copy.deepcopy() without data loss.
+These tests exercise multiple components together (island run, pickle, deepcopy)
+and are suited for CI pipeline smoke checks rather than unit test isolation.
 """
 
 import copy
 import pickle
-
-import pytest
 
 from evolvekit.core.Ga.GaIsland import GaIsland
 from tests.utils.factories.island_factories import minimal_island_factory

@@ -106,6 +106,42 @@ class TerminatingInspector(GaInspector):
         return GaAction.TERMINATE
 
 
+class AfterNGenerationsInspector(GaInspector):
+    """Inspector that terminates the simulation after exactly N generations."""
+
+    def __init__(self, n: int):
+        """
+        :param n: Number of generations to allow before terminating.
+        """
+        self._n = n
+
+    def inspect(self, stats) -> GaAction:
+        """Return TERMINATE once generation count reaches N.
+
+        :param stats: Current simulation statistics.
+        :returns: GaAction.TERMINATE when generation >= N, else GaAction.CONTINUE.
+        """
+        if stats.generation >= self._n:
+            return GaAction.TERMINATE
+        return GaAction.CONTINUE
+
+
+class FitnessCapturingInspector(GaInspector):
+    """Inspector that records best_indiv.value at every generation without interfering."""
+
+    def __init__(self):
+        self.best_values: list[float] = []
+
+    def inspect(self, stats) -> GaAction:
+        """Append current best fitness and let the run continue.
+
+        :param stats: Current simulation statistics.
+        :returns: GaAction.CONTINUE always.
+        """
+        self.best_values.append(stats.best_indiv.value)
+        return GaAction.CONTINUE
+
+
 class MockMixedEvaluator(GaEvaluator):
     """Mock evaluator that uses both real and binary chromosomes."""
     

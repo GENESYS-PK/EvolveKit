@@ -55,6 +55,8 @@ from .mocks.mock_objects import (
     TestDataGenerator,
     TestScenarios,
     TerminatingInspector,
+    AfterNGenerationsInspector,
+    FitnessCapturingInspector,
 )
 
 __all__ = [
@@ -100,6 +102,8 @@ __all__ = [
     "TestDataGenerator",
     "TestScenarios",
     "TerminatingInspector",
+    "AfterNGenerationsInspector",
+    "FitnessCapturingInspector",
 
     # Pytest fixtures – state
     "state_with_population_fixture",
