@@ -4,6 +4,8 @@ from typing import List, Tuple, Any
 from evolvekit.core.Ga.GaIndividual import GaIndividual
 from evolvekit.core.Ga.GaEvaluatorArgs import GaEvaluatorArgs
 from evolvekit.core.Ga.GaEvaluator import GaEvaluator
+from evolvekit.core.Ga.GaInspector import GaInspector
+from evolvekit.core.Ga.enums.GaAction import GaAction
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 
 
@@ -90,6 +92,54 @@ class MockBinaryEvaluator(GaEvaluator):
         :return: Binary length
         """
         return self._bin_len
+
+
+class TerminatingInspector(GaInspector):
+    """Inspector that immediately signals termination on the first inspect call."""
+
+    def inspect(self, stats) -> GaAction:
+        """Return TERMINATE unconditionally.
+
+        :param stats: Current simulation statistics (unused).
+        :returns: GaAction.TERMINATE
+        """
+        return GaAction.TERMINATE
+
+
+class AfterNGenerationsInspector(GaInspector):
+    """Inspector that terminates the simulation after exactly N generations."""
+
+    def __init__(self, n: int):
+        """
+        :param n: Number of generations to allow before terminating.
+        """
+        self._n = n
+
+    def inspect(self, stats) -> GaAction:
+        """Return TERMINATE once generation count reaches N.
+
+        :param stats: Current simulation statistics.
+        :returns: GaAction.TERMINATE when generation >= N, else GaAction.CONTINUE.
+        """
+        if stats.generation >= self._n:
+            return GaAction.TERMINATE
+        return GaAction.CONTINUE
+
+
+class FitnessCapturingInspector(GaInspector):
+    """Inspector that records best_indiv.value at every generation without interfering."""
+
+    def __init__(self):
+        self.best_values: list[float] = []
+
+    def inspect(self, stats) -> GaAction:
+        """Append current best fitness and let the run continue.
+
+        :param stats: Current simulation statistics.
+        :returns: GaAction.CONTINUE always.
+        """
+        self.best_values.append(stats.best_indiv.value)
+        return GaAction.CONTINUE
 
 
 class MockMixedEvaluator(GaEvaluator):
