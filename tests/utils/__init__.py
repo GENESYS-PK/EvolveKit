@@ -23,6 +23,7 @@ from .factories.state_factories import (
     population_with_values_factory,
     state_with_population_factory,
     configured_state_factory,
+    statistic_engine_factory,
 )
 
 # Import island factories

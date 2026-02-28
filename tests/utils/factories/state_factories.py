@@ -6,6 +6,7 @@ from typing import List
 
 from evolvekit.core.Ga.GaState import GaState
 from evolvekit.core.Ga.GaIndividual import GaIndividual
+from evolvekit.core.Ga.GaStatisticEngine import GaStatisticEngine
 from evolvekit.core.Ga.enums.GaExtremum import GaExtremum
 from evolvekit.core.Ga.enums.GaClampStrategy import GaClampStrategy
 from tests.utils.mocks.mock_objects import MockEvaluator
@@ -72,3 +73,27 @@ def configured_state_factory() -> GaState:
     state.statistic_engine.start(state)
     state.statistic_engine.advance(state)
     return state
+
+
+def statistic_engine_factory(
+    values: list[float],
+    extremum: GaExtremum = GaExtremum.MINIMUM,
+    started: bool = True,
+) -> tuple["GaStatisticEngine", "GaState"]:
+    """
+    Build a GaStatisticEngine that has been started against a state whose
+    population carries the given fitness *values*.
+
+    Returns both the engine and the backing state so callers can call
+    ``advance`` / ``refresh`` inside their tests.
+
+    :param values: Fitness values for each individual in the population.
+    :param extremum: Optimisation direction (MINIMUM or MAXIMUM).
+    :param started: Whether to call ``engine.start(state)`` before returning.
+    :returns: Tuple ``(GaStatisticEngine, GaState)``.
+    """
+    state = state_with_population_factory(values, extremum)
+    engine = state.statistic_engine
+    if started:
+        engine.start(state)
+    return engine, state
